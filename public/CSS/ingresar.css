@@ -1,0 +1,40 @@
+h1{
+    padding: .8em .2em .2em 0em;
+}
+
+.text-center{
+    font-size: 4em;
+    padding: 1em;
+}
+
+input {
+    border-style: none;
+    border-bottom-style: solid;
+    border-bottom-color: red;
+}
+
+.reg{
+    padding-bottom: 1em;
+    padding-top: 1em;
+    font-size: large; 
+}
+
+.btn{
+    margin-right: 2em;
+}
+
+.check{margin-right: .5em;
+}
+
+.p-2{
+    font-size: 2em;
+}
+
+.registro{
+    margin-top: .5em;
+    margin-bottom: 0.5em;
+}
+
+.nav-link{
+    font-size: 2em;
+}

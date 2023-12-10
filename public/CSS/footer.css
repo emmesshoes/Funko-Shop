@@ -1,0 +1,59 @@
+/* Estilos por defecto para pantallas más grandes */
+footer {
+    background-color: #30343F;
+    color: #FFFFFF;
+    padding: 3em 5em;
+    font-family: var(--alternative-font);
+    font-size: 1.2em;
+}
+
+.lista-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 1.5em;
+    
+}
+
+.lista-footer img {
+    width: auto;
+}
+
+.lista-footer li {
+    margin: 0.5em;
+}
+
+.lista-footer li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.15em;
+    font-size: 1.5em;
+    font-weight: 400;
+    transition: background 0.3s ease-in-out;
+    border-radius: 8px;
+}
+
+.lista-footer li a:hover {
+    background-color: rgba(255, 51, 51, 0.9);
+    border-radius: 8px;
+    
+}
+
+.lista-footer img {
+    max-width: 100%; /* Asegura que la imagen sea responsive */
+    margin-top: 1em; /* Espacio entre la imagen y los enlaces */
+}
+
+.p {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+/* Media query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+    .lista-footer {
+        justify-content: center; /* Centra los elementos en pantallas más pequeñas */
+    }
+}

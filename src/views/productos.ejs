@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home  |  Funkoshop</title>
+    <link rel="stylesheet" href="./CSS/index.css">
+    <link rel="stylesheet" href="./CSS/reset.css">
+    <link rel="stylesheet" href="./CSS/productos.css">
+    <link rel="stylesheet" href="./CSS/footer.css">   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>    
+    <%- include('../views/partials/header')%>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Aside con formulario (20% del ancho) -->
+            <aside class="col-lg-3">
+                <div class="custom-form">
+                    <form>
+                        <!-- Buscador de palabras -->
+                        <div class="form-group" >
+                            <label for="buscador"  class="custom-label">BUSCAR</label>
+                            <input type="text" class="form-control custom-input border-2 border-dark" id="buscador" name="buscador" placeholder="Item o categoria">
+                        </div>
+                        <!-- Menú desplegable -->
+                        <div class="form-group">
+                            <label for="ordenarPor" class="custom-label" >ORDENAR POR</label>
+                            <select class="form-control custom-input border-2 border-dark"  id="ordenarPor" name="ordenarPor">
+                                <option value="opcion1">Mayor a menor precio</option>
+                                <option value="opcion2">Menor a mayor precio</option>
+                                <option value="opcion3">De la A a la Z</option>
+                                <option value="opcion4">De la Z a la A</option>
+                                <option value="opcion5">Por mayor descuento</option>
+                            </select>
+                        </div>
+                        <!-- Rango de precios -->
+                        <div class="form-group">
+                            <label class="custom-label">PRECIO</label>
+                            <div class="input-group">
+                                <label class="min-label">MIN</label>
+                                <input type="text" class="form-control custom-input-min border-2 border-dark" id="precioMinimo" name="precioMinimo" placeholder=" 0">
+                                <div class="input-group-prepend">
+                                 </div>
+                                <label class="max-label">MAX</label>
+                                <input type="text" class="form-control custom-input-min border-2 border-dark" id="precioMaximo" name="precioMaximo" placeholder=" 0">
+                            </div>
+                        </div>
+                        <!-- Lista de checkboxes -->
+                        <div class="form-group">
+                            <label class="custom-label">FILTRAR</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="filtro1" name="filtro1">
+                                <label class="custom-control-label" for="filtro1">NUEVOS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="filtro2" name="filtro2">
+                                <label class="custom-control-label" for="filtro2">OFERTAS</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="filtro3" name="filtro3">
+                                <label class="custom-control-label" for="filtro3">EDICION ESPECIAL</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="filtro4" name="filtro4">
+                                <label class="custom-control-label" for="filtro4">FAVORITOS</label>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </aside>
+            <!-- Contenido principal (80% del ancho) -->
+            <div class="tarjetas col-lg-9">
+                <div class="row">
+                    <!-- Tarjetas de productos -->
+                    <% productos.forEach(producto => { %>
+                        <div class="col-md-4">
+                            <div class="card border-0">
+                                <!-- Imagen -->
+                                <picture class="card-item__cover">
+                                    <% const rutaCompletaFront = producto.imagen_front; %>
+                                    <% const rutaCompletaBack = producto.imagen_back; %>
+                                    <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                    <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+
+                                    <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
+                                    <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
+                                </picture>
+                                <!-- Esquina superior derecha con texto -->
+                                <% if (producto.nuevo) { %>
+                                    <div class="corner-badge">NUEVO</div>
+                                <% } %>
+                                <div class="card-body">
+                                    <!-- Contenido de texto -->
+                                    <p class="text-secondary"><%= producto.categoria %></p>
+                                    <h5 class="card-title"><%= producto.nombre %></h5>
+                                    <p class="text-secondary">$ <%= producto.precio %></p>
+                                    <p class="text-primary"><%= producto.cuotas %> CUOTAS SIN INTERES</p>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+       
+
+                 <!-- Pagination -->
+                 <nav aria-label="Pagination">
+                    <ul class="pagination justify-content-center pagination-m">
+                        <% for (let i = 1; i <= totalPaginas; i++) { %>
+                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                <a class="page-link" style="color: black; font-size: 700;" href="/productos?page=<%= i %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+            
+
+
+    <%- include('../views/partials/footer')%>
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+</body>
+</html>

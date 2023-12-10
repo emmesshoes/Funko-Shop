@@ -1,0 +1,30 @@
+/* En tu archivo de estilos CSS */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar__menu {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos dentro del menú */
+}
+
+.navbar__item {
+    margin-right: 10px;
+}
+
+.navbar__link {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.navbar__logout {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos dentro del área de LOGOUT */
+}
+
+/* Otras reglas de estilo necesarias */
+

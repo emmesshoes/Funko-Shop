@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home  |  Funkoshop</title>
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/index.css">  
+    <link rel="stylesheet" href="../CSS/ingresar.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    
+</head>
+<body>    
+    <header> <!-- Inicio Header -->
+        <nav class="navbar">
+            <picture class="navbar__logo">
+                <a href="../index.html">
+                <img src="../img/branding/logo_light_horizontal.svg" alt="Isologotipo de la marca Funkoshop">
+            </a>
+            </picture>
+        <ul class="navbar__menu">
+                <li class="navbar__item with-submenu">
+                    <a class="navbar__link with-icon" href="productos.html">SHOP<iconify-icon icon="carbon:chevron-down"></iconify-icon></a>
+                <ul class="submenu">
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Funkos</a>
+                        </li>
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Remeras</a>
+                        </li>
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Llaveros</a>
+                        </li>
+                </ul>
+                </li>
+                <li>    
+                    <a class="navbar__link" href="contacto.html">CONTACTO</a>    
+                </li class="navbar__item">
+                    
+                <li>
+                    <a class="navbar__link" href="registrarse.html">REGISTRARSE</a>
+                </li  class="navbar__item">
+                <li>
+                    <a class="navbar__cart" href="carrito.html">
+                        <img src="../img/icons/cart-icon.svg" alt="ícono de carrito">
+                    </a>
+                </li class="navbar__item">
+        </ul>
+        </nav>
+    </header> <!-- Fin Header -->
+
+    <div class="container">
+        <main>
+            <h1 class="text-center">INGRESAR A MI CUENTA</h1>
+                
+            <form id= "login-form" action="/login" class="container" method="post">
+                
+
+                <div class="reg row justify-content-center">
+                <label for="email" class="col-md-3">Email:</label>
+                <input type="text" name="email" id="email" class="col-md-2">
+                </div>
+                
+                <div class="reg row justify-content-center">
+                <label class="col-md-3" for="contraseña">Contraseña:</label>
+                <input class="col-md-2" type="password" name="contraseña" id="contraseña" placeholder="••••••••">
+                </div>
+                
+                <div class="reg registro d-flex flex-row justify-content-center align-items-baseline">
+                
+                <input type="hidden" name="isAdmin" value="true">
+                <input type="submit" value="INGRESAR" class="btn btn-danger btn-lg">
+                <input type="checkbox" value="recordarme" class="check form-check-input">
+                <label for="recordarme" class="form-check-label">Recordarme</label>
+                </div>
+            </form>
+
+            <a href="" class="nav-link text-center">Olvidé mi contraseña </a>
+
+            <div class="ing d-flex flex-row justify-content-center align-items-baseline" >
+            <p class="p-2">¿No tienes una cuenta?</p>
+            <a href="/HTML/registrarse.html" class="p-2">Registrate</a>
+            </div>
+
+        </main>
+        </div>
+
+        <footer>
+            <div class="lista-footer">
+            <ul>
+                <li><a href="productos.html">SHOP</a></li>
+                <li><a href="registrarse.html">REGISTRARSE</a></li>
+                <li><a href="ingresar.html">INGRESAR</a></li>
+                <li><a href="contacto.html">CONTACTO</a></li>
+            </ul>
+            <img src="../img/branding/isotype.svg" alt="Logo"/>
+        </div>
+        <p class="p">All rights reserved 2023 - Funkoshop &copy;</p>
+        </footer>     
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+</body>
+</html>

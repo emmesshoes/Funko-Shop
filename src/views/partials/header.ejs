@@ -1,0 +1,67 @@
+<!-- En tu archivo de plantilla EJS (header.ejs) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/header.css"> <!-- Ruta relativa a la carpeta public -->
+    <!-- Otras etiquetas head... -->
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <picture class="navbar__logo">
+                <a href="/">
+                    <img src="../img/branding/logo_light_horizontal.svg" alt="Isologotipo de la marca Funkoshop">
+                </a>
+            </picture>
+            <ul class="navbar__menu">
+                
+
+                <li class="navbar__item with-submenu">
+                    <a class="navbar__link with-icon" href="/shop">SHOP<iconify-icon icon="carbon:chevron-down"></iconify-icon></a>
+                    <ul class="submenu">
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Funkos</a>
+                        </li>
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Remeras</a>
+                        </li>
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Llaveros</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+           
+                <li>    
+                    <a class="navbar__link" href="/contacto">CONTACTO</a>    
+                </li class="navbar__item">
+                <li class="navbar__item">
+                    <% if (loggedIn) { %>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="navbar__link" style="background-color: transparent; border: none; color: white; cursor: pointer;">LOGOUT</button>
+                        </form>
+                        <li><p style="color: white;">Email: <%= email %></p></li>
+                    <% } else { %>
+                        <a class="navbar__link" href="/ingresar">LOGIN</a>
+                        <!-- Agrega la opción de "Registrarse" cuando estás en la página de login -->
+                        <a class="navbar__link" href="/register">REGISTRARSE</a>
+                    <% } %>
+                </li>
+                
+                  
+                <li class="navbar__item">
+                    <a class="navbar__cart" href="/carrito">
+                        <img src="../img/icons/cart-icon.svg" alt="ícono de carrito">
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        
+    </header>
+</body>
+</html>

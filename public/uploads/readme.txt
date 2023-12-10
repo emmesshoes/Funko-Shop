@@ -1,0 +1,1 @@
+Este directorio se utiliza para subir archivos

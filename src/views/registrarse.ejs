@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home  |  Funkoshop</title>
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/registrarse.css">
+    <link rel="stylesheet" href="../CSS/footer.css">    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>    
+    <%- include('../views/partials/header')%>
+    
+
+    <div class="container">
+        <main>
+            <h1 class="text-center">CREA TU CUENTA</h1>
+            <h5 class="text-center">Completa el formulario para ser parte del mundo de los Funkos</h5>
+            <form id="form-register" action="/register" class="container" method="post">
+
+                <div class="reg row justify-content-center">
+                <label for="nombre" class="col-md-3">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" class="col-md-2">
+                </div>
+
+                <div class="reg row justify-content-center">
+                <label for="apellido" class="col-md-3">Apellido:</label>
+                <input type="text" name="apellido" id="apellido" class="col-md-2"></div>
+
+                <div class="reg row justify-content-center">
+                <label for="mail" class="col-md-3">Email:</label>
+                <input class="col-md-2" type="email" name="email" id="mail" placeholder="tucorreo@mail.com">
+                </div>
+                
+                <div class="reg row justify-content-center">
+                <label class="col-md-3" for="contraseña">Contraseña:</label>
+                <input class="col-md-2" type="password" name="contraseña" id="contraseña" placeholder="••••••••">
+                </div>
+                
+                <div class="reg row justify-content-center">
+                <label class="col-md-3" for="contraseñarep">Repita su contraseña:</label>
+                <input class="col-md-2" type="password" name="contraseñarep" id="contraseñarep" placeholder="••••••••">
+                </div>
+                
+                <div class="registro d-flex flex-row justify-content-center align-items-baseline">
+                <input type="submit" value="REGISTRARSE" class="btn btn-danger" >
+                <input type="checkbox" value="terminos" class="check form-check-input" >
+                <label for="terminos" class="form-check-label" >Acepto <a  href="">Términos y condiciones</a></label>
+                </div>
+            </form>
+        </main>
+    </div>
+   
+    <%- include('../views/partials/footer')%>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+</body>
+</html>

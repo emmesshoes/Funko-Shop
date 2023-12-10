@@ -1,0 +1,117 @@
+.form-control {
+    font-size:large;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-group{
+    padding: 1em;
+}
+
+.custom-form {
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    padding: 5em;
+    text-align: left;
+    
+}
+
+.custom-label {
+    font-weight: bold;
+    font-size: 1.8em;
+    margin-bottom: 0.1em;
+    padding: 0.5em 0.5em 0.5em 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.min-label {
+    font-weight: 700;
+    padding: 1.2em 1em 1em 0em;
+    font-size: 1.3em;
+    font-family: 'Inter', sans-serif;
+}
+
+.max-label {
+    font-weight: 700;
+    padding: 1.2em 1em 1em 0.7em;
+    font-size: 1.3em;
+    font-family: 'Inter', sans-serif;
+}
+
+#precioMinimo {
+    border-radius: 6px;
+}
+
+#precioMaximo{
+    border-radius: 6px;
+}
+
+.custom-input-min {
+    border-radius: 4px;
+    height: 1.5em;
+    margin-top: 0.5em;
+}
+
+.custom-input {
+    border-radius: 6px;
+}
+
+.custom-control-input {
+    margin-left: 2em;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.custom-control-label {
+    font-weight:bold;
+    font-size: 1.5em;
+    padding: 0.2em;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.corner-badge {
+    font-size: 1.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    padding: 0.5em;
+    font-family: 'Inter', sans-serif;
+}
+
+.tarjetas {
+    padding: 5em;
+    font-family: 'Inter', sans-serif;
+    
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 1.7em
+}
+
+.text-secondary {
+    font-weight: 600;
+    padding: 0.5em 0.5em 0.5em 0;
+    font-size: small;
+}
+
+.text-primary {
+    font-weight: 700;
+    font-size: small;
+}
+
+ .page-item {
+    border-radius: 5px;
+    padding: 0.8em;
+    border-color: #DFE3E8;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.page-link {
+    border-radius: 5px;
+} 
+
+

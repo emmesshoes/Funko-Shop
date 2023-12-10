@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .formulario {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas en cada fila */
+    grid-gap: 10px; /* Espacio entre columnas */
+    margin-bottom: 15px;
+  }
+  .fila2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-gap: 10px; /* Espacio entre columnas */
+    margin-bottom: 15px;
+  }
+  
+  .campo {
+    grid-column: span 2; /* Los campos ocupan dos columnas */
+  }
+  
+  .campo-doble {
+    grid-column: span 1; /* Los campos ocupan una columna */
+  }
+  
+  .campo-seis {
+    grid-column:span 1 ; /* Los campos ocupan dos columnas */
+  }
+  
+  label {
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  .descripcion{
+    border: 2px;
+  }
+  
+  .margen-inferior-rojo {
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 2px solid red;
+  }
+  
+  input,
+  select,
+  textarea {
+    width: calc(100% - 10px); /* Calcula el ancho para tener en cuenta el espacio entre columnas */
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

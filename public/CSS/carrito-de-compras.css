@@ -1,0 +1,165 @@
+
+
+.container {
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: bolder;
+}
+
+.section {
+  width: 100%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.column2 {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.7em;
+  text-transform: uppercase;
+}
+p{
+  font-size: 1.2em;
+}
+
+.red-circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  margin-top: 10px;
+}
+
+.thumbnail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.thumbnail-container img {
+  max-width: 100%;
+  height: auto;
+  margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.text-container {
+  text-align: left;
+}
+
+.text-container p {
+  margin: 5px 0;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.quantity-container input {
+  width: 60px; /* Ajusta el ancho según tus necesidades */
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.summary-box {
+  display: flex;
+  flex-wrap: wrap;
+  
+  margin-top: 20px;
+  padding: 10px;
+  width: 50%; /* Ajusta el ancho según tus necesidades */
+  align-self: flex-end; /* Alinear la segunda sección a la derecha */
+}
+
+.summary-title {
+  width: 100%;
+  text-align: right;
+  padding: 1.2em;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  font-size: 2.5em;
+}
+
+.summary-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.summary-column {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 1.2em;
+}
+
+.summary-line2{
+  border-bottom: none;
+  width: 100%;
+}
+
+.summary-line {
+  border-bottom: 1px solid red;
+  width: 100%;
+}
+
+.summary-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Media queries para dispositivos más pequeños */
+@media only screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+  }
+
+  .thumbnail-container img {
+    margin-right: 0; /* Eliminar el espacio entre la imagen y el texto en dispositivos pequeños */
+  }
+
+  .summary-box {
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+    align-self: center; /* Centrar la segunda sección en dispositivos pequeños */
+  }
+}
