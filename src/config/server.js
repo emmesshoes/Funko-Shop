@@ -19,7 +19,7 @@ import mainRoutes from '../routes/mainRutas.js';
 import logoutRouter from '../routes/logoutRouter.js';
 import contactoRouter from '../routes/contactoRouter.js';
 import shopRouter from '../routes/shopRouter.js';
-
+import itemRouter from '../routes/itemRouter.js';
 
 
 
@@ -47,8 +47,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
   }));
-
-  app.use(flash());
+  
+app.use(flash());
 
 // Configuración body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -59,6 +59,8 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views/partials'));
 app.set('views', path.join(__dirname, '../views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use((req, res, next) => {
   console.log('Middleware de sesión:', req.session);
@@ -99,6 +101,8 @@ app.use('/logout', logoutRouter);
 app.use('/', registerRouter);
 app.use('/', contactoRouter);
 app.use('/shop', shopRouter);
+
+app.use('/item', itemRouter);
 
 app.set('port', port);
 

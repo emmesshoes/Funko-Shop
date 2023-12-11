@@ -6,52 +6,56 @@
     <title>Home  |  Funkoshop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
-    <link rel="stylesheet" href="./CSS/reset.css">
-    <link rel="stylesheet" href="./CSS/index.css">
-    <link rel="stylesheet" href="./CSS/footer.css">
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>    
     <%- include('../views/partials/header')%>
     <main class="main-container">
-        <section class="hero">
-            <article class="hero__content container">
-                <h3 class="hero__title">Nuevos Ingresos</h3>
-                <p class="hero__text">Descubrí el próximo Funko Pop de tu colección</p>
-                <a class="hero__link" href="/productos">SHOP</a>
-            </article>
-        </section>
+               
         <section class="collection container">
-            <article class="collection__content">
-                <h3 class="collection__title">Star Wars & The Mandalorian</h3>
-                <p class="collection__text">Disfruta de una saga que sigue agregando personajes a su colección</p>
-                <a class="collection__link" href="/productos">VER COLECCIÓN</a>
-            </article>
-            <picture class="collection__cover">
-                <img src="./img/star-wars/baby-yoda-1.webp" alt="Figura coleccionable Funko de Grogu de la serie The Mandalorian">
-            </picture>
+            <div class="row">
+                <!-- Tarjetas de productos -->
+                <% const productoSeleccionado = id_producto; %>
+
+                <% if (productoSeleccionado) { %>
+                    <div class="col-md-4">
+                        
+                            <div class="card border-0">
+                                <!-- Imagen -->
+                                <picture class="card-item__cover">
+                                    <% const rutaCompletaFront = productoSeleccionado.imagen_front; %>
+                                    <% const rutaCompletaBack = productoSeleccionado.imagen_back; %>
+                                    <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                    <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+
+                                    <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= productoSeleccionado.nombre %>">
+                                    <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= productoSeleccionado.nombre %> en caja">
+                                </picture>
+                                <!-- Esquina superior derecha con texto -->
+                                <% if (productoSeleccionado.nuevo) { %>
+                                    <div class="corner-badge">NUEVO</div>
+                                <% } %>
+                                <div class="card-body">
+                                    <!-- Contenido de texto -->
+                                    <p class="text-secondary"><%= productoSeleccionado.categoria %></p>
+                                    <h5 class="card-title"><%= productoSeleccionado.nombre %></h5>
+                                    <p class="text-secondary">$ <%= productoSeleccionado.precio %></p>
+                                    <p class="text-primary"><%= productoSeleccionado.cuotas %> CUOTAS SIN INTERES</p>
+                                </div>
+                            </div>
+                        
+                    </div>
+                <% } else { %>
+                    <p>El producto con ID <%= id_producto %> no fue encontrado.</p>
+                <% } %>
+
+            </div>      
         </section>
-        <section class="collection container">
-            <article class="collection__content">
-                <h3 class="collection__title">POKEMON INDIGO</h3>
-                <p class="collection__text">Atrapa todos los que puedas y disfruta de una colección llena de amigos.</p>
-                <a class="collection__link" href="/productos">VER COLECCIÓN</a>
-            </article>
-            <picture class="collection__cover">
-                <img src="./img/pokemon/vulpix-1.webp" alt="Figura coleccionable Funko de Vulpix de la serie Pokemon">
-            </picture>
-        </section>
-        <section class="collection container">
-            <article class="collection__content">
-                <h3 class="collection__title">HARRY POTTER</h3>
-                <p class="collection__text">Revive los recuerdos de una saga llena de magia y encanto.</p>
-                <a class="collection__link" href="/productos">VER COLECCIÓN</a>
-            </article>
-            <picture class="collection__cover">
-                <img src="./img/harry-potter/snape-patronus-1.webp" alt="Figura coleccionable Funko del patronus de Snape en la película de Harry Potter">
-            </picture>
-        </section>
+        
         <!-- Contenido principal (80% del ancho) -->
         <section class="slider container glide">
             <h2 class="slider__title">Últimos lanzamientos</h2>
@@ -67,7 +71,7 @@
                                         <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
                                         <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
                                         
-                                        <span class="card-item__tag"><%='Nuevo' %></span>
+                                        <span class="card-item__tag"><%= producto.nuevo ? 'Nuevo' : '' %></span>
                                         <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
                                         <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
                                     </picture>

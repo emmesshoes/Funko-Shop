@@ -13,7 +13,14 @@
 </head>
 <body>    
     <%- include('../views/partials/header')%>
-   
+    <main>
+        <h1>Carrito de Compras</h1>
+        <ul>
+            <% carritoItems.forEach(item => { %>
+                <li><%= item.nombre %> - Precio: <%= item.precio %> USD</li>
+            <% }); %>
+        </ul>
+    </main>
     <%- include('../views/partials/footer')%>
 
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>

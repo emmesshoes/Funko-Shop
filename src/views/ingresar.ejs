@@ -14,7 +14,7 @@
 </head>
 <body>    
     <%- include('../views/partials/header')%>
-    
+
     
 
     <div class="container">
@@ -33,14 +33,6 @@
                 <label class="col-md-3" for="contraseña">Contraseña:</label>
                 <input class="col-md-2" type="password" name="contraseña" id="contraseña" placeholder="••••••••">
                 </div>
-
-                <% if (messages.error) { %>
-                    <div class="justify-content-center align-items-center">
-                        <div class="alert alert-danger text-center" role="alert">
-                          <%= messages.error %>
-                        </div>
-                  <% } %>
-
                 
                 <div class="reg registro d-flex flex-row justify-content-center align-items-baseline">
                 

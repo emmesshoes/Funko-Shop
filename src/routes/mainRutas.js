@@ -5,12 +5,15 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import ejs from 'ejs';
-
+import ProductosController from '../controllers/productosController.js';
 import MainController from '../controllers/mainController.js';
+
+
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async(req, res) => {
+    try {
   // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (req.session.user) {
     req.session.user.email = "";
@@ -19,8 +22,16 @@ router.get('/', (req, res) => {
     req.session.user = {};
     req.session.user.email = "";
   }
-    res.render('index', { loggedIn: req.session.loggedIn, email: req.session.user.email });
-    
+    // Obtener productos desde la base de datos o donde los tengas almacenados
+    const productos = await ProductosController.getAllProducts();
+
+    res.render('index', { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    //res.redirect('/productos/get-all');
+    //res.json(productos);
+} catch (error) {
+    console.error('Error al obtener datos desde la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
+}
   });
 
 router.get('/home', async (req, res) => {

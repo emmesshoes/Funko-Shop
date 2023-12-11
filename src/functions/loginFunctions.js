@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import Usuario from '../models/usuariosModel.js';
 import { Op } from 'sequelize';
 import bcrypt from 'bcrypt';
-import flash from 'express-flash';
+
 
 
 dotenv.config();
@@ -138,15 +138,13 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
 
     // Si no está en modo administrador, verifica las credenciales del usuario
     if (!user) {
-      req.flash('error', 'Correo electrónico o contraseña incorrectos');
-      return null;
+      throw new Error('Correo electrónico o contraseña incorrectos');
     }
 
     const match = await comparePasswords(plainPassword, user.contrasena);
 
     if (!match) {
-      req.flash('error', 'Correo electrónico o contraseña incorrectos');
-      return null;
+      throw new Error('Correo electrónico o contraseña incorrectos');
     }
 
     // Genera un token JWT para el usuario
@@ -155,11 +153,9 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
     
 
     return tokenUser;
-
   } catch (error) {
     console.error('Error al procesar el formulario de inicio de sesión:', error);
-    req.flash('error', 'Error interno del servidor');
-    return null;
+    throw new Error('Error interno del servidor');
   }
 };
 

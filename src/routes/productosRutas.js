@@ -5,7 +5,7 @@ import ProductosController from '../controllers/productosController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import ejs from 'ejs';
 
-const router = express.Router();
+const routerProductos = express.Router();
 
 // Configuración de Multer para almacenar archivos en una carpeta temporal
 const storage = multer.diskStorage({
@@ -20,15 +20,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // En tu ruta de productos
-router.get('/', async(req, res) => {
+routerProductos.get('/', async(req, res) => {
   try {
     // Obtener productos desde la base de datos o donde los tengas almacenados
     const productos = await ProductosController.getAllProducts();
 
         // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
-  if (req.session.user) {
-    req.session.user.email = "";
-  } else {
+  if (!req.session.user) {
+  
     // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
     req.session.user = {};
     req.session.user.email = "";
@@ -56,17 +55,48 @@ router.get('/', async(req, res) => {
   }
 });
 
-router.get('/get-all', async (req, res) => {
+// routerProductos.js
+routerProductos.get('/get-all', async (req, res) => {
   try {
-    const results = await ProductosController.getAllProducts();
-    res.json(results);
+    const productos = await ProductosController.getAllProducts();
+    if (!req.session.user) {
+      req.session.user = {};
+      req.session.user.email = "";
+    }
+    console.log('los productos son:', productos)
+    // Renderizar la vista de productos y pasar la variable productos
+    res.render("index", { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    //res.json(productos);
   } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
     res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
   }
 });
+/*
+routerProductos.get('/get-all', async (req, res) => {
+  try {
+    // Obtener productos desde la base de datos o donde los tengas almacenados
+    const productos = await ProductosController.getAllProducts();
+          // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
+    if (!req.session.user) {
+  
+      // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
+      req.session.user = {};
+      req.session.user.email = "";
+    }
+    console.log('los productos son:', productos)
 
-router.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 }, { name: 'imagen_back', maxCount: 1 }]), async (req, res) => {
+    // Renderizar la vista de productos y pasar la variable productos
+    res.render("index", { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    //res.json(productos);
+
+  } catch (error) {
+    console.error('Error al obtener datos desde la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
+  }
+});
+*/
+routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 }, { name: 'imagen_back', maxCount: 1 }]), async (req, res) => {
   // Accede a los datos enviados desde el formulario
   const { categoria, licencia, nombre, descripcion, sku, precio, stock, descuento, cuotas } = req.body;
 
@@ -97,7 +127,7 @@ router.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 }, { name
   }
 });
 
-router.post('/edit', async (req, res) => {
+routerProductos.post('/edit', async (req, res) => {
   try {
     await ProductosController.editProduct(req.body);
     res.json({ message: 'Product edited successfully' });
@@ -107,8 +137,9 @@ router.post('/edit', async (req, res) => {
   }
 });
 
-router.get('/get/:productId', async (req, res) => {
+routerProductos.get('/get/:productId', async (req, res) => {
   try {
+    console.log(req.params.productId);
     const product = await ProductosController.getProduct(req.params.productId);
     res.json(product);
   } catch (error) {
@@ -117,7 +148,7 @@ router.get('/get/:productId', async (req, res) => {
   }
 });
 
-router.delete('/delete/:productId', async (req, res) => {
+routerProductos.delete('/delete/:productId', async (req, res) => {
   try {
     await ProductosController.deleteProduct(req.params.productId);
     res.json({ message: 'Product deleted successfully' });
@@ -127,4 +158,4 @@ router.delete('/delete/:productId', async (req, res) => {
   }
 });
 
-export default router;
+export default routerProductos;

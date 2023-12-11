@@ -79,29 +79,31 @@
                     <!-- Tarjetas de productos -->
                     <% productos.forEach(producto => { %>
                         <div class="col-md-4">
-                            <div class="card border-0">
-                                <!-- Imagen -->
-                                <picture class="card-item__cover">
-                                    <% const rutaCompletaFront = producto.imagen_front; %>
-                                    <% const rutaCompletaBack = producto.imagen_back; %>
-                                    <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                                    <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+                            <a href="/item/<%= producto.id_producto %>">
+                                <div class="card border-0">
+                                    <!-- Imagen -->
+                                    <picture class="card-item__cover">
+                                        <% const rutaCompletaFront = producto.imagen_front; %>
+                                        <% const rutaCompletaBack = producto.imagen_back; %>
+                                        <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                        <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
 
-                                    <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
-                                    <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
-                                </picture>
-                                <!-- Esquina superior derecha con texto -->
-                                <% if (producto.nuevo) { %>
-                                    <div class="corner-badge">NUEVO</div>
-                                <% } %>
-                                <div class="card-body">
-                                    <!-- Contenido de texto -->
-                                    <p class="text-secondary"><%= producto.categoria %></p>
-                                    <h5 class="card-title"><%= producto.nombre %></h5>
-                                    <p class="text-secondary">$ <%= producto.precio %></p>
-                                    <p class="text-primary"><%= producto.cuotas %> CUOTAS SIN INTERES</p>
+                                        <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
+                                        <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
+                                    </picture>
+                                    <!-- Esquina superior derecha con texto -->
+                                    <% if (producto.nuevo) { %>
+                                        <div class="corner-badge">NUEVO</div>
+                                    <% } %>
+                                    <div class="card-body">
+                                        <!-- Contenido de texto -->
+                                        <p class="text-secondary"><%= producto.categoria %></p>
+                                        <h5 class="card-title"><%= producto.nombre %></h5>
+                                        <p class="text-secondary">$ <%= producto.precio %></p>
+                                        <p class="text-primary"><%= producto.cuotas %> CUOTAS SIN INTERES</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     <% }); %>
                 </div>
