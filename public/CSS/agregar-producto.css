@@ -1,74 +1,220 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .formulario {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .fila {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas en cada fila */
-    grid-gap: 10px; /* Espacio entre columnas */
-    margin-bottom: 15px;
-  }
-  .fila2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
-    grid-gap: 10px; /* Espacio entre columnas */
-    margin-bottom: 15px;
-  }
-  
-  .campo {
-    grid-column: span 2; /* Los campos ocupan dos columnas */
-  }
-  
-  .campo-doble {
-    grid-column: span 1; /* Los campos ocupan una columna */
-  }
-  
-  .campo-seis {
-    grid-column:span 1 ; /* Los campos ocupan dos columnas */
-  }
-  
-  label {
-    text-align: left;
-    margin-bottom: 0;
+
+
+main {
+    
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    
+    margin-top: 1em; /* Reduzco el espacio superior del título */
+    margin-bottom: 1em; /* Reduzco el espacio inferior del título */
+    margin-left: 2em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+    align-items:flex-start ; 
+    
+}
+
+/* Resto de tus estilos... */
+
+
+
+.ala-tres {
+    margin-left: 20px;
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+    align-items: center; 
+    margin-left: 0;
+    align-items: flex-start;
+}
+
+.ala-left {
+    margin-left: 20px;
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+    align-items: center; 
+    margin: 15px 100px 50px 0px; /* Espaciado entre botones (superior derecha inferior izquierda) */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* Estilos para el formulario */
+form {
+    
+    margin-left: 2em;
+    
+    width: 80%; /* Ajusta el ancho del formulario según tus preferencias */
+    max-width: 600px; /* Establece un ancho máximo para el formulario */
+}
+
+
+input[name="nombre"] {
+    width: 200px; /* Ancho deseado */
+    font-size: 16px; /* Tamaño de fuente deseado */
+    padding-bottom: 1px;
+    /* Otros estilos que desees aplicar al campo de entrada */
+}
+
+textarea[name="descripcion"]{
+    display: flex;
+    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+    align-items: center; 
+    width: 65%; /* Ancho deseado */
+    font-size: 16px; /* Tamaño de fuente deseado */
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 20px;
+} 
+
+select {
+    visibility:visible;
+    border-style:solid ;
+    border-color: #4b4949;
+    border-width: 1px; /* Ajusta el ancho del borde inferior según tus preferencias */
+    width: 180px; /* Hace que el select ocupe el 100% del ancho del contenedor */
+    box-sizing: border-box; /* Asegura que el ancho del elemento incluya el relleno y el borde */
+    height: 40px; /* Ajusta la altura del select según tus preferencias */
+    font-size: 16px; /* Ajusta el tamaño de la fuente dentro del select */
+}
+
+
+select:required:invalid {
+    color: gray;
+}
+
+option[value=""][disabled] {
+    display: none;
+}
+
+option {
+    color: black;
   }
 
-  .descripcion{
-    border: 2px;
-  }
-  
-  .margen-inferior-rojo {
-    margin-bottom: 0;
-    border: none;
-    border-bottom: 2px solid red;
-  }
-  
-  input,
-  select,
-  textarea {
-    width: calc(100% - 10px); /* Calcula el ancho para tener en cuenta el espacio entre columnas */
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+.imag{
+    border-style: none;
+}
+
+input {
+    border-style: none;
+    border-bottom-style: solid;
+    border-bottom-color: red;
+    border-bottom-width: 2px; /* Ajusta el ancho del borde inferior según tus preferencias */
+    
+    box-sizing: border-box; /* Asegura que el ancho del elemento incluya el relleno y el borde */
+}
+
+
+.box {
+   margin-right: 3em;
+}
+
+.row{
+    margin-bottom: 2px;
+    margin-top: 3em;
+}
+
+/* Estilos para el título h1 */
+h1 {
+    margin-top: 1em; /* Reduzco el espacio superior del título */
+    margin-bottom: 0em; /* Reduzco el espacio inferior del título */
+    margin-left: 2em;
+    font-size: 24px;
+    padding-right: 10px;
+}
+
+
+.texto{
+    margin-bottom: 1px;
+    font-size: 16px;
+}
+
+label{
+    margin-bottom: 1px;
+    font-size: 16px;
+} 
+
+.btn{
+    width: 200px;
+    height: 44.33px;
+    
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    background: #FF3333;
+    
+
+    color: #FFFFFF;
+    
+    
+
+}
+
+input[type="submit"] {
+    
+    top: 885.3px;
+    left: 115.55px;
+    
+    ;
+    /* Otras propiedades de estilo que desees agregar */
+}
+
+.descuento-cuotas-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.btn-form {
+    background: #F33;
+    padding: 10px; /* Espaciado interno del botón */
+    margin: 15px 20px 20px 0; /* Espaciado entre botones (superior derecha inferior izquierda) */
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+
+.image-container label {
+    align-self: flex-start;
+    margin-bottom: 0; /* Ajusta el margen inferior según sea necesario */
+}
+
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px; /* Espaciado vertical entre los elementos */
+}
+
+.imag {
+     
+    color: #1F1F1F;
+    text-align: right;
+    font-family: Arial;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.56px;
+}
+
+.image-container label {
+    margin-bottom: 5px; /* Ajusta el valor según tu preferencia para reducir el espacio entre label e input */
+}
+
+

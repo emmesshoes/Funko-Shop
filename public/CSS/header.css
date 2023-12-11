@@ -2,6 +2,7 @@
 .navbar {
     display: flex;
     justify-content: space-between;
+    
 }
 
 .navbar__menu {
@@ -24,6 +25,19 @@
 .navbar__logout {
     display: flex;
     align-items: center; /* Centra verticalmente los elementos dentro del área de LOGOUT */
+}
+
+/* Estilos para la barra de navegación */
+.navbar__logo {
+    display: flex;
+    align-items: center; /* Centra verticalmente el logo */
+    margin-left: 20px; /* Ajusta el margen izquierdo del logo */
+}
+
+/* Estilos para la imagen del logo */
+.navbar__logo img {
+    width: 300px; /* Ajusta el ancho del logo según tus necesidades */
+    height: auto; /* Mantiene la proporción del logo */
 }
 
 /* Otras reglas de estilo necesarias */

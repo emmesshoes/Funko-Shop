@@ -15,10 +15,7 @@ const router = express.Router();
 router.get('/', async(req, res) => {
     try {
   // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
-  if (req.session.user) {
-    req.session.user.email = "";
-  } else {
-    // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
+  if (!req.session.user) {
     req.session.user = {};
     req.session.user.email = "";
   }
