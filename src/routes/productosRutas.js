@@ -48,7 +48,7 @@ routerProductos.get('/', async(req, res) => {
   const totalPaginas = Math.ceil(productos.length / productosPorPagina);
 
     // Renderizar la vista de productos y pasar la variable productos
-    res.render("productos.ejs", { productos: productosDeLaPagina, currentPage: parseInt(page), totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("productos.ejs", { productos: productosDeLaPagina, currentPage: parseInt(page), totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email, carrito: req.session.carrito });
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });

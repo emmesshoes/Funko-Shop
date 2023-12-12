@@ -3,11 +3,19 @@ import CarritoElementosController from '../controllers/carritoElementosControlle
 
 const router = express.Router();
 // Agregar un producto al carrito
-router.post('/carrito-elementos/add', async (req, res) => {
-  const { carritoId, productoId, cantidad, precioUnitario } = req.body;
+router.post('/add', async (req, res) => {
+  const { productoId, cantidad } = req.body;
+  let insertProductToCartResult = false;
+  console.log('Agregar al carrito: ', productoId, cantidad );
+  
   try {
-    const elementoId = await CarritoElementosController.addProductToCart(carritoId, productoId, cantidad, precioUnitario);
-    res.json({ message: 'Producto agregado al carrito', elementoId });
+    if(!req.session.user.email){
+      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', insertProductToCartResult, productoId, cantidad,  });  
+    }
+
+    insertProductToCartResult = true;
+    //const elementoId = await CarritoElementosController.addProductToCart(carritoId, productoId, cantidad, precioUnitario);
+    res.json({ message: 'Producto agregado al carrito', insertProductToCartResult, productoId, cantidad });
   } catch (error) {
     console.error('Error al agregar producto al carrito:', error);
     res.status(500).json({ error: 'Error al agregar producto al carrito' });

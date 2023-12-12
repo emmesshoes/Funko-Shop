@@ -67,7 +67,7 @@ loginRouter.get('/login', async (req, res) => {
   
       req.session.loggedIn = true;
       req.session.user = { email: email };
-
+      req.session.token = { token: token };
 
       // Redirige al usuario según si es administrador o no
       if (isAdminMode) {
@@ -83,7 +83,11 @@ loginRouter.get('/login', async (req, res) => {
         console.log('ID del usuario:', userId);
         console.log('Correo electrónico del usuario:', userEmail);
 
-        const carrito = CarritosController.createCart(userId);
+        const carrito = await CarritosController.createCart(userId);
+        req.session.carrito = { carrito: carrito };
+
+        console.log('-------INFORMACION DE SESSION-------', req.session);
+        console.log('-------INFORMACION DE CARRITO-------',JSON.stringify(req.session.carrito, null, 2));
 
         res.redirect("/productos");
       }
