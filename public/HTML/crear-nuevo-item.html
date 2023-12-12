@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home  |  Funkoshop</title>
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/crear-nuevo-item.css">
+    <link rel="stylesheet" href="../CSS/footer.css">   
+</head>
+
+<body>    
+    <header> <!-- Inicio Header -->
+        <nav class="navbar">
+            <picture class="navbar__logo">
+                <a href="../index.html">
+                <img src="../img/branding/logo_light_horizontal.svg" alt="Isologotipo de la marca Funkoshop">
+            </a>
+            </picture>
+        <ul class="navbar__menu">
+                <li class="navbar__item with-submenu">
+                    <a class="navbar__link with-icon" href="productos.html">SHOP<iconify-icon icon="carbon:chevron-down"></iconify-icon></a>
+                <ul class="submenu">
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Funkos</a>
+                        </li>
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Remeras</a>
+                        </li>
+                        <li class="submenu__item">
+                            <a href="" class="submenu__link">Llaveros</a>
+                        </li>
+                </ul>
+                </li>
+                <li>    
+                    <a class="navbar__link" href="contacto.html">CONTACTO</a>    
+                </li class="navbar__item">
+                    
+                <li>
+                    <a class="navbar__link" href="ingresar.html">LOGIN</a>
+                </li  class="navbar__item">
+                <li>
+                    <a class="navbar__cart" href="carrito.html">
+                        <img src="../img/icons/cart-icon.svg" alt="ícono de carrito">
+                    </a>
+                </li class="navbar__item">
+        </ul>
+        </nav>
+    </header> <!-- Fin Header -->
+
+    <main>
+
+        <h1>CREAR NUEVO ITEM</h1>
+        <form class="formulario">
+            <div class="fila1">
+              <div class="campo-doble">
+                <label for="categoria" >Categoría:</label>
+                <select id="categoria" name="categoria"  class="completar_campo1" >
+                  <option value="opcion1">Figuras</option>
+                  <option value="opcion2">Remeras</option>
+                  <option value="opcion2">Llaveros</option>                 
+                </select>
+              </div>
+              <div class="campo-doble">
+                <label for="licencia" class="licencia">Licencia:</label>
+                <select id="licencia" name="licencia" class="completar_campo1">
+                  <option value="opcion1">Naruto</option>
+                  <option value="opcion2">Pokemon</option>
+                  <option value="opcion2">Star Wars</option>                  
+                </select>
+              </div>
+            </div>
+            
+            <div class="fila2">
+              <div class="campo">
+                <label for="nombreProducto">Nombre del Producto:</label>
+                <input type="text" id="nombreProducto" name="nombreProducto" class="margen-inferior-rojo">
+              </div>
+            </div>
+
+            <div class="fila3">
+              <div class="campo">                
+                <textarea id="descripcion" name="descripcion" class="completar_campo"></textarea>
+              </div>
+            </div>
+
+            <div class="fila4">
+              <div class="campo-seis">
+                <label for="sku">SKU:</label>
+                <input type="text" id="sku" name="sku" class="margen-inferior-rojo2">
+              </div>
+              <div class="campo-seis">
+                <label for="precio">Precio:</label>
+                <input type="text" id="precio" name="precio" class="margen-inferior-rojo2">
+              </div>
+              <div class="campo-seis">
+                <label for="stock">Stock:</label>
+                <input type="text" id="stock" name="stock" class="margen-inferior-rojo2">
+              </div>
+            </div>
+
+            <div class="fila5">
+              <div class="campo-doble">
+                <label for="descuento">Descuento:</label>
+                <input type="text" id="descuento" name="descuento" class="margen-inferior-rojo2">
+                </div>             
+              <div class="campo-doble">
+                <label for="cuotas">Cuotas:</label>
+                <select id="cuotas" name="cuotas" class="completar_campo4">
+                  <option value="opcion1">6 cuotas sin interes</option>
+                  <option value="opcion2">3 cuotas sin interes</option>
+                  <option value="opcion2">1 cuota sin interes</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="fila6">
+              <label for="imagen">Imágenes:</label>
+              <input type="file" id="imagen" name="imagen" accept="image/png, image/jpeg" />
+            </div>
+
+            <div class="fila7">
+                <div class="boton1">
+                <button>Agregar nuevo producto</button>
+                 </div>
+            <div class="boton2">
+              <button class="limpiar">Limpiar</button>
+                 </div>
+            </div>
+            
+          </form>
+    </main>
+   
+    <footer>
+        <div class="lista-footer">
+        <ul>
+            <li><a href="productos.html">SHOP</a></li>
+            <li><a href="registrarse.html">REGISTRARSE</a></li>
+            <li><a href="ingresar.html">INGRESAR</a></li>
+            <li><a href="contacto.html">CONTACTO</a></li>
+        </ul>
+        <img src="../img/branding/isotype.svg" alt="Logo"/>
+    </div>
+    <p class="p">All rights reserved 2023 - Funkoshop &copy;</p>
+    </footer>     
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+</body>
+</html>
