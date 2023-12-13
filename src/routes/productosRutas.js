@@ -32,8 +32,7 @@ routerProductos.get('/', async(req, res) => {
     req.session.user = {};
     req.session.user.email = "";
   }
-  console.log(productos)
-
+ 
   const page = req.query.page || 1;
   const productosPorPagina = 9; // Número de productos que deseas mostrar por página
 
@@ -63,7 +62,6 @@ routerProductos.get('/get-all', async (req, res) => {
       req.session.user = {};
       req.session.user.email = "";
     }
-    console.log('los productos son:', productos)
     // Renderizar la vista de productos y pasar la variable productos
     res.render("index", { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
     //res.json(productos);

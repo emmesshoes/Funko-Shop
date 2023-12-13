@@ -66,8 +66,12 @@ loginRouter.get('/login', async (req, res) => {
       const token = await loginUser(email, contraseña, isAdminMode);
   
       req.session.loggedIn = true;
-      req.session.user = { email: email };
-      req.session.token = { token: token };
+      req.session.user.email = email;
+      req.session.user.token = token;
+      console.log('*******SESSION************ ', req.session.user);
+
+      const tokenDecode= decodeTokenUser(token);
+      console.log('TOKEN DECODIFICADO****************** ', tokenDecode);
 
       // Redirige al usuario según si es administrador o no
       if (isAdminMode) {
@@ -80,9 +84,7 @@ loginRouter.get('/login', async (req, res) => {
         const userId = decodedToken.userId;
         const userEmail = decodedToken.email;
 
-        console.log('ID del usuario:', userId);
-        console.log('Correo electrónico del usuario:', userEmail);
-
+    
         const carrito = await CarritosController.createCart(userId);
         req.session.carrito = { carrito: carrito };
 

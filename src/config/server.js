@@ -87,7 +87,7 @@ app.use(express.json());
 
 // Rutas que requieren autenticación con token
 app.use('/productos', productosRoutes);
-app.use('/carritos', carritosRoutes);
+app.use('/carrito', carritosRoutes);
 app.use('/carrito-elementos', carritoElementosRoutes);
 app.use('/ventas', ventasRoutes);
 

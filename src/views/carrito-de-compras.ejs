@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras | Funkoshop</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/carrito-de-compras.css">
+    <link rel="stylesheet" href="../css/footer.css">   
+    
+</head>
+<body>    
+  <%- include('../views/partials/header')%>
+
+    <main>
+      <div class="container">
+        <!-- Sección de elementos del carrito -->
+        <div class="section">
+          <div class="row">
+            <div class="column">ID del Producto</div>
+            <div class="column">Nombre del Producto</div>
+            <div class="column">Cantidad</div>
+            <div class="column">Precio Unitario</div>
+          </div>
+    
+          <% productosInfo.forEach(info => { %>
+            <div class="row">
+              <div class="column"><%= info.producto.id_producto %></div>
+              <div class="column">
+                <% const rutaCompletaFront = info.producto.imagen_front; %>
+                <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                <%console.log(rutaRelativaFront) %>
+                <img src="<%= rutaRelativaFront %>" alt="Miniatura">
+                <%= info.producto.nombre %>
+              </div>
+              <div class="column"><%= info.elemento.cantidad %></div>
+              <div class="column">$<%= info.elemento.precio_unitario %></div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </main>
+   
+    <%- include('../views/partials/footer')%>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>    
+</body>
+</html>
