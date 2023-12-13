@@ -105,7 +105,8 @@ p{
   margin-top: 20px;
   padding: 10px;
   width: 50%; /* Ajusta el ancho según tus necesidades */
-  align-self: flex-end; /* Alinear la segunda sección a la derecha */
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 .summary-title {
@@ -113,6 +114,7 @@ p{
   text-align: right;
   padding: 1.2em;
   text-decoration: underline;
+  text-decoration-color: red;
   margin-bottom: 10px;
   font-size: 2.5em;
 }
@@ -160,6 +162,31 @@ p{
 
   .summary-box {
     width: 100%; /* Ajusta el ancho según tus necesidades */
-    align-self: center; /* Centrar la segunda sección en dispositivos pequeños */
+    
   }
+}
+
+/* Estilos base para pantallas grandes */
+.column {
+  width: 33.33%;
+}
+
+/* Media query para pantallas más pequeñas, como tablets y móviles */
+@media (max-width: 768px) {
+  .container {
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%;
+  }
+
+  .column {
+      width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  
 }

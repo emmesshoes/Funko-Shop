@@ -4,68 +4,78 @@
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home  |  Funkoshop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../CSS/reset.css">
     <link rel="stylesheet" href="../CSS/index.css">
     <link rel="stylesheet" href="../CSS/carrito-de-compras.css">
     <link rel="stylesheet" href="../CSS/footer.css"> 
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   </head>
 </head>
 <body>    
   <%- include('../views/partials/header')%>
 
-    <main>
-      <div class="section" style="display: flex; justify-content: center;">
-        <div class="summary-box" style="background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px; width: 1000px;">
-          <!-- Sección de elementos del carrito -->
-          <div class="section">
-            <div class="row">
-              <div class="column">ID del Producto</div>
-              <div class="column">Nombre del Producto</div>
-              <div class="column">Cantidad</div>
-              <div class="column">Precio Unitario</div>
-            </div>
-      
-            <% productosInfo.forEach(info => { %>
-              <div class="row">
-                <div class="column"><%= info.producto.id_producto %></div>
-                <div class="column">
-                  <% const rutaCompletaFront = info.producto.imagen_front; %>
-                  <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                  <%console.log(rutaRelativaFront) %>
-                  <img src="<%= rutaRelativaFront %>" alt="Miniatura">
-                  <%= info.producto.nombre %>
+  <main>
+      <div class="container" style="display: flex; flex-direction: column; align-items: center; width: 100%; ">
+
+        <!-- Primera sección -->
+        <div class="section" style=" margin-bottom: 10px;">
+          <div class="summary-box" style="padding: 10px; width: 100%;">
+                <!-- Sección de elementos del carrito -->
+                <div class="section">
+                  <div class="row" style="background-color: #f0f0f0; border-radius: 4px; font-size: 2.2em;">
+                    <div class="column">Detalle del Producto</div>
+                    <div class="column">Cantidad</div>
+                    <div class="column">Total</div>
+                  </div>
+    
+                    <% productosInfo.forEach(info => { %>
+                        <% if (info.producto && info.producto.id_producto !== null) { %>
+                            <div class="row" style="background-color: #f0f0f0; border-radius: 4px; font-size: 1.6em;">
+                                
+                                <div class="column">
+                                    <% const rutaCompletaFront = info.producto.imagen_front; %>
+                                    <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                    <% console.log(rutaRelativaFront) %>
+                                    <img src="<%= rutaRelativaFront %>" alt="Miniatura" style= width:100px ; height: auto;">
+                                    <%= info.producto.nombre %>
+                                </div>
+                                <div class="column"><%= info.elemento.cantidad %></div>
+                                <div class="column">$<%= info.elemento.precio_unitario %></div>
+                            </div>
+                        <% } %>
+                    <% }); %>
                 </div>
-                <div class="column"><%= info.elemento.cantidad %></div>
-                <div class="column">$<%= info.elemento.precio_unitario %></div>
+            </div>
+        </div>
+    
+        <!-- Segunda sección -->
+        <div class="section" style="display: flex; flex-direction: column;  ">
+          <div class="summary-box" style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px; text-align: left;  ">
+              <div class="summary-title">RESUMEN</div>
+              <div class="summary-list">
+                  <div class="summary-column">Cantidad de elementos</div>
+                  <div class="summary-column"><%= cantidadTotal %></div>
+                  <div class="summary-line2"></div>
+                  <div class="summary-column">Subtotal</div>
+                  <div class="summary-column">$<%= subTotal %></div>
+                  <div class="summary-line2"></div>
+                  <div class="summary-column">ENVÍO</div>
+                  <div class="summary-column">$<%= costoEnvio %></div>
+                  <div class="summary-line"></div>
+                  <div class="summary-column">TOTAL</div>
+                  <div class="summary-column">$<%= totalPagar %></div>
               </div>
-            <% }); %>
+              <button class="summary-button" style="margin-top: 10px;">IR A PAGAR</button>
           </div>
         </div>
+  
+    
       </div>
-      
-      <!-- Segunda sección -->
-      <div class="section" style="display: flex; justify-content:flex-end;">
-        <div class="summary-box" style="background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px; width: 400px;">
-          <div class="summary-title">RESUMEN</div>
-          <div class="summary-list">
-            <div class="summary-column">Cantidad de elementos</div>
-            <div class="summary-column">3</div>
-            <div class="summary-line2"></div>
-            <div class="summary-column">Subtotal</div>
-            <div class="summary-column">$5399</div>
-            <div class="summary-line2"></div>
-            <div class="summary-column">ENVÍO</div>
-            <div class="summary-column">$0.00</div>
-            <div class="summary-line"></div>
-            <div class="summary-column">TOTAL</div>
-            <div class="summary-column">$5399</div>
-          </div>
-          <button class="summary-button">IR A PAGAR</button>
-        </div>
-      </div>
-      
+    </main>
     
     
  

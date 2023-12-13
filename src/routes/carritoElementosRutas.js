@@ -82,8 +82,22 @@ router.get('/', async (req, res) => {
     // Esperar a que se resuelvan todas las promesas
     const productosInfo = await Promise.all(productosPromises);
 
+    const cantidadTotal = productosInfo.reduce((total, info) => {
+      return total + info.elemento.cantidad;
+    }, 0);
+
+    const subTotal = productosInfo.reduce((subTotal, info) => {
+      return subTotal + (info.elemento.cantidad * info.elemento.precio_unitario) ;
+    }, 0);
+
+    // Generar un número aleatorio para el costo de envío entre 5 y 20 con dos decimales
+    const costoEnvio = (Math.random() * (5000 - 3000) + 5).toFixed(2);
+    const totalPagar= parseFloat(subTotal) + parseFloat(costoEnvio);
+
+  console.log('----------- TOTAL A PAGAR:', totalPagar );
+
     // Renderizar la página elementos-del-carrito y pasar la información
-    res.render('carrito-de-compras', { productosInfo, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.loggedIn, email: req.session.user.email });
   } catch (error) {
     console.error('Error al obtener elementos del carrito:', error);
     res.status(500).json({ error: 'Error al obtener elementos del carrito' });
