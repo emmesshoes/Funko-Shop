@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home  |  Funkoshop</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
+        <link rel="stylesheet" href="./CSS/reset.css">
+        <link rel="stylesheet" href="./CSS/index.css">
+        <link rel="stylesheet" href="./CSS/header.css">
+        <link rel="stylesheet" href="./CSS/ingresar.css">
+        <link rel="stylesheet" href="./CSS/footer.css">
+        <link rel="stylesheet" href="./CSS/listado-de-productos.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+<body>    
+    <%- include('../views/partials/header')%>
+    <main>
+
+        <div class="titulo">
+         <h1 class="titulo">Listado de productos</h1>
+   
+         <div class="agregar-btn">
+           <span class="texto">AGREGAR</span>
+           <div class="mas">+</div>
+       </div>
+       </div>
+   
+       <form action="#" method="post">
+           <table>
+               <!-- Encabezado de la tabla -->
+               <thead>
+                   <tr>
+                       <th>ID</th>
+                       <th>Código</th>
+                       <th>Nombre del producto</th>
+                       <th>Categoría</th>
+                       <th></th>
+                       <th></th>
+                   </tr>
+               </thead>
+               <!-- Cuerpo de la tabla -->
+               <tbody>
+                   <!-- 14 filas -->
+                   <!-- Puedes copiar y pegar estas filas según sea necesario -->
+                   <tr>
+                       <td><input type="text" name="campo11" value="1" /> </td>
+                       <td><input type="text" name="campo12" value="STW001001" /> </td>
+                       <td><input type="text" name="campo13" value="Baby Yoda Blueball" /> </td>
+                       <td><input type="text" name="campo14" value="STAR WARS"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>
+                       
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="2" /> </td>
+                       <td><input type="text" name="campo12" value="STW001002" /> </td>
+                       <td><input type="text" name="campo13" value="Boba Fett Fighter" /> </td>
+                       <td><input type="text" name="campo14" value="STAR WARS"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="3" /> </td>
+                       <td><input type="text" name="campo12" value="STW001003" /> </td>
+                       <td><input type="text" name="campo13" value="Luke Skylwalker & Grogu" /> </td>
+                       <td><input type="text" name="campo14" value="STAR WARS"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz">  </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="4" /> </td>
+                       <td><input type="text" name="campo12" value="STW001004" /> </td>
+                       <td><input type="text" name="campo13" value="Stormtrooper Lightsaber" /> </td>
+                       <td><input type="text" name="campo14" value="STAR WARS"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz">  </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="5" /> </td>
+                       <td><input type="text" name="campo12" value="STW001001" /> </td>
+                       <td><input type="text" name="campo13" value="Charmander Smile" /> </td>
+                       <td><input type="text" name="campo14" value="POKEMON"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz">  </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="6" /> </td>
+                       <td><input type="text" name="campo12" value="STW001002" /> </td>
+                       <td><input type="text" name="campo13" value="Dragonite Hi!" /> </td>
+                       <td><input type="text" name="campo14" value="POKEMON"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="7" /> </td>
+                       <td><input type="text" name="campo12" value="STW001003" /> </td>
+                       <td><input type="text" name="campo13" value="Pidgeotto Flying" /> </td>
+                       <td><input type="text" name="campo14" value="POKEMON"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="8" /> </td>
+                       <td><input type="text" name="campo12" value="STW001004" /> </td>
+                       <td><input type="text" name="campo13" value="Pikachu Smiley" /> </td>
+                       <td><input type="text" name="campo14" value="POKEMON"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="9" /> </td>
+                       <td><input type="text" name="campo12" value="STW001005" /> </td>
+                       <td><input type="text" name="campo13" value="Vulpix Fancy" /> </td>
+                       <td><input type="text" name="campo14" value="POKEMON"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="10" /> </td>
+                       <td><input type="text" name="campo12" value="STW001001" /> </td>
+                       <td><input type="text" name="campo13" value="Harry Potter & Hegwid" /> </td>
+                       <td><input type="text" name="campo14" value="HARRY POTTER"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"> </td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="11" /> </td>
+                       <td><input type="text" name="campo12" value="STW001002" /> </td>
+                       <td><input type="text" name="campo13" value="Herminione Ball Dress" /> </td>
+                       <td><input type="text" name="campo14" value="HARRY POTTER"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"></td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="12" /> </td>
+                       <td><input type="text" name="campo12" value="STW001003" /> </td>
+                       <td><input type="text" name="campo13" value="Luna Lovegood Lion Mask" /> </td>
+                       <td><input type="text" name="campo14" value="HARRY POTTER"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"></td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   <tr>
+                       <td><input type="text" name="campo11" value="13" /> </td>
+                       <td><input type="text" name="campo13" value="STW001004" /> </td>
+                       <td><input type="text" name="campo14" value="Snape Patronus"/> </td>
+                       <td><input type="text" name="campo14" value="HARRY POTTER"/> </td>
+                       <td><img src="../img/icons/edit_pencil.svg" alt="Descripción de la imagen 1"class="lapiz"></td>
+                       <td><img src="../img/icons/delete_trash.svg" alt="Descripción de la imagen 1" class="lapiz"> </td>                    
+                   </tr>
+                   
+                   <!-- ... Repetir para las demás filas ... -->
+               </tbody>
+           </table>
+       </form>
+   
+          
+       </main>
+      
+    
+
+
+        <%- include('../views/partials/footer')%>  
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+</body>
+</html>

@@ -75,7 +75,7 @@ loginRouter.get('/login', async (req, res) => {
 
       // Redirige al usuario según si es administrador o no
       if (isAdminMode) {
-        res.render("consola-admin", { loggedIn: req.session.loggedIn, email: req.session.user.email });
+        res.render("consola-admin2", { loggedIn: req.session.loggedIn, email: req.session.user.email });
       } else {
         console.log('TOKEN: ', token);
         const decodedToken = decodeTokenUser(token);

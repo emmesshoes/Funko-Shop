@@ -21,6 +21,8 @@ import contactoRouter from '../routes/contactoRouter.js';
 import shopRouter from '../routes/shopRouter.js';
 import routerItems from '../routes/itemRouter.js';
 import agregarProdRouter from '../routes/agregarProdRouter.js';
+import adminRouter from '../routes/adminRouter.js';
+import editarProdRouter from '../routes/editarProdRouter.js';
 
 
 
@@ -104,6 +106,8 @@ app.use('/', contactoRouter);
 app.use('/shop', shopRouter);
 app.use('/item', routerItems);
 app.use('/admin', agregarProdRouter);
+app.use('/admin', adminRouter);
+app.use('/admin', editarProdRouter);
 
 
 app.set('port', port);
