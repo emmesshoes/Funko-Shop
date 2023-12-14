@@ -103,7 +103,7 @@ app.use('/', registerRouter);
 app.use('/', contactoRouter);
 app.use('/shop', shopRouter);
 app.use('/item', routerItems);
-app.use('/agregar-prod', agregarProdRouter)
+app.use('/login', agregarProdRouter);
 
 
 app.set('port', port);

@@ -14,9 +14,8 @@ agregarProdRouter.use(bodyParser.urlencoded({ extended: true }));
 agregarProdRouter.use(bodyParser.json());
 
 agregarProdRouter.get('/agregar-prod', (req, res) => {
-    console.log('hola');
-    res.render("agregar-producto");
-});
-
+    res.render('agregar-producto', { email: req.session.user.email });
+  });
+  
 
 export default agregarProdRouter;
