@@ -19,7 +19,9 @@ import mainRoutes from '../routes/mainRutas.js';
 import logoutRouter from '../routes/logoutRouter.js';
 import contactoRouter from '../routes/contactoRouter.js';
 import shopRouter from '../routes/shopRouter.js';
-import itemRouter from '../routes/itemRouter.js';
+import routerItems from '../routes/itemRouter.js';
+import agregarProdRouter from '../routes/agregarProdRouter.js';
+
 
 
 
@@ -96,13 +98,13 @@ app.use('/', mainRoutes);
 
 app.use('/', loginRouter);
 app.use('/', logoutRouter);
-// Usa el enrutador de logout
 app.use('/logout', logoutRouter);
 app.use('/', registerRouter);
 app.use('/', contactoRouter);
 app.use('/shop', shopRouter);
+app.use('/item', routerItems);
+app.use('/agregar-prod', agregarProdRouter)
 
-app.use('/item', itemRouter);
 
 app.set('port', port);
 
