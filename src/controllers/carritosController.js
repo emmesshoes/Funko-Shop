@@ -4,7 +4,7 @@ import Usuario from '../models/usuariosModel.js';
 
 const CarritosController = {
 
-
+  
   // Crear carrito para un cliente
 createCart: async (usuarioId) => {
   try {
@@ -31,7 +31,6 @@ createCart: async (usuarioId) => {
     });
 
     if (existingCart.length > 0){
-      // Si ya hay un carrito activo, puedes retornar toda su información
       return existingCart;
     }
 

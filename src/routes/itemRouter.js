@@ -16,6 +16,7 @@ routerItems.get('/:productId', async(req, res) => {
     const producto = await ProductosController.getProduct(req.params.productId);
     const productos = await ProductosController.getAllProducts();
     const counterValue = 1;
+    const carrito = req.session.carrito;
 
         // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (!req.session.user) {
@@ -27,7 +28,7 @@ routerItems.get('/:productId', async(req, res) => {
   console.log('EL PRODUCTO ES: ', producto);
 
     // Renderizar la vista de productos y pasar la variable productos
-    res.render("item", { counterValue, id_producto: producto, productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("item", { counterValue, producto: producto, productos: productos, carrito: carrito, loggedIn: req.session.loggedIn, email: req.session.user.email });
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });

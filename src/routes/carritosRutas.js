@@ -5,6 +5,23 @@ import authMiddleware from '../middleware/authMiddleware.js';
 const router = express.Router();
 //router.use(authMiddleware);
 
+router.get('/', async(req, res) => {
+  try {
+// Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
+if (!req.session.user) {
+  req.session.user = {};
+  req.session.user.email = "";
+}
+ 
+  res.render('carrito', { loggedIn: req.session.loggedIn, email: req.session.user.email });
+  //res.redirect('/productos/get-all');
+  //res.json(productos);
+} catch (error) {
+  console.error('Error al obtener datos desde la base de datos:', error);
+  res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
+}
+});
+
 router.post('/nuevo/:clienteId', async (req, res) => {
   const clienteId = req.params.clienteId;
 
