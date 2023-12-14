@@ -5,6 +5,7 @@ import {decodeTokenUser} from '../functions/jwtFunctions.js';
 import ProductosController from '../controllers/productosController.js'
 
 const router = express.Router();
+
 // Agregar un producto al carrito
 router.post('/add', async (req, res) => {
   const { productoId, cantidad } = req.body;
@@ -68,6 +69,10 @@ router.put('/carrito-elementos/update-price', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    if(!req.session.user.email){
+      return res.status(500).json({ mensaje: 'Debe loguearse para ver el carrito' });
+    }
+    
     const carritoId = req.session.carrito.carrito[0].id_carrito;
     
     // Obtener todos los elementos del carrito

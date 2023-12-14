@@ -1,10 +1,10 @@
 import carritoElementosFunctions from '../functions/carritoElementosFunctions.js';
-
+import CarritoService from '../services/carritoService.js';
 
 const CarritoElementosController = {
   addProductToCart: async (carritoId, productoId, cantidad, precioUnitario) => {
     try {
-      return await carritoElementosFunctions.addProductToCart(carritoId, productoId, cantidad, precioUnitario);
+      return await CarritoService.addProductToCart(carritoId, productoId, cantidad, precioUnitario);
     } catch (error) {
       throw error;
     }

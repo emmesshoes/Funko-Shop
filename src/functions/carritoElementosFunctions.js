@@ -15,11 +15,14 @@ async function addProductToCart(carritoId, productoId, cantidad, precioUnitario)
   }
 }
 
-async function updateProductQuantity(elementoId, nuevaCantidad) {
+async function updateProductQuantity(carritoId, productoId, cantidad) {
   try {
     const [_, affectedRows] = await CarritoElemento.update(
-      { cantidad: nuevaCantidad },
-      { where: { id: elementoId } }
+      { cantidad: cantidad },
+      {where: {
+        id_carrito: carritoId,
+        id_producto: productoId,
+      }},
     );
 
     return affectedRows;
@@ -53,10 +56,28 @@ async function getCartItems(carritoId) {
   }
 }
 
+async function getProductInCart(carritoId, productoId) {
+  try {
+    const elemento = await CarritoElemento.findOne({
+      where: {
+        id_carrito: carritoId,
+        id_producto: productoId,
+      },
+    });
+
+    return elemento;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
 export default {
   addProductToCart,
   updateProductQuantity,
   updateProductPrice,
   getCartItems,
+  getProductInCart,
 };
 

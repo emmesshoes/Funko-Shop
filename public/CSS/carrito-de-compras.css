@@ -12,7 +12,7 @@
 
 .section {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   box-sizing: border-box;
 }
 
@@ -104,20 +104,22 @@ p{
   
   margin-top: 20px;
   padding: 10px;
-  width: 50%; /* Ajusta el ancho según tus necesidades */
+  width: 40%; /* Ajusta el ancho según tus necesidades */
   margin-left: auto;
   margin-right: 10px;
 }
 
 .summary-title {
-  width: 100%;
+  float: right;
+  margin-right: 20px; /* Ajusta según sea necesario */
   text-align: right;
-  padding: 1.2em;
+  padding: 1px;
   text-decoration: underline;
   text-decoration-color: red;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
   font-size: 2.5em;
 }
+
 
 .summary-list {
   display: flex;
@@ -129,6 +131,7 @@ p{
   padding: 10px;
   box-sizing: border-box;
   font-size: 1.2em;
+  text-align: left; /* O el alineamiento que desees */
 }
 
 .summary-line2{
@@ -142,7 +145,7 @@ p{
 }
 
 .summary-button {
-  background-color: red;
+  background-color: rgb(217, 56, 23);
   color: white;
   border: none;
   padding: 10px;
