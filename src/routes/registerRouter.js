@@ -48,7 +48,6 @@ registerRouter.get('/register', async (req, res) => {
 
         req.session.user = { email: email };
 
-        // Redirigir al usuario al carrito después del registro exitoso
         res.redirect('/login');
 
     } catch (error) {

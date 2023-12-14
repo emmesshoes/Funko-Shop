@@ -37,7 +37,7 @@ loginRouter.get('/login', async (req, res) => {
 
   });
 
-  loginRouter.get('/ingresar', async (req, res) => {
+  loginRouter.get('/login', async (req, res) => {
      // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (req.session.user) {
     req.session.user.email = "";
