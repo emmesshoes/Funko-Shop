@@ -33,7 +33,7 @@ adminRouter.get('/agregar-prod', async (req, res) => {
   }
 });
 
-adminRouter.get('/editar-prod/', async (req, res) => {
+adminRouter.get('/editar-prod', async (req, res) => {
   try {
     res.render('editar-item', { loggedIn: req.session.loggedIn, email: req.session.user.email });
   } catch (error) {
@@ -42,7 +42,8 @@ adminRouter.get('/editar-prod/', async (req, res) => {
   }
 });  
 
-adminRouter.get('/eliminar-prod/', async (req, res) => {
+
+adminRouter.get('/eliminar-prod', async (req, res) => {
   try {
     res.json('Esta seguro de eliminar el producto?');
     //res.render('eliminar-producto', { loggedIn: req.session.loggedIn, email: req.session.user.email });

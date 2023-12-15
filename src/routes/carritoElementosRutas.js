@@ -2,8 +2,7 @@ import express from 'express';
 import CarritosController from '../controllers/carritosController.js';
 import CarritoElementosController from '../controllers/carritoElementosController.js'
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
-import ProductosController from '../controllers/productosController.js'
-
+import ProductoService from '../services/productosService.js';
 const router = express.Router();
 
 // Agregar un producto al carrito
@@ -21,7 +20,7 @@ router.post('/add', async (req, res) => {
     //const carrito = await CarritosController.createCart(tokenDecode.userId);
     const carritoId = req.session.carrito.carrito[0].id_carrito;
     //Obtengo el producto para obtener el precio
-    const producto = await ProductosController.getProduct(productoId);
+    const producto = await ProductoService.getProduct(productoId);
     const precioUnitario = producto.precio;
     //inserto en la tabla de elementos del carrito el producto con su precio y cantidad
     console.log('Datos para addProductToCart', carritoId, productoId, cantidad, precioUnitario);
@@ -80,7 +79,7 @@ router.get('/', async (req, res) => {
 
     // Obtener la información del producto asociado para cada elemento del carrito
     const productosPromises = carritoElementos.map(async (elemento) => {
-      const producto = await ProductosController.getProduct(elemento.id_producto);
+      const producto = await ProductoService.getProduct(elemento.id_producto);
       return { elemento, producto };
     });
 

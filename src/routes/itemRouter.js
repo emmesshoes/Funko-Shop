@@ -1,5 +1,5 @@
 import express from 'express';
-import ProductosController from '../controllers/productosController.js';
+import ProductoService from '../services/productosService.js';
 //import authMiddleware from '../middleware/authMiddleware.js';
 import path from 'path';
 import {fileURLToPath} from 'url';
@@ -13,8 +13,8 @@ const routerItems = express.Router();
 routerItems.get('/:productId', async(req, res) => {
   try {
     // Obtener productos desde la base de datos o donde los tengas almacenados
-    const producto = await ProductosController.getProduct(req.params.productId);
-    const productos = await ProductosController.getAllProducts();
+    const producto = await ProductoService.getProduct(req.params.productId);
+    const productos = await ProductoService.getAllProducts();
     const counterValue = 1;
     const carrito = req.session.carrito;
 

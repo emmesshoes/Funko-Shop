@@ -1,5 +1,5 @@
 import Venta from '../models/ventasModel.js';
-import Producto from '../controllers/productosController.js';
+import Producto from '../services/productosService.js';
 import Carritos from '../models/carritosModel.js'; // Asegúrate de ajustar la ruta según tu estructura de carpetas y configuración
 //const Carritos = require ('../controllers/carritosController');
 import sequelize from '../config/sequelize.js';

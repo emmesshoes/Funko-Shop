@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import ProductosController from '../controllers/productosController.js';
+import ProductoService from '../services/productosService.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import ejs from 'ejs';
 
@@ -23,7 +23,7 @@ const upload = multer({ storage: storage });
 routerProductos.get('/', async(req, res) => {
   try {
     // Obtener productos desde la base de datos o donde los tengas almacenados
-    const productos = await ProductosController.getAllProducts();
+    const productos = await ProductoService.getAllProducts();
 
         // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (!req.session.user) {
@@ -57,7 +57,7 @@ routerProductos.get('/', async(req, res) => {
 // routerProductos.js
 routerProductos.get('/get-all', async (req, res) => {
   try {
-    const productos = await ProductosController.getAllProducts();
+    const productos = await ProductoService.getAllProducts();
     if (!req.session.user) {
       req.session.user = {};
       req.session.user.email = "";
@@ -104,7 +104,7 @@ routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 
     const filePathBack = req.files['imagen_back'][0].path;
 
     // Llamada a la función del controlador para agregar el producto
-    const productId = await ProductosController.addProduct({
+    const productId = await ProductoService.addProduct({
       categoria,
       licencia,
       nombre,
@@ -127,7 +127,7 @@ routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 
 
 routerProductos.post('/edit', async (req, res) => {
   try {
-    await ProductosController.editProduct(req.body);
+    await ProductoService.editProduct(req.body);
     res.json({ message: 'Product edited successfully' });
   } catch (error) {
     console.error('Error editing product:', error);
@@ -138,7 +138,7 @@ routerProductos.post('/edit', async (req, res) => {
 routerProductos.get('/get/:productId', async (req, res) => {
   try {
     console.log(req.params.productId);
-    const product = await ProductosController.getProduct(req.params.productId);
+    const product = await ProductoService.getProduct(req.params.productId);
     res.json(product);
   } catch (error) {
     console.error('Error getting product:', error);
@@ -148,7 +148,7 @@ routerProductos.get('/get/:productId', async (req, res) => {
 
 routerProductos.delete('/delete/:productId', async (req, res) => {
   try {
-    await ProductosController.deleteProduct(req.params.productId);
+    await ProductoService.deleteProduct(req.params.productId);
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
     console.error('Error deleting product:', error);

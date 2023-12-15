@@ -5,7 +5,7 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import ejs from 'ejs';
-import ProductosController from '../controllers/productosController.js';
+import ProductoService from '../services/productosService.js';
 import MainController from '../controllers/mainController.js';
 
 
@@ -20,7 +20,7 @@ router.get('/', async(req, res) => {
     req.session.user.email = "";
   }
     // Obtener productos desde la base de datos o donde los tengas almacenados
-    const productos = await ProductosController.getAllProducts();
+    const productos = await ProductoService.getAllProducts();
 
     res.render('index', { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
     //res.redirect('/productos/get-all');
