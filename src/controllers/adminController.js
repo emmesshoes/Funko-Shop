@@ -29,8 +29,7 @@ const AdminController = {
         currentPage: currentPage,
         totalPaginas: totalPaginas,
       }
-      
-      console.log('-------------INFOPRODUCTOS--------------', infoProductos)
+    
       return infoProductos;
 
       } catch (error) {
