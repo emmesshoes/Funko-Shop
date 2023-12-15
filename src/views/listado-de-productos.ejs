@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home  |  Funkoshop</title>
+    <
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/header.css">
+    <link rel="stylesheet" href="../CSS/listado-de-productos.css">
+    <link rel="stylesheet" href="../CSS/footer.css">   
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    
+</head>
+
+<body>    
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <%- include('../views/partials/header')%>
+    <main>
+
+    <div class="titulo">
+        <h1 class="titulo">Listado de productos</h1>
+
+        <div class="agregar-btn">
+            <span class="texto">AGREGAR</span>
+            <div class="mas" onclick="redirigir()" title="Agregar productos">+</div>
+        </div>
+    </div>
+
+    <form action="#" method="post">
+        <table>
+            <!-- Encabezado de la tabla -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre del producto</th>
+                    <th>Categoría</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla -->
+            <tbody>
+                <% productos.forEach(producto => { %>
+                    <tr>
+                        <td><%= producto.id_producto %></td>
+                        <td><%= producto.sku %></td>
+                        <td><%= producto.nombre %></td>
+                        <td><%= producto.categoria %></td>
+                        <td><img src="../img/icons/edit_pencil.svg" alt="Editar" class="lapiz" data-id="<%= producto.id %>"></td>
+                        <td><img src="../img/icons/delete_trash.svg" alt="Eliminar" class="lapiz" data-id="<%= producto.id %>"></td>
+                    </tr>
+                <% }); %>
+                
+                
+            </tbody>
+        </table>
+        <!-- Pagination -->
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center pagination-m">
+                <% for (let i = 1; i <= totalPaginas; i++) { %>
+                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                        <a class="page-link" style="color: black; font-size: 700;" href="/admin?page=<%= i %>"><%= i %></a>
+                    </li>
+                <% } %>
+            </ul>
+        </nav>
+    </form>
+
+       
+    </main>
+   
+    <%- include('../views/partials/footer')%>   
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script>
+        function redirigir() {
+            // Puedes usar window.location.href para redirigir a la ruta deseada
+            window.location.href = "/admin/agregar-prod";
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const lapizIcons = document.querySelectorAll('.lapiz');
+    
+            lapizIcons.forEach(function (icon) {
+                icon.addEventListener('click', function () {
+                    const productId = icon.getAttribute('data-id');
+    
+                    // Determina si el ícono es de editar o eliminar y redirige en consecuencia
+                    if (icon.src.includes('edit_pencil.svg')) {
+                        window.location.href = `/admin/editar-prod/${productId}`;
+                    } else if (icon.src.includes('delete_trash.svg')) {
+                        window.location.href = `/admin/eliminar-prod/${productId}`;
+                    } 
+
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

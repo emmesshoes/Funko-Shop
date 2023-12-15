@@ -11,6 +11,7 @@ import ejs from 'ejs';
 import CarritosController from '../controllers/carritosController.js';
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
 
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
@@ -75,7 +76,9 @@ loginRouter.get('/login', async (req, res) => {
 
       // Redirige al usuario según si es administrador o no
       if (isAdminMode) {
-        res.render("consola-admin2", { loggedIn: req.session.loggedIn, email: req.session.user.email });
+        
+        res.redirect("/admin");
+
       } else {
         console.log('TOKEN: ', token);
         const decodedToken = decodeTokenUser(token);
