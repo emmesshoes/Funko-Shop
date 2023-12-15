@@ -40,5 +40,10 @@
     height: auto; /* Mantiene la proporción del logo */
 }
 
+.img-carrito{
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
 /* Otras reglas de estilo necesarias */
 

@@ -1,4 +1,13 @@
 <!-- En tu archivo de plantilla EJS (header.ejs) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home  |  Funkoshop</title>   
+    <script src="../../public/js/header.js"></script>
+</head>        
+<body>
     <header>
         <nav class="navbar">
             <picture class="navbar__logo">
@@ -40,15 +49,24 @@
                         <a class="navbar__link" href="/register">REGISTRARSE</a>
                     <% } %>
                 </li>
-                
-                  
-                <li class="navbar__item">
-                    <a class="navbar__cart" href="/carrito-elementos">
-                        <img src="../img/icons/cart-icon.svg" alt="ícono de carrito">
-                    </a>
-                </li>
 
+                <li class="navbar__item">
+                    <% if (loggedIn) { %>
+                        <a class="navbar__cart" href="/carrito-elementos">
+                            <img src="../img/icons/cart-icon.svg" alt="ícono de carrito">
+                        </a>
+                    <% } else { %>    
+                        <button type="button" class="navbar__link" id="cartLink" onclick="mostrarAlerta()" style="background-color: transparent; border: none; color: white; cursor: pointer;">
+                            <img src="../img/icons/cart-icon.svg" class="img-carrito" alt="ícono de carrito">
+                        </button>
+                    <% } %>    
+                    
+
+                </li>
+                
             </ul>
         </nav>
         
     </header>
+    <script src="../../public/js/header.js"></script>
+</body>
