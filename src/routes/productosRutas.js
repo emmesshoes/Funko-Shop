@@ -24,8 +24,12 @@ const upload = multer({ storage: storage });
 routerProductos.get('/', async(req, res) => {
   try {
 
+    if (!req.session.user) {
+      req.session.user = {};
+      req.session.user.email = "";
+    }
     const infoProductos = await ProductosController.getAllProducts(res, req);  
-    return res.render("listado-de-productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });  
+    return res.render("productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });  
     
   } catch (error) {
     console.error('Error al obtener productos:', error);
@@ -36,7 +40,7 @@ routerProductos.get('/', async(req, res) => {
 // routerProductos.js
 routerProductos.get('/get-all', async (req, res) => {
   try {
-    const productos = await ProductoService.getAllProducts();
+    const productos = await ProductosController.getAllProducts(req, res);
     if (!req.session.user) {
       req.session.user = {};
       req.session.user.email = "";
@@ -83,7 +87,7 @@ routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 
     const filePathBack = req.files['imagen_back'][0].path;
 
     // Llamada a la función del controlador para agregar el producto
-    const productId = await ProductoService.addProduct({
+    const productId = await ProductosController.addProduct({
       categoria,
       licencia,
       nombre,
@@ -106,7 +110,7 @@ routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 
 
 routerProductos.post('/edit', async (req, res) => {
   try {
-    await ProductoService.editProduct(req.body);
+    await ProductosController.editProduct(req.body);
     res.json({ message: 'Product edited successfully' });
   } catch (error) {
     console.error('Error editing product:', error);
@@ -117,7 +121,7 @@ routerProductos.post('/edit', async (req, res) => {
 routerProductos.get('/get/:productId', async (req, res) => {
   try {
     console.log(req.params.productId);
-    const product = await ProductoService.getProduct(req.params.productId);
+    const product = await ProductosController.getProduct(req.params.productId);
     res.json(product);
   } catch (error) {
     console.error('Error getting product:', error);
@@ -127,7 +131,7 @@ routerProductos.get('/get/:productId', async (req, res) => {
 
 routerProductos.delete('/delete/:productId', async (req, res) => {
   try {
-    await ProductoService.deleteProduct(req.params.productId);
+    await ProductosController.deleteProduct(req.params.productId);
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
     console.error('Error deleting product:', error);

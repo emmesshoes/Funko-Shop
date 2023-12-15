@@ -1,7 +1,21 @@
 // controllers/productosController.js
 import ProductoService from '../services/productosService.js'
 
+
 const ProductosController = {
+  
+  getProducts: async (res, req) => {
+    try {
+      // Obtener productos desde la base de datos o donde los tengas almacenados
+      const productos = await ProductoService.getAllProducts();
+      return productos;
+
+      } catch (error) {
+        console.error('Error al obtener productos:', error);
+        res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });
+      }
+  },
+
   getAllProducts: async (res, req) => {
     try {
       // Obtener productos desde la base de datos o donde los tengas almacenados
