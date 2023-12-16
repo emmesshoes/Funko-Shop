@@ -52,8 +52,8 @@
                         <td><%= producto.sku %></td>
                         <td><%= producto.nombre %></td>
                         <td><%= producto.categoria %></td>
-                        <td><img src="../img/icons/edit_pencil.svg" alt="Editar" class="lapiz" data-id="<%= producto.id %>"></td>
-                        <td><img src="../img/icons/delete_trash.svg" alt="Eliminar" class="lapiz" data-id="<%= producto.id %>"></td>
+                        <td><img src="../img/icons/edit_pencil.svg" alt="Editar" class="lapiz" data-id="<%= producto.id_producto %>"></td>
+                        <td><img src="../img/icons/delete_trash.svg" alt="Eliminar" class="lapiz" data-id="<%= producto.id_producto %>"></td>
                     </tr>
                 <% }); %>
                 
@@ -89,7 +89,8 @@
     
             lapizIcons.forEach(function (icon) {
                 icon.addEventListener('click', function () {
-                    const productId = icon.getAttribute('data-id');
+                    const productId = icon.dataset.id;
+                    console.log('productId:', productId);
     
                     // Determina si el ícono es de editar o eliminar y redirige en consecuencia
                     if (icon.src.includes('edit_pencil.svg')) {

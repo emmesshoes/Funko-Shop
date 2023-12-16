@@ -20,7 +20,7 @@
     <main>
 
         <h1>EDITAR ITEM</h1>
-        <form class="formulario">
+        <form action="/admin/editar-prod/<%= productId %>" method="post">
             <div class="fila1">
               <div class="campo-doble">
                 <label for="categoria" >Categoría:</label>
@@ -56,11 +56,11 @@
             <div class="fila4">
               <div class="campo-seis">
                 <label for="sku">SKU:</label>
-                <input type="text" id="sku" name="sku" class="margen-inferior-rojo2">
+                <input type="text" value="<%= producto.sku %>"id="sku" name="sku" class="margen-inferior-rojo2">
               </div>
               <div class="campo-seis">
                 <label for="precio">Precio:</label>
-                <input type="text" id="precio" name="precio" class="margen-inferior-rojo2">
+                <input type="text" value="<%= producto.precio %>" id="precio" name="precio" class="margen-inferior-rojo2">
               </div>
               <div class="campo-seis">
                 <label for="stock">Stock:</label>
@@ -71,7 +71,7 @@
             <div class="fila5">
               <div class="campo-doble">
                 <label for="descuento">Descuento:</label>
-                <input type="text" id="descuento" name="descuento" class="margen-inferior-rojo2">
+                <input type="text" value="<%= producto.descuento %>" id="descuento" name="descuento" class="margen-inferior-rojo2">
                 </div>             
               <div class="campo-doble">
                 <label for="cuotas">Cuotas:</label>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="boton">
-              <button>Modificar producto</button>
+              <button type="submit">Modificar producto</button>
             </div>
             
           </form>
