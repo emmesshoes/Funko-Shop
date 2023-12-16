@@ -23,28 +23,22 @@ const ProductoService = {
 
   editProduct: async (editedProduct) => {
     try {
-      // Verificar si 'cuotas' es un número válido antes de la actualización
-      if (editedProduct.cuotas !== null && !isNaN(editedProduct.cuotas)) {
-        editedProduct.cuotas = parseInt(editedProduct.cuotas);
-      } else {
-        // Si 'cuotas' no es un número válido, puedes asignar un valor predeterminado o manejarlo de otra manera
-        editedProduct.cuotas = 0; // O el valor predeterminado que desees
-      }
-  
-      await Producto.update(editedProduct, {
+      const result= await Producto.update(editedProduct, {
         where: {
           id_producto: editedProduct.id_producto,
         },
       });
+      return result;
     } catch (error) {
       throw error;
     }
   },
 
-
   getProduct: async (productId) => {
     try {
-      return await Producto.findByPk(productId);
+      const result = await Producto.findByPk(productId);
+      const producto = result.dataValues;
+      return producto;
     } catch (error) {
       throw error;
     }

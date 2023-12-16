@@ -62,6 +62,15 @@ const ProductosController = {
 
   editProduct: async (editedProduct) => {
     try {
+
+      if(editedProduct.filePathFront)
+      // Verificar si 'cuotas' es un número válido antes de la actualización
+      if (editedProduct.cuotas !== null && !isNaN(editedProduct.cuotas)) {
+        editedProduct.cuotas = parseInt(editedProduct.cuotas);
+      } else {
+        // Si 'cuotas' no es un número válido, puedes asignar un valor predeterminado o manejarlo de otra manera
+        editedProduct.cuotas = 0; // O el valor predeterminado que desees
+      }
       const editProduct = await ProductoService.editProduct(editedProduct);
       return editProduct;
     } catch (error) {

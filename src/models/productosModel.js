@@ -8,7 +8,6 @@ const Producto = sequelize.define('Producto', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    allowNull: false,
   },
   sku: {
     type: DataTypes.STRING,
@@ -20,15 +19,12 @@ const Producto = sequelize.define('Producto', {
   },
   licencia: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   categoria: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   descripcion: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   precio: {
     type: DataTypes.DECIMAL(10, 2),
@@ -48,11 +44,9 @@ const Producto = sequelize.define('Producto', {
   },
   imagen_front: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   imagen_back: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
 });
 

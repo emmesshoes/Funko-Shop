@@ -4,78 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home  |  Funkoshop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
+
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/footer.css">
     <link rel="stylesheet" type="text/css" href="/css/editar-item.css">
     
+   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    
 </head>
 
 
 <body>    
     
   <%- include('../views/partials/header')%>
-    <main>
-
+  <main>
         <h1>EDITAR ITEM</h1>
-        <form action="/admin/editar-prod/<%= productId %>" method="post">
+        <form id="editar-producto-form" action="/productos/edit" class="container" method="post" enctype="multipart/form-data">
             <div class="fila1">
               <div class="campo-doble">
                 <label for="categoria" >Categoría:</label>
                 <select id="categoria" name="categoria"  class="completar_campo1" >
+                  <option value="opcion-default" selected>"<%= producto.categoria %>"</option>
                   <option value="opcion1">Figuras</option>
                   <option value="opcion2">Remeras</option>
-                  <option value="opcion2">Llaveros</option>                 
+                  <option value="opcion2">Llaveros</option>
                 </select>
               </div>
               <div class="campo-doble">
                 <label for="licencia" class="licencia">Licencia:</label>
                 <select id="licencia" name="licencia" class="completar_campo1">
+                  <option value="opcion-default">"<%= producto.licencia %>"</option>
                   <option value="opcion1">Naruto</option>
                   <option value="opcion2">Pokemon</option>
-                  <option value="opcion2">Star Wars</option>                  
+                  <option value="opcion2">Star Wars</option>
                 </select>
               </div>
             </div>
-            
             <div class="fila2">
               <div class="campo">
                 <label for="nombreProducto">Nombre del Producto:</label>
-                <input type="text" id="nombreProducto" name="nombreProducto" class="margen-inferior-rojo">
+                <input type="text" id="nombreProducto" name="nombreProducto" class="margen-inferior-rojo" value="<%= producto.nombre %>">
               </div>
             </div>
 
             <div class="fila3">
-              <div class="campo">                
-                <textarea id="descripcion" name="descripcion" class="completar_campo"></textarea>
+              <div class="campo">
+                <textarea id="descripcion" name="descripcion" class="completar_campo">"<%= producto.descripcion %>"</textarea>
               </div>
             </div>
 
             <div class="fila4">
               <div class="campo-seis">
                 <label for="sku">SKU:</label>
-                <input type="text" value="<%= producto.sku %>"id="sku" name="sku" class="margen-inferior-rojo2">
+                <input type="text" id="sku" name="sku" class="margen-inferior-rojo2 "value="<%= producto.sku %>">
               </div>
               <div class="campo-seis">
                 <label for="precio">Precio:</label>
-                <input type="text" value="<%= producto.precio %>" id="precio" name="precio" class="margen-inferior-rojo2">
+                <input type="text" id="precio" name="precio" class="margen-inferior-rojo2" value="<%= producto.precio %>">
               </div>
               <div class="campo-seis">
                 <label for="stock">Stock:</label>
-                <input type="text" id="stock" name="stock" class="margen-inferior-rojo2">
+                <input type="text" id="stock" name="stock" class="margen-inferior-rojo2" value="<%= producto.stock %>">
               </div>
             </div>
 
             <div class="fila5">
               <div class="campo-doble">
                 <label for="descuento">Descuento:</label>
-                <input type="text" value="<%= producto.descuento %>" id="descuento" name="descuento" class="margen-inferior-rojo2">
+                <input type="text" id="descuento" name="descuento" class="margen-inferior-rojo2" value="<%= producto.descuento %>">
                 </div>             
               <div class="campo-doble">
                 <label for="cuotas">Cuotas:</label>
                 <select id="cuotas" name="cuotas" class="completar_campo4">
+                  <option value="opcion-default">"<%= producto.cuotas %>"</option>
                   <option value="opcion1">6 cuotas sin interes</option>
                   <option value="opcion2">3 cuotas sin interes</option>
                   <option value="opcion2">1 cuota sin interes</option>
@@ -83,18 +89,27 @@
               </div>
             </div>
 
-            <div class="fila6">
-              <label for="imagen">Imágenes:</label>
-              <input type="file" id="imagen" name="imagen" accept="image/png, image/jpeg" />
+           
+            <div class="image-container">
+              <% const rutaCompletaFront = producto.imagen_front || ''; %>
+              <% const rutaCompletaBack = producto.imagen_back || ''; %>
+              <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+              <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+              <label for="imagen_front">Imágen Front:</label>
+              <input type="file" name="imagen_front" id="imagen_front" class="imag" onchange="updateFileLabel(this, 'frontLabel')">
+              <span id="frontLabel"><%= rutaRelativaFront %></span>
+              <label for="imagen_back">Imágen Back:</label>
+              <input type="file" name="imagen_back" id="imagen_back" class="imag" onchange="updateFileLabel(this, 'backLabel')">
+              <span id="backLabel"><%= rutaRelativaBack %></span>
             </div>
 
             <div class="fila7">
               <figure class="figure">
-                <img src="../img/pokemon/pikachu-1.webp" alt="Descripción de la imagen 1" class="margen-inferior-rojo2" >
+                <img src="<%= rutaRelativaFront %>" alt="Descripción de la imagen 1" class="margen-inferior-rojo2" >
                 <figcaption>FRENTE</figcaption>
-              </figure>            
+              </figure>
               <figure class="figure">
-                <img src="../img/pokemon/pikachu-box.webp" alt="Descripción de la imagen 2" class="margen-inferior-rojo2">
+                <img src="<%= rutaRelativaBack %>" alt="Descripción de la imagen 2" class="margen-inferior-rojo2">
                 <figcaption>DORSO</figcaption>
               </figure>
             </div>
@@ -102,11 +117,18 @@
             <div class="boton">
               <button type="submit">Modificar producto</button>
             </div>
-            
           </form>
-    </main>
+        </main>
     <%- include('../views/partials/footer')%>
          
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script>
+      function updateFileLabel(input, labelId) {
+          const label = document.getElementById(labelId);
+          if (input.files.length > 0) {
+              label.textContent = input.files[0].name; // Muestra el nombre del archivo seleccionado
+          }
+      }
+  </script>
 </body>
 </html>
