@@ -15,7 +15,7 @@ adminRouter.use(bodyParser.json());
 adminRouter.get('/', async (req, res) => {
   try {
     const infoProductos = await AdminController.getAllProductsAdmin(res, req);  
-    return res.render("listado-de-productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });  
+    return res.status(200).render("listado-de-productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });  
     
   } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
