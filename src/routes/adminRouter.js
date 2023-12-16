@@ -43,7 +43,7 @@ adminRouter.get('/editar-prod/:productId', async (req, res) => {
     }
     const producto = await AdminController.getProductAdmin(req, res);
 
-    console.log("Este es el nombre del producto", producto.nombre);
+    console.log("Este es el ID del producto", producto.id_producto);
 
     // Redirigir a la página de listado o a donde desees después de la edición
     res.render('editar-item', { producto: producto, loggedIn: req.session.loggedIn, email: req.session.user.email });
@@ -63,8 +63,8 @@ adminRouter.post('/editar-prod/:productId', async (req, res) => {
     }
     const producto = AdminController.getProductAdmin(req, res);
     // Redirigir a la página de listado o a donde desees después de la edición
-    //res.status(200).render('editar-item', { producto: producto, loggedIn: req.session.loggedIn, email: req.session.user.email });
-    res.status(200).render('editar-item', { loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.status(200).render('editar-item', { producto: producto, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    //res.status(200).render('editar-item', { loggedIn: req.session.loggedIn, email: req.session.user.email });
   } catch (error) {
     console.error('Error al actualizar el producto:', error);
     res.status(500).json({ error: 'Error al actualizar el producto en la base de datos' });

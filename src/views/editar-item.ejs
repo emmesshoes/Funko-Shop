@@ -25,11 +25,15 @@
   <main>
         <h1>EDITAR ITEM</h1>
         <form id="editar-producto-form" action="/productos/edit" class="container" method="post" enctype="multipart/form-data">
+          <div class="campo" >
+            <label for="id_producto">Id del Producto:</label>
+            <input type="text" id="id_producto" name="id_producto" class="idProducto" value="<%= producto.id_producto %>">
+          </div>
             <div class="fila1">
               <div class="campo-doble">
                 <label for="categoria" >Categoría:</label>
                 <select id="categoria" name="categoria"  class="completar_campo1" >
-                  <option value="opcion-default" selected>"<%= producto.categoria %>"</option>
+                  <option value="<%= producto.categoria %>" selected>"<%= producto.categoria %>"</option>
                   <option value="opcion1">Figuras</option>
                   <option value="opcion2">Remeras</option>
                   <option value="opcion2">Llaveros</option>
@@ -38,7 +42,7 @@
               <div class="campo-doble">
                 <label for="licencia" class="licencia">Licencia:</label>
                 <select id="licencia" name="licencia" class="completar_campo1">
-                  <option value="opcion-default">"<%= producto.licencia %>"</option>
+                  <option value="<%= producto.licencia %>">"<%= producto.licencia %>"</option>
                   <option value="opcion1">Naruto</option>
                   <option value="opcion2">Pokemon</option>
                   <option value="opcion2">Star Wars</option>
@@ -81,10 +85,10 @@
               <div class="campo-doble">
                 <label for="cuotas">Cuotas:</label>
                 <select id="cuotas" name="cuotas" class="completar_campo4">
-                  <option value="opcion-default">"<%= producto.cuotas %>"</option>
-                  <option value="opcion1">6 cuotas sin interes</option>
-                  <option value="opcion2">3 cuotas sin interes</option>
-                  <option value="opcion2">1 cuota sin interes</option>
+                  <option value="<%= producto.cuotas %>" selected>"<%= producto.cuotas %>"</option>
+                  <option value="3">3 cuotas sin interes</option>
+                  <option value="6">6 cuotas sin interes</option>
+                  <option value="12">12 cuota sin interes</option>
                 </select>
               </div>
             </div>

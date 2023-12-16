@@ -87,25 +87,36 @@ routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 
 
 routerProductos.post('/edit', upload.fields([{ name: 'imagen_front', maxCount: 1 }, { name: 'imagen_back', maxCount: 1 }]), async (req, res) => {
   // Accede a los datos enviados desde el formulario
-  const { categoria, licencia, nombre, descripcion, sku, precio, stock, descuento, cuotas } = req.body;
+  const { id_producto, categoria, licencia, nombre, descripcion, sku, precio, stock, descuento, cuotas } = req.body;
+
+  console.log('+++++++++++++++++++++++++++++++++++++++++++++++++');
+  console.log('body: ', req.body);
+  console.log('+++++++++++++++++++++++++++++++++++++++++++++++++');
 
   try {
-    // Accede a las rutas de los archivos (imágenes) como desees
-    const filePathFront = req.files['imagen_front'][0].path;
-    const filePathBack = req.files['imagen_back'][0].path;
+    // Verifica si existen los archivos en req.files antes de acceder a sus propiedades
+    const filePathFront = req.files && req.files['imagen_front'] && req.files['imagen_front'][0] ? req.files['imagen_front'][0].path : '';
+    const filePathBack = req.files && req.files['imagen_back'] && req.files['imagen_back'][0] ? req.files['imagen_back'][0].path : '';
+
+       // Verifica si id_producto es un número válido
+    const parsedId = parseInt(id_producto);
+    if (isNaN(parsedId) || !Number.isInteger(parsedId)) {
+      throw new Error('Invalid id_producto');
+    }
 
     console.log('producto a editar**************** : ', req.body);
     // Llamada a la función del controlador para agregar el producto
     const productId = await ProductosController.editProduct({
+      id_producto: parsedId,
       categoria,
       licencia,
       nombre,
       descripcion,
       sku,
-      precio,
-      stock,
-      descuento,
-      cuotas,
+      precio: parseFloat(precio),
+      stock: parseInt(stock),
+      descuento: parseFloat(descuento),
+      cuotas: parseInt(cuotas),
       imagen_front: filePathFront,
       imagen_back: filePathBack,
     });

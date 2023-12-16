@@ -61,18 +61,39 @@ const ProductosController = {
   },
 
   editProduct: async (editedProduct) => {
+    const {
+      id_producto,
+      categoria,
+      licencia,
+      nombre,
+      descripcion,
+      sku,
+      precio,
+      stock,
+      descuento,
+      cuotas,
+      imagen_front,
+      imagen_back } = editedProduct;
     try {
 
-      if(editedProduct.filePathFront)
-      // Verificar si 'cuotas' es un número válido antes de la actualización
-      if (editedProduct.cuotas !== null && !isNaN(editedProduct.cuotas)) {
-        editedProduct.cuotas = parseInt(editedProduct.cuotas);
-      } else {
-        // Si 'cuotas' no es un número válido, puedes asignar un valor predeterminado o manejarlo de otra manera
-        editedProduct.cuotas = 0; // O el valor predeterminado que desees
-      }
-      const editProduct = await ProductoService.editProduct(editedProduct);
-      return editProduct;
+      const existingProduct = ProductoService.getProduct(id_producto);
+      
+      // Filtrar valores no deseados y asegurarse de que los tipos de datos sean correctos
+      const validUpdatedProductData = {
+        categoria: categoria || existingProduct.categoria,
+        licencia: licencia || existingProduct.licencia,
+        descripcion: descripcion || existingProduct.descripcion,
+        sku: sku || existingProduct.sku,
+        precio: precio || existingProduct.precio,
+        stock: stock || existingProduct.stock,
+        descuento: descuento || existingProduct.descuento,
+        cuotas: cuotas || existingProduct.cuotas,
+        imagen_front: imagen_front || existingProduct.imagen_front,
+        imagen_back: imagen_back || existingProduct.imagen_back,
+      };
+      
+      const editadoProduct = await ProductoService.editProduct({ id_producto: id_producto, ...validUpdatedProductData });
+      return editadoProduct;
     } catch (error) {
       throw error;
     }
