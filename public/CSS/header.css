@@ -19,7 +19,7 @@
     border: none;
     color: white;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .navbar__logout {

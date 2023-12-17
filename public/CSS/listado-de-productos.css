@@ -108,3 +108,10 @@ input {
     color: rgb(226, 51, 51); 
     background-color:rgb(230, 221, 221); ;
 }
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #000000 !important;
+    background-color:#f2f2f2 !important;
+    border-color: #f2f2f2!important;
+}
