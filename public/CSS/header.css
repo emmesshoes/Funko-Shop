@@ -45,5 +45,8 @@
     transition: color 0.3s ease-in-out;
 }
 
-/* Otras reglas de estilo necesarias */
+#bt-logou:hover {
+    color: #45a049;
+}
+
 

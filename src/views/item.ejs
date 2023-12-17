@@ -104,6 +104,7 @@
                             <div class="card border-0">
                                 <!-- Imagen -->
                                 <picture class="card-item__cover">
+                                    
                                     <% const rutaCompletaFront = productoSeleccionado.imagen_front; %>
                                     <% const rutaCompletaBack = productoSeleccionado.imagen_back; %>
                                     <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
@@ -149,16 +150,18 @@
                     <% productos.forEach(producto => { %>
                         <li class="slider__item glide__slide">
                             <article class="card-item">
-                                <a class="card-item__link" href="<%= producto.url %>">
+                                
                                     <picture class="card-item__cover">
-                                        <% const rutaCompletaFront = producto.imagen_front; %>
-                                        <% const rutaCompletaBack = producto.imagen_back; %>
-                                        <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                                        <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
-                                        
-                                        <span class="card-item__tag"><%= producto.nuevo ? 'Nuevo' : '' %></span>
-                                        <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
-                                        <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
+                                        <a class="card-item__link" href="/item/<%= producto.id_producto %>">
+                                            <% const rutaCompletaFront = producto.imagen_front; %>
+                                            <% const rutaCompletaBack = producto.imagen_back; %>
+                                            <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                            <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+                                            
+                                            <span class="card-item__tag"><%= producto.nuevo ? 'Nuevo' : '' %></span>
+                                            <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
+                                            <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
+                                        </a>
                                     </picture>
                                     <div class="card-item__content">
                                         <p class="card-item__licence"><%= producto.categoria %></p>
@@ -170,7 +173,7 @@
                                         <% } %>
                                         <div class="card-item__promo"><%= producto.cuotas %></div>
                                     </div>
-                                </a>
+                                
                             </article>
                         </li>
                     <% }); %>

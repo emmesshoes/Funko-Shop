@@ -28,16 +28,14 @@ routerProductos.get('/', async(req, res) => {
       req.session.user = {};
       req.session.user.email = "";
     }
-    const infoProductos = await ProductosController.getAllProducts(res, req);  
-    return res.render("productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });  
-    
+    const infoProductos = await ProductosController.getAllProducts(res, req);
+    return res.render("productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });
   }
 });
 
-// routerProductos.js
 routerProductos.get('/get-all', async (req, res) => {
   try {
     const productos = await ProductosController.getAllProducts(req, res);
@@ -121,7 +119,7 @@ routerProductos.post('/edit', upload.fields([{ name: 'imagen_front', maxCount: 1
       imagen_back: filePathBack,
     });
 
-    res.json({ message: 'Product edited successfully' });
+    res.json({ message: 'Producto editado con éxito!!!!' });
   } catch (error) {
     console.error('Error editing product:', error);
     res.status(500).json({ error: 'Error editing product in the database' });

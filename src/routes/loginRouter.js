@@ -48,7 +48,7 @@ loginRouter.get('/login', async (req, res) => {
     req.session.user.email = "";
   }
     req.session.loggedIn = false;
-    
+
     res.render("ingresar.ejs", { loggedIn: req.session.loggedIn, email: req.session.user.email });
 
   });
