@@ -65,18 +65,41 @@
         </table>
         <!-- Pagination -->
         <nav aria-label="Pagination">
-            <ul class="pagination justify-content-center pagination-m">
+            <ul class="pagination justify-content-center pagination-lg">
+                <!-- Botón 'Anterior' -->
+                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="/admin?page=<%= currentPage - 1 %>" tabindex="-1" aria-disabled="true">&lt;</a>
+                </li>
+        
+                <!-- Iteración para los números de página -->
                 <% for (let i = 1; i <= totalPaginas; i++) { %>
                     <li class="page-item <%= currentPage === i ? 'active' : '' %>">
                         <a class="page-link" style="color: black; font-size: 700;" href="/admin?page=<%= i %>"><%= i %></a>
                     </li>
                 <% } %>
+        
+                <!-- Botón 'Siguiente' -->
+                <li class="page-item <%= currentPage === totalPaginas ? 'disabled' : '' %>">
+                    <a class="page-link" href="/admin?page=<%= currentPage + 1 %>">&gt;</a>
+                </li>
             </ul>
         </nav>
     </form>
     </main>
    
-    
+    <!-- <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav> -->
     
     <%- include('../views/partials/footer')%>   
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
