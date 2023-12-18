@@ -22,7 +22,7 @@
   
       <!-- Primera sección -->
       <div class="section" style="margin-bottom: 10px;">
-        <div class="summary-box" style="padding: 10px; width: 100%;">
+        <div class="summary-box">
           <!-- Sección de elementos del carrito -->
           <div class="section">
             <div class="row-campos" >
@@ -44,7 +44,9 @@
                   </div>
                   
                   <div class="column">
-                    <span class="quantity-container"><%= info.elemento.cantidad %></span>
+                    <span class="quantity-container" data-product-id="<%= info.elemento.id_producto %>">
+                      <%= info.elemento.cantidad %>
+                    </span>
                     <div class="quantity-button-container">
                       <button class="quantity-button" onclick="updateQuantity('<%= info.elemento.id_producto %>', 'increment')">+</button>
                       <button class="quantity-button" onclick="updateQuantity('<%= info.elemento.id_producto %>', 'decrement')">-</button>
@@ -62,7 +64,7 @@
       <!-- Segunda sección -->
       <div class="section" style="display: flex; flex-direction: column; ">
         <div class="summary-title" style="margin-bottom: 10px; align-self: flex-end;">RESUMEN</div>
-        <div class="section" >
+        
           <div class="summary-list" style="margin-bottom: 10px; align-self: flex-end;">
             <div class="summary-column" style="text-align: left;">Cantidad de elementos</div>
             <div class="summary-column" style="text-align: right;"><%= cantidadTotal %></div>
@@ -76,10 +78,10 @@
             <div class="summary-column" style="text-align: left;">TOTAL</div>
             <div class="summary-column" style="text-align: right;">$<%= totalPagar %></div>
           </div>
-          <div class="container">
+          <div class="container-button">
             <button class="summary-button" >IR A PAGAR</button>
           </div>
-        </div>
+       
       </div> 
     </div>
   </main>
@@ -97,7 +99,8 @@
           // Puedes utilizar AJAX o fetch para enviar la actualización al servidor si es necesario
     
           // Por ahora, solo actualizamos la cantidad en el cliente
-          const quantityElement = document.querySelector(`[data-product-id="${productId}"] .column .quantity`);
+          const quantityElement = document.querySelector(`[data-product-id="${productId}"] .column .quantity-container`);
+          console.log('quantityElement: ',quantityElement);
           let currentQuantity = parseInt(quantityElement.textContent);
     
           if (action === 'increment') {

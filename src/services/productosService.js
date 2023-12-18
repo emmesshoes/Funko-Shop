@@ -37,8 +37,9 @@ const ProductoService = {
   getProduct: async (productId) => {
     try {
       const result = await Producto.findByPk(productId);
-      const producto = result.dataValues;
-      return producto;
+
+      //const producto = result.dataValues;
+      return result;
     } catch (error) {
       throw error;
     }

@@ -30,7 +30,7 @@
   display: flex;
   flex-wrap: wrap;
   border: 1px solid #ccc;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border-radius: 25px;
   font-size: 1.6em;
   background: rgba(250, 250, 255, 1);
@@ -38,10 +38,11 @@
 }
 
 .row-campos {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid #ccc;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border-radius: 16px;
   font-size: 1.6em;
   background: rgba(250, 250, 255, 1);
@@ -133,31 +134,32 @@ p{
 .summary-box {
   display: flex;
   flex-wrap: wrap;
-  
+  padding: 1px;
+  width: 100%;
   margin-top: 20px;
-  padding: 10px;
-  width: 40%; /* Ajusta el ancho según tus necesidades */
+  width: 100%;
   margin-left: auto;
   margin-right: 10px;
 }
 
 .summary-title {
   float: right;
-  margin-right: 20px; /* Ajusta según sea necesario */
+  margin-right: 10px; /* Ajusta según sea necesario */
   text-align: right;
   padding: 1px;
-  text-decoration: underline;
-  text-decoration-color: red;
-  margin-bottom: 1px;
   font-size: 2.5em;
+  display: inline-flex;
+  padding-bottom: 8px;
+  align-items: center;
+  gap: 1px;
+  border-bottom: 5px solid #F33;
 }
 
 
 .summary-list {
   float: right;
-  margin-right: 20px; /* Ajusta según sea necesario */
+  margin-right: 5px; /* Ajusta según sea necesario */
   display: flex;
-  align-self:flex-end;
   flex-wrap: wrap;
   width: 572px;
   height: 197px;
@@ -167,8 +169,6 @@ p{
   gap: 4px;
   background: rgba(250, 250, 255, 1);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-  
-  
 }
 
 .summary-column {
@@ -191,7 +191,7 @@ p{
 
 .summary-button {
   float: right;
-  margin-right: 20px; /* Ajusta según sea necesario */
+  margin-right: 0px; /* Ajusta según sea necesario */
   font-size: 32px;
   font-family: Inter;
   font-weight: 700;
@@ -202,12 +202,7 @@ p{
   border: none;
   padding: 10px;
   width: 572px;
- 
-  left: 673px;
   background: rgba(255, 51, 51, 1);
- 
-  float: right;
-  margin-right: 20px; /* Ajusta según sea necesario */
   
 }
 
@@ -216,6 +211,19 @@ p{
   color: rgba(255, 51, 51, 1);
   background-color:rgb(230, 221, 221);
 }
+
+.container-button {
+  display: flex;
+  align-items:self-end;
+  flex-direction: column;
+  float: right;
+  margin-right: 5px; /* Ajusta según sea necesario */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+}
+
 
 /* Media queries para dispositivos más pequeños */
 @media only screen and (max-width: 600px) {
@@ -256,7 +264,7 @@ p{
 }
 
 .quantity-button {
-  margin: 0 5px; /* Espaciado entre los botones y la cantidad */
+  margin: 0 10px; /* Espaciado entre los botones y la cantidad */
   width: 2em;
   height: 1em;
   background-color: rgba(234, 15, 15, 0.783);

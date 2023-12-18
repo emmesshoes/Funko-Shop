@@ -17,7 +17,7 @@ const sequelize = new Sequelize({
   host: dbHost,
   port: dbPort,
   username: dbUser,
-  //password: dbPassword,
+  password: dbPassword,
   database: dbName,
   define: {
     timestamps: false, // Si no deseas las columnas createdAt y updatedAt
