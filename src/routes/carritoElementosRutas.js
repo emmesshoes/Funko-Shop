@@ -34,10 +34,10 @@ router.post('/add', async (req, res) => {
 
 // Actualizar la cantidad de un producto en el carrito
 router.put('/update-quantity', async (req, res) => {
-  const { elementoId, nuevaCantidad } = req.body;
+  const { elementoId, action } = req.body;
   try {
-    const affectedRows = await CarritoElementosController.updateProductQuantity(elementoId, nuevaCantidad);
-    if (affectedRows > 0) {
+    const cantidad = await CarritoElementosController.updateProductQuantity(elementoId, cantidad);
+    if (cantidad >= 0) {
       res.json({ message: 'Cantidad de producto actualizada en el carrito' });
     } else {
       res.status(404).json({ error: 'Elemento del carrito no encontrado' });

@@ -203,7 +203,8 @@ p{
   padding: 10px;
   width: 572px;
   background: rgba(255, 51, 51, 1);
-  
+ 
+
 }
 
 
@@ -264,19 +265,23 @@ p{
 }
 
 .quantity-button {
-  margin: 0 10px; /* Espaciado entre los botones y la cantidad */
+  margin: 0 1px; /* Espaciado entre los botones y la cantidad */
   width: 2em;
-  height: 1em;
+  height: 1.5em;
   background-color: rgba(234, 15, 15, 0.783);
   color: white;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
   border: none;
   border-radius: 3px;
-  margin-top: 5px; /* Espaciado entre los botones */
-  display: block; /* Hace que los botones ocupen todo el ancho disponible */
-
+  margin-top: 1px; /* Espaciado entre los botones */
+  display: flex; /* Hace que los botones ocupen todo el ancho disponible */
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;  
 }
+
 
 .quantity-button:hover {
   color: rgba(234, 15, 15, 0.783);
@@ -292,10 +297,14 @@ p{
 
 .quantity-container {
   border: 1px solid #ccc; /* Borde del recuadro de la cantidad */
-  padding: 5px; /* Espaciado interno del recuadro */
-  margin-right: 5px; /* Espaciado entre el recuadro y los botones */
+  padding: 1px; /* Espaciado interno del recuadro */
   width: 4em;
-  height: 2.5em;
+  height: 3em;
+  display: flex; /* Hace que los botones ocupen todo el ancho disponible */
+  justify-content: center;
+  align-content: center;  
+  margin-top: 2px;
+
 }
 
 .quantity-button-container {
