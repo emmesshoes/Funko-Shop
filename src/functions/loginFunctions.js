@@ -5,12 +5,15 @@ import dotenv from 'dotenv';
 import Usuario from '../models/usuariosModel.js';
 import { Op } from 'sequelize';
 import bcrypt from 'bcrypt';
+import flash from 'express-flash';
+
 
 
 
 dotenv.config();
 
 const findUserByEmail = async (email) => {
+  
   try {
     const user = await Usuario.findOne({
       where: {
@@ -55,7 +58,7 @@ const findAdmin = async (email, plainPassword) => {
     return userAdmin;
 
   } catch (error) {
-    console.error('Error al buscar administrador por correo y contraseña:', error);
+    req.flash('error','Error al buscar administrador por correo y contraseña:');
     throw error;
   }
 };
@@ -72,7 +75,8 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
       // Si está en modo administrador, verifica las credenciales del administrador
       const isAdmin = await findAdmin(email, plainPassword);
       if (!isAdmin) {
-        throw new Error('Acceso denegado. Credenciales de administrador incorrectas.');
+         throw new Error('Acceso denegado. Credenciales de administrador incorrectas.');
+        
       }
 
       // Genera un token JWT para el administrador
@@ -84,13 +88,15 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
 
     // Si no está en modo administrador, verifica las credenciales del usuario
     if (!user) {
-      throw new Error('Correo electrónico o contraseña incorrectos');
+      req.flash('error', 'Correo electrónico o contraseña incorrectos');
+      return null;
     }
 
     const match = await comparePasswords(plainPassword, user.contrasena);
 
     if (!match) {
-      throw new Error('Correo electrónico o contraseña incorrectos');
+      req.flash('error', 'Correo electrónico o contraseña incorrectos');
+      return null;
     }
 
     // Genera un token JWT para el usuario
@@ -99,9 +105,11 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
     
 
     return tokenUser;
+
   } catch (error) {
     console.error('Error al procesar el formulario de inicio de sesión:', error);
-    throw new Error('Error interno del servidor');
+    req.flash('error', 'Error interno del servidor');
+    return null;
   }
 };
 

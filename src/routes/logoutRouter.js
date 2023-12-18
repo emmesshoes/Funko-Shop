@@ -19,7 +19,7 @@ logoutRouter.get('/logout', (req, res) => {
     // Puedes descomentar la siguiente línea si necesitas utilizar loggedIn
     // loggedIn = false;
     req.session.loggedIn = false;
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 logoutRouter.post('/logout', (req, res) => {
@@ -29,7 +29,7 @@ logoutRouter.post('/logout', (req, res) => {
             console.error('Error al cerrar sesión:', err);
             res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
         } else {
-            res.redirect('/shop'); // Reemplaza con la URL deseada
+            res.redirect('/login');
         }
     });
 });

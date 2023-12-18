@@ -10,6 +10,7 @@ import {fileURLToPath} from 'url';
 import ejs from 'ejs';
 import CarritosController from '../controllers/carritosController.js';
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
+import flash from 'express-flash';
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,19 +25,7 @@ loginRouter.use(bodyParser.json());
 
 
 
-loginRouter.get('/login', async (req, res) => {
-  console.log('estoy en /login')
-      // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
-  if (req.session.user) {
-    req.session.user.email = "";
-  } else {
-    // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
-    req.session.user = {};
-    req.session.user.email = "";
-  }
-    res.render("ingresar", { loggedIn: req.session.loggedIn, email: req.session.user.email });
 
-  });
 
   loginRouter.get('/login', async (req, res) => {
      // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
@@ -48,8 +37,9 @@ loginRouter.get('/login', async (req, res) => {
     req.session.user.email = "";
   }
     req.session.loggedIn = false;
+    const messages = req.flash();
 
-    res.render("ingresar.ejs", { loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("ingresar.ejs", { messages, loggedIn: req.session.loggedIn, email: req.session.user.email });
 
   });
 
@@ -98,7 +88,8 @@ loginRouter.get('/login', async (req, res) => {
       }
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
-      res.status(500).json({ success: false, message: 'Nombre de usuario o Contraseña equivocada' });
+      req.flash('error', 'Nombre de usuario o Contraseña equivocada');
+      res.redirect('/login'); // Redirige a la página de inicio de sesión
     }
 });
 
