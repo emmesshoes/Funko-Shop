@@ -40,7 +40,7 @@
                 <li class="navbar__item">
                     <% if (loggedIn) { %>
                         <form action="/logout" method="POST">
-                            <button type="submit" class="navbar__link" style="background-color: transparent; border: none; color: white; cursor: pointer;">LOGOUT</button>
+                            <button id="bt-logout" type="submit" class="navbar__link" style="background-color: transparent; border: none; color: white; cursor: pointer;">LOGOUT</button>
                         </form>
                         <li><p style="color: white;">Email: <%= email %></p></li>
                     <% } else { %>

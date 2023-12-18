@@ -16,24 +16,56 @@
   box-sizing: border-box;
 }
 
+.row-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  font-size: 1.6em;
 
+}
 
 .row {
   display: flex;
   flex-wrap: wrap;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+  border-radius: 25px;
+  font-size: 1.6em;
+  background: rgba(250, 250, 255, 1);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.row-campos {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  font-size: 1.6em;
+  background: rgba(250, 250, 255, 1);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+
+  ;
 }
 
 .column {
   flex: 1;
   padding: 10px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  width: Fixed (1,220px);
+  height: Fixed (193px);
+  top: 704.15px;
+  left: 110px;
+  padding: 16px;
+  
+
+  
+
 }
 
 .column2 {
@@ -122,8 +154,21 @@ p{
 
 
 .summary-list {
+  float: right;
+  margin-right: 20px; /* Ajusta según sea necesario */
   display: flex;
+  align-self:flex-end;
   flex-wrap: wrap;
+  width: 572px;
+  height: 197px;
+  position: inherit;
+  padding: 24px;
+  border-radius: 10px;
+  gap: 4px;
+  background: rgba(250, 250, 255, 1);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  
+  
 }
 
 .summary-column {
@@ -140,17 +185,36 @@ p{
 }
 
 .summary-line {
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid rgba(255, 51, 51, 1);
   width: 100%;
 }
 
 .summary-button {
-  background-color: rgb(217, 56, 23);
-  color: white;
+  float: right;
+  margin-right: 20px; /* Ajusta según sea necesario */
+  font-size: 32px;
+  font-family: Inter;
+  font-weight: 700;
+  line-height: 39px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
   border: none;
   padding: 10px;
-  width: 100%;
-  cursor: pointer;
+  width: 572px;
+ 
+  left: 673px;
+  background: rgba(255, 51, 51, 1);
+ 
+  float: right;
+  margin-right: 20px; /* Ajusta según sea necesario */
+  
+}
+
+
+.summary-button:hover {
+  color: rgba(255, 51, 51, 1);
+  background-color:rgb(230, 221, 221);
 }
 
 /* Media queries para dispositivos más pequeños */
@@ -169,10 +233,7 @@ p{
   }
 }
 
-/* Estilos base para pantallas grandes */
-.column {
-  width: 33.33%;
-}
+
 
 /* Media query para pantallas más pequeñas, como tablets y móviles */
 @media (max-width: 768px) {
@@ -193,3 +254,45 @@ p{
   
   
 }
+
+.quantity-button {
+  margin: 0 5px; /* Espaciado entre los botones y la cantidad */
+  width: 2em;
+  height: 1em;
+  background-color: rgba(234, 15, 15, 0.783);
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  border: none;
+  border-radius: 3px;
+  margin-top: 5px; /* Espaciado entre los botones */
+  display: block; /* Hace que los botones ocupen todo el ancho disponible */
+
+}
+
+.quantity-button:hover {
+  color: rgba(234, 15, 15, 0.783);
+  background-color:rgb(230, 221, 221);
+}
+
+
+
+.column {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos en el contenedor */
+}
+
+.quantity-container {
+  border: 1px solid #ccc; /* Borde del recuadro de la cantidad */
+  padding: 5px; /* Espaciado interno del recuadro */
+  margin-right: 5px; /* Espaciado entre el recuadro y los botones */
+  width: 4em;
+  height: 2.5em;
+}
+
+.quantity-button-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+

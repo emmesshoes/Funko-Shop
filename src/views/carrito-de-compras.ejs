@@ -18,71 +18,72 @@
   <%- include('../views/partials/header')%>
 
   <main>
-      <div class="container" style="display: flex; flex-direction: column; align-items: center; width: 100%; ">
-
-        <!-- Primera sección -->
-        <div class="section" style="margin-bottom: 10px;">
-          <div class="summary-box" style="padding: 10px; width: 100%;">
-            <!-- Sección de elementos del carrito -->
-            <div class="section">
-              <div class="row" style="background-color: #f0f0f0; border-radius: 4px; font-size: 2.2em;">
-                <div class="column">Detalle del Producto</div>
-                <div class="column">Cantidad</div>
-                <div class="column">Total</div>
-              </div>
-        
-              <% productosInfo.forEach(info => { %>
-                <% if (info.producto && info.producto.id_producto !== null) { %>
-                  <div class="row" style="background-color: #f0f0f0; border-radius: 4px; font-size: 1.6em;">
-        
-                    <div class="column">
-                      <% const rutaCompletaFront = info.producto.imagen_front; %>
-                      <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                      <% console.log(rutaRelativaFront) %>
-                      <img src="<%= rutaRelativaFront %>" alt="Miniatura" style="width: 100px; height: auto;">
-                      <%= info.producto.nombre %>
-                    </div>
-                    <div class="column">
-                      <!-- Agrega botones + y - -->
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; width: 100%; ">
+  
+      <!-- Primera sección -->
+      <div class="section" style="margin-bottom: 10px;">
+        <div class="summary-box" style="padding: 10px; width: 100%;">
+          <!-- Sección de elementos del carrito -->
+          <div class="section">
+            <div class="row-campos" >
+              <div class="column">Detalle del Producto</div>
+              <div class="column">Cantidad</div>
+              <div class="column">Total</div>
+            </div>
+  
+            <% productosInfo.forEach(info => { %>
+              <% if (info.producto && info.producto.id_producto !== null) { %>
+                <div class="row" >
+  
+                  <div class="column">
+                    <% const rutaCompletaFront = info.producto.imagen_front; %>
+                    <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                    <% console.log(rutaRelativaFront) %>
+                    <img src="<%= rutaRelativaFront %>" alt="Miniatura" style="width: 100px; height: auto;">
+                    <%= info.producto.nombre %>
+                  </div>
+                  
+                  <div class="column">
+                    <span class="quantity-container"><%= info.elemento.cantidad %></span>
+                    <div class="quantity-button-container">
                       <button class="quantity-button" onclick="updateQuantity('<%= info.elemento.id_producto %>', 'increment')">+</button>
-                      <span class="quantity"><%= info.elemento.cantidad %></span>
                       <button class="quantity-button" onclick="updateQuantity('<%= info.elemento.id_producto %>', 'decrement')">-</button>
                     </div>
-        
-                    <div class="column">$<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
                   </div>
-                <% } %>
-              <% }); %>
-            </div>
+  
+                  <div class="column">$<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
+                </div>
+              <% } %>
+            <% }); %>
           </div>
         </div>
-    
-        <!-- Segunda sección -->
-      <div class="section" style="display: flex; flex-direction: column;"></div>
-      <div class="summary-title" style="margin: margin-bottom; align-self: flex-end;">RESUMEN</div>
-        <div class="section" style="display: flex; flex-direction: column;  ">
-          <div class="summary-box" style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px; text-align: left;">
-              <div class="summary-list">
-                  <div class="summary-column" style="text-align: left;">Cantidad de elementos</div>
-                  <div class="summary-column" style="text-align: right;"><%= cantidadTotal %></div>
-                  <div class="summary-line2" style="text-align: left;"></div>
-                  <div class="summary-column" style="text-align: left;">Subtotal</div>
-                  <div class="summary-column" style="text-align: right;">$<%= subTotal %></div>
-                  <div class="summary-line2" style="text-align: left;"></div>
-                  <div class="summary-column" style="text-align: left;">ENVÍO</div>
-                  <div class="summary-column" style="text-align: right;">$<%= costoEnvio %></div>
-                  <div class="summary-line" style="text-align: left;"></div>
-                  <div class="summary-column" style="text-align: left;">TOTAL</div>
-                  <div class="summary-column" style="text-align: right;">$<%= totalPagar %></div>
-              </div>
-              <button class="summary-button" style="margin-top: 10px;">IR A PAGAR</button>
+      </div>
+  
+      <!-- Segunda sección -->
+      <div class="section" style="display: flex; flex-direction: column; ">
+        <div class="summary-title" style="margin-bottom: 10px; align-self: flex-end;">RESUMEN</div>
+        <div class="section" >
+          <div class="summary-list" style="margin-bottom: 10px; align-self: flex-end;">
+            <div class="summary-column" style="text-align: left;">Cantidad de elementos</div>
+            <div class="summary-column" style="text-align: right;"><%= cantidadTotal %></div>
+            <div class="summary-line2" style="text-align: left;"></div>
+            <div class="summary-column" style="text-align: left;">Subtotal</div>
+            <div class="summary-column" style="text-align: right;">$<%= subTotal %></div>
+            <div class="summary-line2" style="text-align: left;"></div>
+            <div class="summary-column" style="text-align: left;">ENVÍO</div>
+            <div class="summary-column" style="text-align: right;">$<%= costoEnvio %></div>
+            <div class="summary-line" style="text-align: left;"></div>
+            <div class="summary-column" style="text-align: left;">TOTAL</div>
+            <div class="summary-column" style="text-align: right;">$<%= totalPagar %></div>
+          </div>
+          <div class="container">
+            <button class="summary-button" >IR A PAGAR</button>
           </div>
         </div>
       </div> 
-        
-
-      </div>
-    </main>
+    </div>
+  </main>
+  
 
     <%- include('../views/partials/footer')%>
 
