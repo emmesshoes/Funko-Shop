@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home  |  Funkoshop</title>   
     <script src="../../public/js/header.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...tu-código-de-integridad..." crossorigin="anonymous" />
 </head>        
 <body>
     <header>
@@ -39,16 +40,21 @@
                 </li class="navbar__item">
                 <li class="navbar__item">
                     <% if (loggedIn) { %>
-                        <form action="/logout" method="POST">
-                            <button id="bt-logout" type="submit" class="navbar__link" style="background-color: transparent; border: none; color: white; cursor: pointer;">LOGOUT</button>
-                        </form>
-                        <li><p style="color: white;">Email: <%= email %></p></li>
+                      <form action="/logout" method="POST">
+                        <button type="submit" class="navbar__link btn btn-primary" style="cursor: pointer;">LOGOUT</button>
+                      </form>
+                      <li>
+                        <p style="text-transform: uppercase;">
+                          <i class="fas fa-user fa-lg text-primary mr-2" style="vertical-align: baseline;"></i>
+                          <span class="navbar__link text-primary font-size-lg" style="vertical-align: baseline; font-size: 18px;"><%= email.split('@')[0] %></span>
+                        </p>
+                      </li>
                     <% } else { %>
-                        <a class="navbar__link" href="/login">LOGIN</a>
-                        <!-- Agrega la opción de "Registrarse" cuando estás en la página de login -->
-                        <a class="navbar__link" href="/register">REGISTRARSE</a>
+                      <a class="navbar__link btn btn-primary" href="/login">LOGIN</a>
+                      <!-- Agrega la opción de "Registrarse" cuando estás en la página de login -->
+                      <a class="navbar__link btn btn-primary" href="/register">REGISTRARSE</a>
                     <% } %>
-                </li>
+                  </li>
 
                 <li class="navbar__item">
                     <% if (loggedIn) { %>
