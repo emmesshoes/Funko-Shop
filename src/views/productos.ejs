@@ -118,7 +118,7 @@
                     <ul class="pagination justify-content-center pagination-lg">
                         <!-- Botón 'Anterior' -->
                         <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                            <a class="page-link" href="/admin?page=<%= currentPage - 1 %>" tabindex="-1" aria-disabled="true">&lt;</a>
+                            <a class="page-link" href="/productos?page=<%= currentPage - 1 %>" tabindex="-1" aria-disabled="true">&lt;</a>
                         </li>
                 
                         <!-- Iteración para los números de página -->
@@ -130,7 +130,7 @@
                 
                         <!-- Botón 'Siguiente' -->
                         <li class="page-item <%= currentPage === totalPaginas ? 'disabled' : '' %>">
-                            <a class="page-link" href="/admin?page=<%= currentPage + 1 %>">&gt;</a>
+                            <a class="page-link" href="/productos?page=<%= currentPage + 1 %>">&gt;</a>
                         </li>
                     </ul>
                 </nav>
