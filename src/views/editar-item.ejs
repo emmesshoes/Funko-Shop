@@ -33,47 +33,47 @@
               <div class="campo-doble">
                 <label for="categoria" >Categoría:</label>
                 <select id="categoria" name="categoria"  class="completar_campo1" >
-                  <option value="<%= producto.categoria %>" selected>"<%= producto.categoria %>"</option>
-                  <option value="opcion1">Figuras</option>
-                  <option value="opcion2">Remeras</option>
-                  <option value="opcion2">Llaveros</option>
+                  <option value=<%= producto.categoria %> selected><%= producto.categoria %></option>
+                  <option >Funko</option>
+                  <option >Remeras</option>
+                  <option >Llaveros</option>
                 </select>
               </div>
               <div class="campo-doble">
                 <label for="licencia" class="licencia">Licencia:</label>
                 <select id="licencia" name="licencia" class="completar_campo1">
-                  <option value="<%= producto.licencia %>">"<%= producto.licencia %>"</option>
-                  <option value="opcion1">Naruto</option>
-                  <option value="opcion2">Pokemon</option>
-                  <option value="opcion2">Star Wars</option>
+                  <option value="<%= producto.licencia %>" selected><%= producto.licencia %></option>
+                  <option>Harry Potter</option>
+                  <option>Star Wars</option>
+                  <option>Pokemon</option>
                 </select>
               </div>
             </div>
             <div class="fila2">
               <div class="campo">
-                <label for="nombreProducto">Nombre del Producto:</label>
-                <input type="text" id="nombreProducto" name="nombreProducto" class="margen-inferior-rojo" value="<%= producto.nombre %>">
+                <label for="nombre">Nombre del Producto:</label>
+                <input type="text" id="nombre" name="nombre" class="margen-inferior-rojo" value=<%= producto.nombre %>>
               </div>
             </div>
 
             <div class="fila3">
               <div class="campo">
-                <textarea id="descripcion" name="descripcion" class="completar_campo">"<%= producto.descripcion %>"</textarea>
+                <textarea id="descripcion" name="descripcion" class="completar_campo"><%= producto.descripcion %></textarea>
               </div>
             </div>
 
             <div class="fila4">
               <div class="campo-seis">
                 <label for="sku">SKU:</label>
-                <input type="text" id="sku" name="sku" class="margen-inferior-rojo2 "value="<%= producto.sku %>">
+                <input type="text" id="sku" name="sku" class="margen-inferior-rojo2 "value=<%= producto.sku %>>
               </div>
               <div class="campo-seis">
                 <label for="precio">Precio:</label>
-                <input type="text" id="precio" name="precio" class="margen-inferior-rojo2" value="<%= producto.precio %>">
+                <input type="text" id="precio" name="precio" class="margen-inferior-rojo2" value=<%= producto.precio %>>
               </div>
               <div class="campo-seis">
                 <label for="stock">Stock:</label>
-                <input type="text" id="stock" name="stock" class="margen-inferior-rojo2" value="<%= producto.stock %>">
+                <input type="text" id="stock" name="stock" class="margen-inferior-rojo2" value=<%= producto.stock %>>
               </div>
             </div>
 
@@ -85,10 +85,10 @@
               <div class="campo-doble">
                 <label for="cuotas">Cuotas:</label>
                 <select id="cuotas" name="cuotas" class="completar_campo4">
-                  <option value="<%= producto.cuotas %>" selected>"<%= producto.cuotas %>"</option>
-                  <option value="3">3 cuotas sin interes</option>
-                  <option value="6">6 cuotas sin interes</option>
-                  <option value="12">12 cuota sin interes</option>
+                  <option value=<%= producto.cuotas %> selected>"<%= producto.cuotas %>"</option>
+                  <option value=3>3 cuotas sin interes</option>
+                  <option value=6>6 cuotas sin interes</option>
+                  <option value=12>12 cuota sin interes</option>
                 </select>
               </div>
             </div>

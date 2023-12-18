@@ -21,77 +21,7 @@
  -->
 
 
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-        // Variables
-        const counterElement = document.getElementById('counter');
-        let counterValue = 1; // Valor inicial del contador
-    
-        // Funciones
-        function updateCounterDisplay() {
-            counterElement.textContent = counterValue;
-        }
-    
-        // Función para decrementar
-        window.decrement = function () {
-            if (counterValue > 1) {
-                counterValue--;
-                updateCounterDisplay();
-            }
-        };
-    
-        // Función para incrementar
-        window.increment = function () {
-            counterValue++;
-            updateCounterDisplay();
-        };
-    
-       // Función para agregar al carrito
-        window.addToCart = function () {
-            // cantidad seleccionada
-            const cantidadInput = document.getElementById('cantidad');
-            const cantidad = counterValue;
-            // producto
-            const precioUnitario = '<%= producto.precio %>';
-            const productoId = '<%= producto.id_producto %>';
-            
-            // asegurarse de que la cantidad sea un número positivo
-            if (isNaN(cantidad) || cantidad <= 0) {
-                alert('Por favor, ingresa una cantidad válida.');
-                return;
-            }
 
-            // Datos que se enviarán al servidor
-            const data = {
-                productoId: productoId,
-                cantidad: cantidad,
-            };
-
-            
-            fetch('/carrito-elementos/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.insertProductToCartResult){
-                    alert("Mensaje: " + data.message + "\nProducto ID: " + data.productoId + "\nCantidad: " + data.cantidad);
-                } else {
-                    alert("Mensaje: " + data.message );
-                }
-               
-            })
-            .catch(error => {
-                console.error('Error al enviar datos:', error);
-            });
-        };
-
-    });
-
-</script>
 </head><section></section>
 <body>    
 
@@ -145,7 +75,7 @@
             <span id="counter" class="btn btn-light"><%= counterValue %></span>
             <button id="increment" type="button" class="btn btn-secondary" onclick="increment()">+</button>
         </div>
-        <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart()">Agregar al carrito</button>
+        <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart(<%= producto.id_producto %>,<%= producto.precio %>)">Agregar al carrito</button>
         
         
         <!-- Contenido principal (80% del ancho) -->
@@ -211,5 +141,6 @@
             }).mount();
         });
     </script>
+    <script src="/public/js/item.js"></script>
 </body>
 </html>

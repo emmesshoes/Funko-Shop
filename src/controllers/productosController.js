@@ -78,10 +78,14 @@ const ProductosController = {
 
       const existingProduct = ProductoService.getProduct(id_producto);
       
+      console.log('NOMBRE ANTES DE EDITAR: ',existingProduct.nombre);
+      console.log('NOMBRE EDITADO: ',nombre);
+
       // Filtrar valores no deseados y asegurarse de que los tipos de datos sean correctos
       const validUpdatedProductData = {
         categoria: categoria || existingProduct.categoria,
         licencia: licencia || existingProduct.licencia,
+        nombre: nombre || existingProduct.nombre,
         descripcion: descripcion || existingProduct.descripcion,
         sku: sku || existingProduct.sku,
         precio: precio || existingProduct.precio,
