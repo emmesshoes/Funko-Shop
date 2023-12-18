@@ -113,14 +113,25 @@
                 </div>
        
 
-                 <!-- Pagination -->
-                 <nav aria-label="Pagination">
-                    <ul class="pagination justify-content-center pagination-m">
+                        <!-- Pagination -->
+                <nav aria-label="Pagination">
+                    <ul class="pagination justify-content-center pagination-lg">
+                        <!-- Botón 'Anterior' -->
+                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                            <a class="page-link" href="/productos?page=<%= currentPage - 1 %>" tabindex="-1" aria-disabled="true">&lt;</a>
+                        </li>
+                
+                        <!-- Iteración para los números de página -->
                         <% for (let i = 1; i <= totalPaginas; i++) { %>
                             <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                <a class="page-link" style="color: black; font-size: 700;" href="/productos?page=<%= i %>"><%= i %></a>
+                                <a class="page-link" style="color: black; font-size: 700;" href="/admin?page=<%= i %>"><%= i %></a>
                             </li>
                         <% } %>
+                
+                        <!-- Botón 'Siguiente' -->
+                        <li class="page-item <%= currentPage === totalPaginas ? 'disabled' : '' %>">
+                            <a class="page-link" href="/productos?page=<%= currentPage + 1 %>">&gt;</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

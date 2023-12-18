@@ -38,3 +38,15 @@ input {
 .nav-link{
     font-size: 2em;
 }
+
+.text-center-error{
+    font-size: 2em;
+    padding: 1em;
+}
+
+.alert-danger{
+    background-color: #ffff !important;
+    border-color: red !important;
+    color: black !important;
+    font-weight: 500 !important;
+}
