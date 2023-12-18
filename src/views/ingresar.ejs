@@ -40,13 +40,19 @@
                 <input class="col-md-2" type="password" name="contraseña" id="contraseña" placeholder="••••••••">
                 </div>
 
-                <% if (messages.error) { %>
-                    <div class="justify-content-center align-items-center">
-                        <div class="alert alert-danger text-center" role="alert">
-                          <%= messages.error %>
-                        </div>
-                  <% } %>
-                  
+                <div class="container">
+                    <div class="row">
+                      <div class="ing d-flex flex-row justify-content-center align-items-baseline mt-5"> <!-- Puedes ajustar el tamaño y el desplazamiento según tus necesidades -->
+                        <% if (messages.error) { %>
+                          <div class="alert alert-danger text-center-error" role="alert">
+                            <%= messages.error %>
+                          </div>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+
+                
                 <div class="reg registro d-flex flex-row justify-content-center align-items-baseline">
                 
                 <input type="hidden" name="isAdmin" value="true">
