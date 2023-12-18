@@ -149,47 +149,45 @@
         
         
         <!-- Contenido principal (80% del ancho) -->
-        <section class="slider container glide">
+        <section class="slider container glide" style="overflow: hidden;">
             <h2 class="slider__title">Últimos lanzamientos</h2>
             <div class="glide__track" data-glide-el="track">
-                <ul id="productos-container" class="slider__items">
-                    <% productos.forEach(producto => { %>
-                        <li class="slider__item glide__slide">
-                            <article class="card-item">
-                                
-                                    <picture class="card-item__cover">
-                                        <a class="card-item__link" href="/item/<%= producto.id_producto %>">
-                                            <% const rutaCompletaFront = producto.imagen_front; %>
-                                            <% const rutaCompletaBack = producto.imagen_back; %>
-                                            <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                                            <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
-                                            
-                                            <span class="card-item__tag"><%= producto.nuevo ? 'Nuevo' : '' %></span>
-                                            <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
-                                            <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
-                                        </a>
-                                    </picture>
-                                    <div class="card-item__content">
-                                        <p class="card-item__licence"><%= producto.categoria %></p>
-                                        <h4 class="card-item__name"><%= producto.nombre %></h4>
-                                        <% if (typeof producto.precio === 'number') { %>
-                                            <p class="card-item__price">$ <%= producto.precio.toFixed(2) %>.-</p>
-                                        <% } else { %>
-                                            <p class="card-item__price">Precio no disponible</p>
-                                        <% } %>
-                                        <div class="card-item__promo"><%= producto.cuotas %></div>
-                                    </div>
-                                
-                            </article>
-                        </li>
-                    <% }); %>
-                </ul>
+              <ul id="productos-container" class="slider__items">
+                <% productos.forEach(producto => { %>
+                  <li class="slider__item glide__slide">
+                    <article class="card-item">
+                      <picture class="card-item__cover">
+                        <a class="card-item__link" href="/item/<%= producto.id_producto %>">
+                          <% const rutaCompletaFront = producto.imagen_front; %>
+                          <% const rutaCompletaBack = producto.imagen_back; %>
+                          <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                          <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+                          <span class="card-item__tag"><%= producto.nuevo ? 'Nuevo' : '' %></span>
+                          <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
+                          <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
+                        </a>
+                      </picture>
+                      <div class="card-item__content">
+                        <p class="card-item__licence"><%= producto.categoria %></p>
+                        <h4 class="card-item__name"><%= producto.nombre %></h4>
+                        <% if (typeof producto.precio === 'number') { %>
+                          <p class="card-item__price">$ <%= producto.precio.toFixed(2) %>.-</p>
+                        <% } else { %>
+                          <p class="card-item__price">Precio no disponible</p>
+                        <% } %>
+                        <div class="card-item__promo"><%= producto.cuotas %></div>
+                      </div>
+                    </article>
+                  </li>
+                <% }); %>
+              </ul>
             </div>
-            <div class="glide__arrows" data-glide-el="controls">
-                <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><iconify-icon icon="ic:round-chevron-left"></iconify-icon></button>
-                <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><iconify-icon icon="ic:round-chevron-right"></iconify-icon></button>
+            <div class="glide__arrows" data-glide-el="controls" style="display: flex; justify-content: space-between; align-items: center;">
+              <button class="glide__arrow glide__arrow--left" data-glide-dir="<" style="font-size: 24px; padding: 10px;"><iconify-icon icon="ic:round-chevron-left"></iconify-icon></button>
+              <button class="glide__arrow glide__arrow--right" data-glide-dir=">" style="font-size: 24px; padding: 10px;"><iconify-icon icon="ic:round-chevron-right"></iconify-icon></button>
             </div>
-        </section>
+          </section>
+          
     </main>
     <%- include('../views/partials/footer')%>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
