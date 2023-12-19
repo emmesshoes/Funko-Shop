@@ -131,5 +131,16 @@ const ProductosController = {
     }
   },
 
+  updateStock: async (req, res) => {
+    try {
+      const productId = req.params.productId;
+      const qtyUpdateStock = req.body.accion;
+      const stock = await ProductoService.stockProduct(productId, qtyUpdateStock);
+      return stock;
+    } catch (error) {
+      throw error;
+    }
+  },
+
 };
 export default ProductosController;

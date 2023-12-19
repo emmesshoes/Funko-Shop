@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.insertProductToCartResult){
-                alert("Mensaje: " + data.message + "\nProducto ID: " + data.productoId + "\nCantidad: " + data.cantidad);
+            if (data.cantidad > -1){
+                alert("Mensaje: " + data.message + "\nCantidad: " + data.cantidad);
             } else {
                 alert("Mensaje: " + data.message );
             }

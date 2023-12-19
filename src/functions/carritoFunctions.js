@@ -1,5 +1,6 @@
 import CarritoElemento from '../models/carritoElementosModel.js';
 import Carritos from '../models/carritosModel.js';
+import Usuario from '../models/usuariosModel.js';
 
 async function getCart(userId) {
   try {
@@ -12,10 +13,10 @@ async function getCart(userId) {
 };
 
 // Crear carrito para un cliente
-async function createCart (clienteId) {
+async function createCart (userId) {
   try {
     // Verificar si el cliente existe
-    const existingClient = await Clientes.findByPk(clienteId);
+    const existingClient = await Usuario.findByPk(userId);
     
     if (!existingClient) {
       throw new Error('Cliente no encontrado');
@@ -24,7 +25,7 @@ async function createCart (clienteId) {
     // Verificar si ya existe un carrito activo para el cliente
     const existingCart = await Carritos.findAll({
       where: {
-        id_cliente: clienteId,
+        id_cliente: userId,
         estado_carrito: 'activo',
       },
       include: [
@@ -43,7 +44,7 @@ async function createCart (clienteId) {
 
     // Crear un nuevo carrito si no hay uno activo para el cliente
     const newCart = await Carritos.create({
-      id_cliente: clienteId,
+      id_cliente: userId,
       estado_carrito: 'activo',
     });
 

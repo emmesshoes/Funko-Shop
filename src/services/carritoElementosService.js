@@ -17,6 +17,7 @@ const CarritoElementosService = {
     }
   },
 
+
   updateProductQuantity: async (carritoId, productoId, cantidad) => {
     try {
       const [_, affectedRows] = await CarritoElemento.update(
@@ -33,45 +34,45 @@ const CarritoElementosService = {
     }
   },
 
-updateProductPrice: async (elementoId, nuevoPrecio) => {
-  try {
-    const [_, affectedRows] = await CarritoElemento.update(
-      { precio_unitario: nuevoPrecio },
-      { where: { id: elementoId } }
-    );
+  updateProductPrice: async (elementoId, nuevoPrecio) => {
+    try {
+      const [_, affectedRows] = await CarritoElemento.update(
+        { precio_unitario: nuevoPrecio },
+        { where: { id: elementoId } }
+      );
 
-    return affectedRows;
-  } catch (error) {
-    throw error;
-  }
-},
+      return affectedRows;
+    } catch (error) {
+      throw error;
+    }
+  },
 
-getCartItems: async (carritoId) => {
-  try {
-    const elementos = await CarritoElemento.findAll({
-      where: { id_carrito: carritoId },
-    });
+  getCartItems: async (carritoId) => {
+    try {
+      const elementos = await CarritoElemento.findAll({
+        where: { id_carrito: carritoId },
+      });
 
-    return elementos;
-  } catch (error) {
-    throw error;
-  }
-},
+      return elementos;
+    } catch (error) {
+      throw error;
+    }
+  },
 
-getProductInCart: async (carritoId, productoId) => {
-  try {
-    const elemento = await CarritoElemento.findOne({
-      where: {
-        id_carrito: carritoId,
-        id_producto: productoId,
-      },
-    });
+  getProductInCart: async (carritoId, productoId) => {
+    try {
+      const elemento = await CarritoElemento.findOne({
+        where: {
+          id_carrito: carritoId,
+          id_producto: productoId,
+        },
+      });
 
-    return elemento;
-  } catch (error) {
-    throw error;
-  }
-}
+      return elemento;
+    } catch (error) {
+      throw error;
+    }
+  },
 
 }
 

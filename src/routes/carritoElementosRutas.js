@@ -7,36 +7,44 @@ const router = express.Router();
 
 // Agregar un producto al carrito
 router.post('/add', async (req, res) => {
-  const { productoId, cantidad } = req.body;
-  let insertProductToCartResult = false;
-
+  let cantidad = -1;
   try {
     if(!req.session.user.email){
-      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', insertProductToCartResult, productoId, cantidad,  });  
+      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', cantidad,  });  
     }
-
-    insertProductToCartResult = true;
-    //const tokenDecode= decodeTokenUser(req.session.user.token);
-    //const carrito = await CarritosController.createCart(tokenDecode.userId);
-    const carritoId = req.session.carrito.carrito[0].id_carrito;
-    //Obtengo el producto para obtener el precio
-    const producto = await ProductoService.getProduct(productoId);
-    const precioUnitario = producto.precio;
-    //inserto en la tabla de elementos del carrito el producto con su precio y cantidad
-    console.log('Datos para addProductToCart', carritoId, productoId, cantidad, precioUnitario);
-    const elementoId = await CarritoElementosController.addProductToCart(carritoId, productoId, cantidad, precioUnitario);
-    res.json({ message: 'Producto agregado al carrito con exito', insertProductToCartResult, productoId, cantidad });
+    
+    cantidad = await CarritoElementosController.addProductToCart(req, res);
+    res.json({ message: 'Producto agregado al carrito con exito', cantidad });
   } catch (error) {
     console.error('Error al agregar producto al carrito:', error);
     res.status(500).json({ error: 'Error al agregar producto al carrito' });
   }
 });
 
+// Agregar un producto al carrito
+router.put('/sub', async (req, res) => {
+  let cantidad = -1;
+  try {
+    if(!req.session.user.email){
+      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', cantidad  });
+    }
+
+    const cantidad = await CarritoElementosController.subProductToCart(req, res);
+    res.json({ message: 'Producto agregado al carrito con exito', cantidad });
+  } catch (error) {
+    console.error('Error al agregar producto al carrito:', error);
+    res.status(500).json({ error: 'Error al agregar producto al carrito' });
+  }
+});
+
+
+
 // Actualizar la cantidad de un producto en el carrito
 router.put('/update-quantity', async (req, res) => {
-  const { elementoId, action } = req.body;
+  const { cantidad } = req.body;
+  const productId = req.params.productId;
   try {
-    const cantidad = await CarritoElementosController.updateProductQuantity(elementoId, cantidad);
+    const cantidad = await CarritoElementosController.updateProductQuantity(productId, cantidad );
     if (cantidad >= 0) {
       res.json({ message: 'Cantidad de producto actualizada en el carrito' });
     } else {
@@ -64,7 +72,7 @@ router.put('/carrito-elementos/update-price', async (req, res) => {
   }
 });
 
-// En tu controlador o función para la página elementos-del-carrito
+
 
 router.get('/', async (req, res) => {
   try {

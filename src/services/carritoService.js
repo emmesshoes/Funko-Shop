@@ -1,26 +1,82 @@
-import carritoElementosFunctions from '../functions/carritoElementosFunctions.js';
+
+import CarritoElemento from '../models/carritoElementosModel.js';
+import Carritos from '../models/carritosModel.js';
+import Usuario from '../models/usuariosModel.js';
+
 
 const CarritoService = {
-     
-    addProductToCart: async (carritoId, productoId, cantidad, precioUnitario) => {
-      try {
-        // Verificar si el producto ya está en el carrito
-        const existingProduct = await carritoElementosFunctions.getProductInCart(carritoId, productoId);
-        
-        if (existingProduct) {
-            console.log('-------EL PRODUCTO EXIXTE EN EL CARRITO: ',existingProduct);
-          // Si el producto ya está en el carrito, actualizar la cantidad
-          await carritoElementosFunctions.updateProductQuantity(carritoId, productoId, cantidad + existingProduct.cantidad);
-          return { mensaje: 'Cantidad de producto actualizada en el carrito' };
-        } else {
-          // Si el producto no está en el carrito, agregarlo
-          await carritoElementosFunctions.addProductToCart(carritoId, productoId, cantidad, precioUnitario);
-          return { mensaje: 'Producto agregado al carrito' };
-        }
-      } catch (error) {
-        throw error;
-      }
-    },
-};
+
+ getCart: async (userId) => {
+  try {
+    const resutlCart = await createCart(userId);
   
+    return resutlCart;
+  } catch (error) {
+    throw error;
+  }
+},
+
+// Crear carrito para un cliente
+createCart: async (userId) => {
+  try {
+    // Verificar si el cliente existe
+    const existingClient = await Usuario.findByPk(userId);
+    
+    if (!existingClient) {
+      throw new Error('Cliente no encontrado');
+    }
+
+    // Verificar si ya existe un carrito activo para el cliente
+    const existingCart = await Carritos.findAll({
+      where: {
+        id_cliente: userId,
+        estado_carrito: 'activo',
+      },
+      include: [
+        {
+          model: CarritoElemento,
+          as: 'carrito_elementos',
+          attributes: ['id_producto', 'cantidad', 'precio_unitario'],
+        },
+      ],
+    });
+
+    if (existingCart.length > 0){
+      // Si ya hay un carrito activo, puedes retornar toda su información
+      return existingCart;
+    }
+
+    // Crear un nuevo carrito si no hay uno activo para el cliente
+    const newCart = await Carritos.create({
+      id_cliente: userId,
+      estado_carrito: 'activo',
+    });
+
+    // Crear el carritoElementos asociado al carrito
+    const newElementsCart = await CarritoElemento.create({
+      id_carrito: newCart.id_carrito, // Utiliza el ID del carrito recién creado
+      id_producto: null ,
+      cantidad: 0,
+      precio_unitario: 0.0,
+    });
+
+    // Obtener la información completa del carrito y sus elementos
+    const carritoInfo = await Carritos.findOne({
+      where: { id_carrito: newCart.id_carrito },
+      include: [
+        {
+          model: CarritoElemento,
+          as: 'carrito_elementos',
+          attributes: ['id_producto', 'cantidad', 'precio_unitario'],
+        },
+      ],
+    });
+
+    return carritoInfo;
+  } catch (error) {
+    throw error;
+  }
+},
+
+}
 export default CarritoService;

@@ -38,15 +38,14 @@
             <% productosInfo.forEach(info => { %>
               <% if (info.producto && info.producto.id_producto !== null) { %>
                 <div class="row" >
-  
-                  <div class="column">
+                <div class="column">
                     <% const rutaCompletaFront = info.producto.imagen_front; %>
                     <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
                     <% console.log(rutaRelativaFront) %>
                     <img src="<%= rutaRelativaFront %>" alt="Miniatura" style="width: 100px; height: auto;">
                     <%= info.producto.nombre %>
                   </div>
-                  
+
                   <div class="column">
                     <span class="quantity-container" id=<%= info.elemento.id_producto %>>
                       <%= info.elemento.cantidad %>
@@ -58,8 +57,9 @@
                   </div>
   
                   <div class="column">
-                    <div style="display: flex; "> $<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
+                    <div style="display: flex; "> $<%= info.elemento.cantidad * info.elemento.precio_unitario %></div> 
                   </div>
+                  
                   
                 </div>
               <% } %>

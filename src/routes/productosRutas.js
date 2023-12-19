@@ -160,4 +160,14 @@ routerProductos.get('/stock/:productId', async (req, res) => {
   }
 });
 
+routerProductos.put('/update-stock/:productId', async (req, res) => {
+  try {
+    const stock = await ProductosController.updateStock(req, res);
+    res.json(stock);
+  } catch (error) {
+    console.error('Error obteniendo stock:', error);
+    res.status(500).json({ error: 'Error getting product from the database' });
+  }
+});
+
 export default routerProductos;
