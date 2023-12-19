@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+    let counterValue = 1;
 
-    const counterElement = document.getElementById('counter');
-    let counterValue = 1; 
-
-    function updateCounterDisplay() {
-        counterElement.textContent = counterValue;
+    function updateCounterDisplay(productId) {
+        const counterElement = document.getElementById(`counter-${productId}`);
+        if (counterElement) {
+            counterElement.textContent = counterValue;
+        }
     }
 
     window.decrement = function () {
@@ -19,31 +20,22 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCounterDisplay();
     };
 
-
-
-    // Función para agregar al carrito
-    window.addToCart = function (idProduct, precio,) {
-        // cantidad seleccionada
+    window.addToCart = function (idProduct, precio) {
         const cantidadInput = document.getElementById('cantidad');
         const cantidad = counterValue;
-        // producto
         const precioUnitario = precio;
-        console.log('precioUnitario', precioUnitario);
         const productoId = idProduct;
-        
-        // asegurarse de que la cantidad sea un número positivo
+
         if (isNaN(cantidad) || cantidad <= 0) {
             alert('Por favor, ingresa una cantidad válida.');
             return;
         }
 
-        // Datos que se enviarán al servidor
         const data = {
             productoId: productoId,
             cantidad: cantidad,
         };
 
-        
         fetch('/carrito-elementos/add', {
             method: 'POST',
             headers: {
@@ -58,20 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 alert("Mensaje: " + data.message );
             }
-           
         })
         .catch(error => {
             console.error('Error al enviar datos:', error);
         });
     };
 });
-
-
-
-       
-        
-    
-       
-
-
-

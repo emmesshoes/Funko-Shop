@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="../CSS/footer.css"> 
     
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-        <script async src="/js/carrito.js"></script> 
+        <script async src="/js/item.js"></script> 
 </head>
 <body>    
   <%- include('../views/partials/header')%>
@@ -61,16 +61,16 @@
           </div>      
         </section> 
           
-          <%  productId =  producto.productId; %>
-        
+        <% const productId = producto.id_producto; %>
 
-      <div class="btn-group" role="group">
-          <button id="decrement" type="button" class="btn btn-secondary" onclick= "decrement()">-</button>
-          <span id="counter" class="btn btn-light"><%= counterValue %></span>
-          <button id="increment" type="button" class="btn btn-secondary" onclick="increment()">+</button>
-      </div>
-      <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart()">Agregar al carrito</button>
-  
+        <div class="btn-group" role="group">
+            <button id="decrement" type="button" class="btn btn-secondary" onclick="decrement()">-</button>
+            <span id="counter-<%= productId %>" class="btn btn-light"><%= counterValue %></span>
+            <button id="increment" type="button" class="btn btn-secondary" onclick="increment()">+</button>
+        </div>
+        <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart('<%= productId %>', <%= producto.precio %>)">Agregar al carrito</button>
+        
+        
         <!-- Contenido principal (80% del ancho) -->
         <section class="slider container glide" style="overflow: hidden;">
             <h2 class="slider__title">Últimos lanzamientos</h2>
