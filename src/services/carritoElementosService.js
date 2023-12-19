@@ -74,6 +74,27 @@ const CarritoElementosService = {
     }
   },
 
+  getCantidadProductoEnCarrito: async (carritoId, productoId) => {
+    try {
+        const carritoElemento = await CarritoElemento.findOne({
+            attributes: ['cantidad'],
+            where: {
+                id_carrito: carritoId,
+                id_producto: productoId,
+            },
+        });
+
+        if (carritoElemento) {
+            return carritoElemento.cantidad;
+        } else {
+            return 0; // Otra cantidad predeterminada si el producto no está en el carrito
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 }
 
 export default CarritoElementosService;

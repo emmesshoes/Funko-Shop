@@ -7,33 +7,31 @@ const router = express.Router();
 
 // Agregar un producto al carrito
 router.post('/add', async (req, res) => {
-  let cantidad = -1;
+  
   try {
     if(!req.session.user.email){
-      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', cantidad,  });  
+      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', resultCantidad: -1});  
     }
     
-    cantidad = await CarritoElementosController.addProductToCart(req, res);
-    res.json({ message: 'Producto agregado al carrito con exito', cantidad });
+    const result = await CarritoElementosController.addProductToCart(req, res);
+    return result;
   } catch (error) {
     console.error('Error al agregar producto al carrito:', error);
-    res.status(500).json({ error: 'Error al agregar producto al carrito' });
+    res.status(500).res.json({ error: 'Error al agregar producto al carrito' });
   }
 });
 
 // Agregar un producto al carrito
 router.put('/sub', async (req, res) => {
-  let cantidad = -1;
   try {
     if(!req.session.user.email){
-      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', cantidad  });
+      return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', resultCantidad: -1  });
     }
-
-    const cantidad = await CarritoElementosController.subProductToCart(req, res);
-    res.json({ message: 'Producto agregado al carrito con exito', cantidad });
+    const result = await CarritoElementosController.subProductToCart(req, res);
+    return result;
   } catch (error) {
     console.error('Error al agregar producto al carrito:', error);
-    res.status(500).json({ error: 'Error al agregar producto al carrito' });
+    res.status(500).res.json({ error: 'Error al agregar producto al carrito' });
   }
 });
 
@@ -52,7 +50,7 @@ router.put('/update-quantity', async (req, res) => {
     }
   } catch (error) {
     console.error('Error al actualizar la cantidad del producto en el carrito:', error);
-    res.status(500).json({ error: 'Error al actualizar la cantidad del producto en el carrito' });
+    res.status(500).res.json({ error: 'Error al actualizar la cantidad del producto en el carrito' });
   }
 });
 
@@ -68,7 +66,7 @@ router.put('/carrito-elementos/update-price', async (req, res) => {
     }
   } catch (error) {
     console.error('Error al actualizar el precio del producto en el carrito:', error);
-    res.status(500).json({ error: 'Error al actualizar el precio del producto en el carrito' });
+    res.status(500).res.json({ error: 'Error al actualizar el precio del producto en el carrito' });
   }
 });
 
@@ -125,7 +123,7 @@ router.get('/carrito-elementos/:carritoId', async (req, res) => {
     res.json(elementos);
   } catch (error) {
     console.error('Error al recuperar elementos del carrito:', error);
-    res.status(500).json({ error: 'Error al recuperar elementos del carrito' });
+    res.status(500).res.json({ error: 'Error al recuperar elementos del carrito' });
   }
 });
 

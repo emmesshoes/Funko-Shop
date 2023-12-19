@@ -13,7 +13,7 @@ async function getStockItem(productId) {
         }
 
         const data = await response.json();
-        console.log('DATA: ', data)
+        console.log('getStockItem STOCK: ', data)
         return data;
 
     } catch (error) {
@@ -23,37 +23,38 @@ async function getStockItem(productId) {
 }
 
 async function updateStockItem(productId, cantidad, action) {
-    // Datos que se enviarán al servidor
     const data = {
         productoId: productId,
         cantidad: 1,
     };
 
+    const cantidadOriginal = cantidad;
+
     try {
-        if (action == 'increment'){
+        if (action == 'increment') {
             const response = await fetch(`/carrito-elementos/add`, {
-                method: 'PUT',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
-    
+
             if (!response.ok) {
-                throw new Error('Error en la solicitud: La respuesta no es válida');
+                throw new Error('Network response was not ok');
             }
-            .then(data => {
-                /*
-                if (data.cantidad > -1){
-                    alert("Mensaje: " + data.message + "\nCantidad: " + data.cantidad);
-                } else {
-                    alert("Mensaje: " + data.message );
-                }
-                */
 
-                return data;
-            })
+            const responseData = await response.json();
+            console.log(responseData.message); // "Producto agregado al carrito"
+            console.log(responseData.resultCantidad); // 5
+            console.log(responseData.tope); // "NONE"
 
+            if (responseData.tope !== 'NONE') {
+                alert(responseData.message);
+                return cantidadOriginal;
+            } else {
+                return parseInt(responseData.resultCantidad);
+            }
         } else {
             const response = await fetch(`/carrito-elementos/sub`, {
                 method: 'PUT',
@@ -62,25 +63,26 @@ async function updateStockItem(productId, cantidad, action) {
                 },
                 body: JSON.stringify(data)
             });
-    
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: La respuesta no es válida');
-            }
-            
-            const responseData = await response.json();
-            console.log('responseData', responseData);
-    
-            // Manejar la respuesta del servidor y devolver la información deseada
-            return responseData.cantidadTotal;
-            //mensaje: responseData.mensaje,
-            
-           
-        }
-        
 
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const responseData = await response.json();
+            console.log(responseData.message); // "Producto agregado al carrito"
+            console.log(responseData.resultCantidad); // 5
+            console.log(responseData.tope); // "NONE"
+
+            if (responseData.tope !== 'NONE') {
+                alert(responseData.message);
+                return cantidadOriginal;
+            } else {
+                return parseInt(responseData.resultCantidad);
+            }
+        }
     } catch (error) {
         console.error('Error en la solicitud:', error.message);
-        throw error; // Relanzo el error para que pueda ser manejado externamente si es necesario
+        throw error;
     }
 }
 
@@ -88,25 +90,11 @@ document.addEventListener('DOMContentLoaded', function () {
     window.updateQuantity = async function (productId, action, quantity) {
         try {
             const quantityElement = document.getElementById(productId);
-            let cantidad = parseInt(quantityElement.textContent);
-            const stock = await getStockItem(productId);
-
-            // Actualizo la pantalla
-            if (action == 'increment') {
-                cantidad = cantidad + 1;
-            } else {
-                cantidad = cantidad - 1;
-                if (cantidad <= 0) {
-                    cantidad = 1;
-                }
-            }
-
-            if (stock >= cantidad) {
-                let actuallyStock = await updateStockItem(productId, cantidad, action);
-                quantityElement.textContent = parseInt(actuallyStock);
-            } else{
-                alert('Se alcanzó la cantidad maxima de las unidades en Stock!! ');
-            }
+            const cantidad = parseInt(quantityElement.textContent);
+            const actuallyStock = await updateStockItem(productId, cantidad, action);
+            console.log('ESTA ES LA CANTIDAD QUE ME DEVUELVE: ', actuallyStock);
+            quantityElement.textContent = parseInt(actuallyStock);
+         
 
         } catch (error) {
             console.error('Error:', error.message);
