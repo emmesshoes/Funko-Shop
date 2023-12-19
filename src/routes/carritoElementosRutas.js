@@ -127,4 +127,15 @@ router.get('/carrito-elementos/:carritoId', async (req, res) => {
   }
 });
 
+router.delete('/delete/:productId', async (req, res) => {
+  try {
+    await ProductosController.deleteProduct(req.params.productId);
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ error: 'Error deleting product from the database' });
+  }
+});
+
+
 export default router;

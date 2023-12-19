@@ -5,8 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home  |  Funkoshop</title>
       
-        
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -35,11 +33,9 @@
               <div>Total</div>
               <div ></div>
             </div>
-  
             <% productosInfo.forEach(info => { %>
               <% if (info.producto && info.producto.id_producto !== null) { %>
                 <div class="row" >
-  
                   <div class="div-detalle-producto">
                     <% const rutaCompletaFront = info.producto.imagen_front; %>
                     <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
@@ -56,10 +52,8 @@
                         Precio $
                         <%= info.producto.precio %>
                       </span>
-
                     </div>
                   </div>
-                  
                   <div class="div-group">
                     <div class="div-cantidad">
                       <span class="quantity-container" id=<%= info.elemento.id_producto %>>
@@ -71,17 +65,13 @@
                       <button class="quantity-button" onclick="updateQuantity(<%= info.elemento.id_producto %>, 'decrement')">-</button>
                     </div>
                   </div>
-  
                   <div >
                     <div style="display: flex; "> $<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
                   </div>
-
                   <div >
                     <div style="display: flex; "> 
-                      <img src="../img/icons/delete_trash.svg" alt="Eliminar" ></div>
+                      <img src="../img/icons/delete_trash.svg" alt="Eliminar" class="lapiz" data-id="<%= info.elemento.id_producto %>" ></div>
                   </div>
-                  
-                  
                 </div>
               <% } %>
             <% }); %>

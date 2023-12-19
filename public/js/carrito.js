@@ -87,6 +87,26 @@ async function updateStockItem(productId, cantidad, action) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    
+   const trashIcons = document.querySelectorAll('.trash');
+
+    trashIcons.forEach(function (icon) {
+        icon.addEventListener('click', function () {
+            console.log(icon);
+            const productId = icon.getAttribute('data-id');
+            // Verifica directamente si productId tiene un valor
+            if (!productId) {
+                console.error('El productId no tiene un valor.');
+                return;
+            }
+            
+            // Determina si el ícono es de editar o eliminar y redirige en consecuencia
+            if (icon.src.includes('delete_trash.svg')) {
+                deleteItem(productId); // Pasa el id_producto a la función
+            }
+        });
+    }),
+
     window.updateQuantity = async function (productId, action, quantity) {
         try {
             const quantityElement = document.getElementById(productId);
@@ -101,3 +121,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+function deleteItem(productId) {
+    let confirmacion = confirm('¿Estás seguro que quieres borrar el item?');
+
+    if (confirmacion) {
+        fetch(`/productos/delete/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId: productId })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: La respuesta no es válida');
+            }
+            return response.json();
+        })
+        .then(data => {
+            //Actualizo la pantalla con el listado nuevo
+            window.location.href = '/admin';
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error.message);
+        });
+    }
+
+}
