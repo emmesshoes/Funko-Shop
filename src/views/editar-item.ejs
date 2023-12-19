@@ -24,24 +24,32 @@
   <%- include('../views/partials/header')%>
   <main>
         <h1>EDITAR ITEM</h1>
-        <form id="editar-producto-form" action="/productos/edit" class="container" method="post" enctype="multipart/form-data">
-          <div class="campo" >
-            <label for="id_producto">Id del Producto:</label>
-            <input type="text" id="id_producto" name="id_producto" class="idProducto" value="<%= producto.id_producto %>">
-          </div>
-            <div class="fila1">
-              <div class="campo-doble">
+        <div class="container-form">
+
+          <form id="editar-producto-form" action="/productos/edit" method="post" enctype="multipart/form-data">
+            <div class="rows-form" >
+              <div class="div-input">
+                <label for="id_producto">Id del Producto:</label>
+                <input type="text" id="id_producto" name="id_producto" value="<%= producto.id_producto %>">
+              </div>
+              <div class="div-input">
+                <label for="nombre">Nombre del Producto:</label>
+                <input type="text" id="nombre" name="nombre" value=<%= producto.nombre %>>
+              </div>
+            </div>
+            <div class="rows-form">
+              <div class="div-input">
                 <label for="categoria" >Categoría:</label>
-                <select id="categoria" name="categoria"  class="completar_campo1" >
+                <select id="categoria" name="categoria"  >
                   <option value=<%= producto.categoria %> selected><%= producto.categoria %></option>
                   <option >Funko</option>
                   <option >Remeras</option>
                   <option >Llaveros</option>
                 </select>
               </div>
-              <div class="campo-doble">
-                <label for="licencia" class="licencia">Licencia:</label>
-                <select id="licencia" name="licencia" class="completar_campo1">
+              <div class="div-input" >
+                <label for="licencia" >Licencia:</label>
+                <select id="licencia" name="licencia" >
                   <option value="<%= producto.licencia %>" selected><%= producto.licencia %></option>
                   <option>Harry Potter</option>
                   <option>Star Wars</option>
@@ -49,42 +57,36 @@
                 </select>
               </div>
             </div>
-            <div class="fila2">
-              <div class="campo">
-                <label for="nombre">Nombre del Producto:</label>
-                <input type="text" id="nombre" name="nombre" class="margen-inferior-rojo" value=<%= producto.nombre %>>
+  
+            <div class="rows-form">
+              <div class="div-input">
+                <textarea class="descripcion" id="descripcion" name="descripcion" ><%= producto.descripcion %></textarea>
               </div>
             </div>
-
-            <div class="fila3">
-              <div class="campo">
-                <textarea id="descripcion" name="descripcion" class="completar_campo"><%= producto.descripcion %></textarea>
-              </div>
-            </div>
-
-            <div class="fila4">
-              <div class="campo-seis">
+  
+            <div class="rows-form">
+              <div class="div-input">
                 <label for="sku">SKU:</label>
-                <input type="text" id="sku" name="sku" class="margen-inferior-rojo2 "value=<%= producto.sku %>>
+                <input type="text" id="sku" name="sku" value=<%= producto.sku %>>
               </div>
-              <div class="campo-seis">
+              <div class="div-input">
                 <label for="precio">Precio:</label>
-                <input type="text" id="precio" name="precio" class="margen-inferior-rojo2" value=<%= producto.precio %>>
+                <input type="text" id="precio" name="precio"  value=<%= producto.precio %>>
               </div>
-              <div class="campo-seis">
+              <div class="div-input">
                 <label for="stock">Stock:</label>
-                <input type="text" id="stock" name="stock" class="margen-inferior-rojo2" value=<%= producto.stock %>>
+                <input type="text" id="stock" name="stock"  value=<%= producto.stock %>>
               </div>
             </div>
-
-            <div class="fila5">
-              <div class="campo-doble">
+  
+            <div class="rows-form">
+              <div class="div-input">
                 <label for="descuento">Descuento:</label>
-                <input type="text" id="descuento" name="descuento" class="margen-inferior-rojo2" value="<%= producto.descuento %>">
+                <input type="text" id="descuento" name="descuento" value="<%= producto.descuento %>">
                 </div>             
-              <div class="campo-doble">
+              <div class="div-input">
                 <label for="cuotas">Cuotas:</label>
-                <select id="cuotas" name="cuotas" class="completar_campo4">
+                <select id="cuotas" name="cuotas">
                   <option value=<%= producto.cuotas %> selected>"<%= producto.cuotas %>"</option>
                   <option value=3>3 cuotas sin interes</option>
                   <option value=6>6 cuotas sin interes</option>
@@ -93,35 +95,40 @@
               </div>
             </div>
 
-           
-            <div class="image-container">
+             
+            <div >
               <% const rutaCompletaFront = producto.imagen_front || ''; %>
               <% const rutaCompletaBack = producto.imagen_back || ''; %>
               <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
               <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
-              <label for="imagen_front">Imágen Front:</label>
-              <input type="file" name="imagen_front" id="imagen_front" class="imag" onchange="updateFileLabel(this, 'frontLabel')">
-              <span id="frontLabel"><%= rutaRelativaFront %></span>
-              <label for="imagen_back">Imágen Back:</label>
-              <input type="file" name="imagen_back" id="imagen_back" class="imag" onchange="updateFileLabel(this, 'backLabel')">
-              <span id="backLabel"><%= rutaRelativaBack %></span>
+              <div class="rows-form">
+                <label for="imagen_front">Imágen Front:</label>
+                <input type="file" name="imagen_front" id="imagen_front" class="imag" onchange="updateFileLabel(this, 'frontLabel')">
+                <span class="ruta" id="frontLabel"><%= rutaRelativaFront %></span>
+              </div>
+              <div class="rows-form">
+                <label for="imagen_back">Imágen Back:</label>
+                <input type="file" name="imagen_back" id="imagen_back" class="imag" onchange="updateFileLabel(this, 'backLabel')">
+                <span class="ruta" id="backLabel"><%= rutaRelativaBack %></span>
+              </div>
             </div>
 
-            <div class="fila7">
+            <div class="rows-form">
               <figure class="figure">
-                <img src="<%= rutaRelativaFront %>" alt="Descripción de la imagen 1" class="margen-inferior-rojo2" >
+                <img src="<%= rutaRelativaFront %>" alt="Descripción de la imagen 1"  >
                 <figcaption>FRENTE</figcaption>
               </figure>
               <figure class="figure">
-                <img src="<%= rutaRelativaBack %>" alt="Descripción de la imagen 2" class="margen-inferior-rojo2">
+                <img src="<%= rutaRelativaBack %>" alt="Descripción de la imagen 2" >
                 <figcaption>DORSO</figcaption>
               </figure>
             </div>
-
+  
             <div class="boton">
               <button type="submit" onclick="handleSubmit()">Modificar producto</button>
             </div>
           </form>
+        </div>
         </main>
     <%- include('../views/partials/footer')%>
          

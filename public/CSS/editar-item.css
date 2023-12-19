@@ -1,15 +1,90 @@
 h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+label {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.div-input{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 5px;
+}
+
+.descripcion{
+    height: 150px;
+}
+
+.ruta{
+  font-size: 15px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.campo-doble {
+  display: flex;
+  gap: 10px;
+}
+
+.campo-seis {
+  flex: 1;
+}
+
+.image-container {
+  margin-bottom: 20px;
+}
+
+.imag {
+  margin-bottom: 10px;
+}
+
+.figure {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.boton {
+  text-align: center;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 15px;
+}
+
+
+
+h1 {
     font-size: 3em;
     padding: 1.5em 1.5em 1em 3em;
     font-weight: 700;
     font-family: 'Raleway', sans-serif;
 }
-  
-  .formulario {    
-    margin: 1em ;
-    padding: 2em 9em 2em 9em;
-    font-family: 'Inter', sans-serif;
-  } 
+
 
   .fila1 {
     display: flex;   
@@ -22,23 +97,28 @@ h1 {
     padding: 1.1em 0 1.5em 0;
   }
 
-  .fila5{
-    display: flex;
-    padding: 1.1em 0 1.5em 0;
-  }
+.container-form{
+  display: flex;
+  flex-direction: column;
+  font-family: Inter;
+  align-items: center;
+}
 
-  .fila6{
-    display: flex;
-    padding: 1.1em 0 1.5em 0;
-  }
-  .fila7{
-    display: flex;
-    padding: 1.1em 0 1.5em 0;
-  }
+.input-id{
+  width: 70px;
+  height: 30px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+
   
   .completar_campo1{
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
+    height: 30px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    text-align: center;
    }
   
   .completar_campo{
@@ -49,9 +129,14 @@ h1 {
   margin-left: 5em;
  }
 
-  .campo{
-    padding: 1.1em 0 1.5em 0;
-  }
+
+.rows-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
  
   .completar_campo3{
    font-family: 'Inter', sans-serif;
@@ -60,13 +145,7 @@ h1 {
   .completar_campo4{
   font-family: 'Inter', sans-serif;
   }
-  
-  label {
-    text-align: left;
-    font-size: 1.5em;
-    font-weight: 500;
-    margin-right: 1.2em;
-  }
+
   
   .margen-inferior-rojo {
     margin-bottom: 0;
@@ -83,19 +162,7 @@ h1 {
     margin-left: 0.8em;
   }
 
-  /* Estilos comunes para todos los tamaños de pantalla */
-h1 {
-  font-size: 3em;
-  padding: 1.5em 1.5em 0 2.4em;
-  font-weight: 700;
-  font-family: 'Raleway', sans-serif;
-}
 
-.formulario {    
-  margin: 2em 5em 2em 5em ;
-  padding: 2em 2em; /* Reducir el relleno en pantallas más pequeñas */
-  font-family: 'Inter', sans-serif;
-} 
 
 /* Consulta de medios para pantallas de 768 píxeles o menos */
 @media only screen and (max-width: 768px) {
