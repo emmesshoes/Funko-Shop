@@ -74,8 +74,9 @@ router.put('/carrito-elementos/update-price', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    const refreshDataOnly = req.query.refreshDataOnly === 'true';
     if(!req.session.user.email){
-      return res.status(500).json({ mensaje: 'Debe loguearse para ver el carrito' });
+      return res.status(500).res.json({ mensaje: 'Debe loguearse para ver el carrito' });
     }
     
     const carritoId = req.session.carrito.carrito[0].id_carrito;
@@ -106,8 +107,14 @@ router.get('/', async (req, res) => {
 
   console.log('----------- TOTAL A PAGAR:', totalPagar );
 
-    // Renderizar la página elementos-del-carrito y pasar la información
+    //Solo refresco datos
+    if (refreshDataOnly){
+      return res.json({productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar});
+    } else {
+      // Renderizar la página elementos-del-carrito y pasar la información
     res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    }
+    
   } catch (error) {
     console.error('Error al obtener elementos del carrito:', error);
     res.status(500).json({ error: 'Error al obtener elementos del carrito' });
@@ -127,13 +134,17 @@ router.get('/carrito-elementos/:carritoId', async (req, res) => {
   }
 });
 
-router.delete('/delete/:productId', async (req, res) => {
+router.delete('/delete', async (req, res) => {
   try {
-    await ProductosController.deleteProduct(req.params.productId);
-    res.json({ message: 'Product deleted successfully' });
+    const result= await CarritoElementosController.deleteCartItem(req, res);
+    if (result === 1){
+      res.json({ message: 'Item eliminado satisfactoriamente!!!' });
+    } else {
+      res.json({ message: 'Ningun Item eliminado' });
+    }
   } catch (error) {
     console.error('Error deleting product:', error);
-    res.status(500).json({ error: 'Error deleting product from the database' });
+    res.status(500).res.json({ error: 'Error deleting product from the database' });
   }
 });
 

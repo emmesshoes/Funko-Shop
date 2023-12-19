@@ -92,8 +92,22 @@ const CarritoElementosService = {
     } catch (error) {
         throw error;
     }
-}
+},
 
+  deleteCartItem: async (carritoId, productoId) => {
+    try {
+      const affectedRows = await CarritoElemento.destroy({
+        where: {
+          id_carrito: carritoId,
+          id_producto: productoId,
+        },
+      });
+
+      return affectedRows;
+    } catch (error) {
+      throw error;
+    }
+  },
 
 }
 

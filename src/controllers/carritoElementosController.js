@@ -104,6 +104,24 @@ subProductToCart: async (req, res) => {
       throw error;
     }
   },
+
+  deleteCartItem: async (req, res) => {
+    try {
+      const { productId } = req.body;
+      const carritoId = req.session.carrito.carrito[0].id_carrito;
+      console.log('ESTOY EN DELETECARTITEM');
+      console.log('BODY: ', req.body);
+      console.log('PRODUCTO ID: ', parseInt(productId));
+      console.log('CARRITO ID: ', carritoId);
+
+      return await CarritoElementosService.deleteCartItem(carritoId, productId);
+    } catch (error) {
+      throw error;
+    }
+  },
+
 };
+
+
 
 export default CarritoElementosController;

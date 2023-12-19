@@ -86,14 +86,64 @@ async function updateStockItem(productId, cantidad, action) {
     }
 }
 
+
+async function deleteItem(productId) {
+    let confirmacion = confirm('¿Estás seguro que quieres borrar el item?');
+
+    console.log('PRODUCT ID QUE ENTRA A deleteItem en carrito.js: ', productId);
+    if (confirmacion) {
+        try {
+            const response = await fetch(`/carrito-elementos/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId })
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: La respuesta no es válida');
+            }
+
+            const data = await response.json();
+            // Actualizo la pantalla con el listado nuevo
+            window.location.href = '/carrito-elementos';
+            console.log(data);
+        } catch (error) {
+            console.error('Error en la solicitud:', error.message);
+        }
+    }
+}
+
+// carrito.js
+
+function updatePageWithNewData(data) {
+   
+  
+    // Actualizar la sección de resumen
+    const cantidadTotalElement = document.getElementById('cantidadTotal');
+    const subtotalElement = cantidadTotalElement.nextElementSibling.nextElementSibling.querySelector('.text-resumen.numero');
+    const costoEnvioElement = subtotalElement.nextElementSibling.nextElementSibling.querySelector('.text-resumen.numero');
+    const totalPagarElement = costoEnvioElement.nextElementSibling.nextElementSibling.querySelector('.numero');
+
+    cantidadTotalElement.textContent = data.cantidadTotal;
+    subtotalElement.textContent = `$${data.subTotal}`;
+    costoEnvioElement.textContent = `$${data.costoEnvio}`;
+    totalPagarElement.textContent = `$${data.totalPagar}`;
+
+    console.log('cantidad total: ', data.cantidadTotal);
+}
+  
+  
 document.addEventListener('DOMContentLoaded', function () {
     
-   const trashIcons = document.querySelectorAll('.trash');
+    const trashIcons = document.querySelectorAll('.trash');
 
     trashIcons.forEach(function (icon) {
         icon.addEventListener('click', function () {
             console.log(icon);
             const productId = icon.getAttribute('data-id');
+            
             // Verifica directamente si productId tiene un valor
             if (!productId) {
                 console.error('El productId no tiene un valor.');
@@ -102,51 +152,47 @@ document.addEventListener('DOMContentLoaded', function () {
             
             // Determina si el ícono es de editar o eliminar y redirige en consecuencia
             if (icon.src.includes('delete_trash.svg')) {
-                deleteItem(productId); // Pasa el id_producto a la función
+                deleteItem(productId)
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error.message);
+                    });
             }
         });
-    }),
+    });
 
     window.updateQuantity = async function (productId, action, quantity) {
         try {
             const quantityElement = document.getElementById(productId);
             const cantidad = parseInt(quantityElement.textContent);
             const actuallyStock = await updateStockItem(productId, cantidad, action);
-            console.log('ESTA ES LA CANTIDAD QUE ME DEVUELVE: ', actuallyStock);
             quantityElement.textContent = parseInt(actuallyStock);
-         
 
+            location.reload();
+          /*
+            const response = await fetch(`/carrito-elementos?refreshDataOnly=true`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('ACA LLEGARON LOS DATOS: ', data);
+            // Actualizar la página con los nuevos datos sin recargarla
+            updatePageWithNewData(data);
+*/
         } catch (error) {
             console.error('Error:', error.message);
         }
+        
     }
 });
 
-function deleteItem(productId) {
-    let confirmacion = confirm('¿Estás seguro que quieres borrar el item?');
-
-    if (confirmacion) {
-        fetch(`/productos/delete/${productId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ productId: productId })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: La respuesta no es válida');
-            }
-            return response.json();
-        })
-        .then(data => {
-            //Actualizo la pantalla con el listado nuevo
-            window.location.href = '/admin';
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error en la solicitud:', error.message);
-        });
-    }
-
-}

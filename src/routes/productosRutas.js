@@ -139,7 +139,7 @@ routerProductos.get('/get/:productId', async (req, res) => {
 
 routerProductos.delete('/delete/:productId', async (req, res) => {
   try {
-    await ProductosController.deleteProduct(req.params.productId);
+    const result = await ProductosController.deleteProduct(req.params.productId);
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
     console.error('Error deleting product:', error);

@@ -70,7 +70,7 @@
                   </div>
                   <div >
                     <div style="display: flex; "> 
-                      <img src="../img/icons/delete_trash.svg" alt="Eliminar" class="lapiz" data-id="<%= info.elemento.id_producto %>" ></div>
+                      <img src="../img/icons/delete_trash.svg" alt="Eliminar" class="trash" data-id=<%= info.elemento.id_producto %>></div>
                   </div>
                 </div>
               <% } %>
@@ -86,7 +86,7 @@
           <div class="summary-list" style="margin-bottom: 10px; align-self: flex-end;">
             <div class="items-resumen">
               <div class="text-resumen">Cantidad de elementos</div>
-              <div class="text-resumen numero"><%= cantidadTotal %></div>
+              <div class="text-resumen numero" id="cantidadTotal"><%= cantidadTotal %></div>
             </div>
             <div class="items-resumen">
               <div class="text-resumen" >Subtotal</div>
