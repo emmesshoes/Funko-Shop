@@ -120,6 +120,16 @@ const ProductosController = {
       throw error;
     }
   },
-};
 
+
+  getStock: async (productId) => {
+    try {
+      const stock = await ProductoService.stockProduct(productId);
+      return stock;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+};
 export default ProductosController;

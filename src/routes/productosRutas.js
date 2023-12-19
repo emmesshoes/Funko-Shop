@@ -147,4 +147,16 @@ routerProductos.delete('/delete/:productId', async (req, res) => {
   }
 });
 
+routerProductos.get('/stock/:productId', async (req, res) => {
+  try {
+    console.log('ID STOCK: ', req.params.productId);
+
+    const stock = await ProductosController.getStock(req.params.productId);
+    res.json(stock);
+  } catch (error) {
+    console.error('Error obteniendo stock:', error);
+    res.status(500).json({ error: 'Error getting product from the database' });
+  }
+});
+
 export default routerProductos;

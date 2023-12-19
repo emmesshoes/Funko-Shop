@@ -59,6 +59,17 @@ const ProductoService = {
   },
 };
 
+stockProduct: async (productId) => {
+  try {
+    const product = await Producto.findByPk(productId);
+
+    const stock = product.stock;
+    return stock;
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 
 export default ProductoService;

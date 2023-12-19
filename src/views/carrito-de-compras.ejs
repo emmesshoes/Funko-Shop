@@ -48,16 +48,17 @@
                   </div>
                   
                   <div class="column">
-                    <span class="quantity-container" data-product-id="<%= info.elemento.id_producto %>">
+                    <span class="quantity-container" id=<%= info.elemento.id_producto %>>
                       <%= info.elemento.cantidad %>
                     </span>
                     <div class="quantity-button-container">
-                      <button class="quantity-button" onclick="updateQuantity('<%= info.elemento.id_producto %>', 'increment')">+</button>
-                      <button class="quantity-button" onclick="updateQuantity('<%= info.elemento.id_producto %>', 'decrement')">-</button>
+                      <button class="quantity-button" onclick="updateQuantity(<%= info.elemento.id_producto %>, 'increment')">+</button>
+                      <button class="quantity-button" onclick="updateQuantity(<%= info.elemento.id_producto %>, 'decrement')">-</button>
                     </div>
                   </div>
   
-                  <div class="column">$<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
+                  <div class="column">
+                    <div style="display: flex; "> $<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
                 </div>
               <% } %>
             <% }); %>
@@ -95,31 +96,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function (e) {
-        // Función para actualizar la cantidad al hacer clic en los botones + o -
-        function updateQuantity(productId, action) {
-          // Realiza la lógica para incrementar o decrementar la cantidad según la acción
-          // Puedes utilizar AJAX o fetch para enviar la actualización al servidor si es necesario
-    
-          // Por ahora, solo actualizamos la cantidad en el cliente
-          const quantityElement = document.querySelector(`[data-product-id="${productId}"] .column .quantity-container`);
-          console.log('quantityElement: ',quantityElement);
-          let currentQuantity = parseInt(quantityElement.textContent);
-    
-          if (action === 'increment') {
-            currentQuantity++;
-          } else if (action === 'decrement' && currentQuantity > 1) {
-            currentQuantity--;
-          }
-    
-          quantityElement.textContent = currentQuantity;
-        }
-    
-        // Asigna la función updateQuantity al ámbito global para que sea accesible desde el evento onclick
-        window.updateQuantity = updateQuantity;
-      });
-    </script>
+    <script src="/public/js/carrito.js"></script>
+
     
   </body>
 </html>

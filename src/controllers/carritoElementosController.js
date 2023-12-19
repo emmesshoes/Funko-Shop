@@ -1,5 +1,6 @@
-import carritoElementosFunctions from '../functions/carritoElementosFunctions.js';
+import CarritoElementosService from '../services/carritoElementosService.js';
 import CarritoService from '../services/carritoService.js';
+import ProductoService from '../services/productosService.js';
 
 const CarritoElementosController = {
   addProductToCart: async (carritoId, productoId, cantidad, precioUnitario) => {
@@ -10,9 +11,14 @@ const CarritoElementosController = {
     }
   },
 
-  updateProductQuantity: async (elementoId, nuevaCantidad) => {
+  updateProductQuantity: async (productId, action) => {
     try {
-      return await carritoElementosFunctions.updateProductQuantity(elementoId, nuevaCantidad);
+      const producto = ProductoService.getProduct(productId);
+      const stock = producto.stock;
+
+
+
+      return await CarritoElementosService.updateProductQuantity(elementoId, nuevaCantidad);
     } catch (error) {
       throw error;
     }
@@ -20,7 +26,7 @@ const CarritoElementosController = {
 
   updateProductPrice: async (elementoId, nuevoPrecio) => {
     try {
-      return await carritoElementosFunctions.updateProductPrice(elementoId, nuevoPrecio);
+      return await CarritoElementosService.updateProductPrice(elementoId, nuevoPrecio);
     } catch (error) {
       throw error;
     }
@@ -28,7 +34,7 @@ const CarritoElementosController = {
 
   getCartItems: async (carritoId) => {
     try {
-      return await carritoElementosFunctions.getCartItems(carritoId);
+      return await CarritoElementosService.getCartItems(carritoId);
     } catch (error) {
       throw error;
     }

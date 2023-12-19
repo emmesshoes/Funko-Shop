@@ -21,7 +21,77 @@
  -->
 
 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        // Variables
+        const counterElement = document.getElementById('counter');
+        let counterValue = 1; // Valor inicial del contador
+    
+        // Funciones
+        function updateCounterDisplay() {
+            counterElement.textContent = counterValue;
+        }
+    
+        // Función para decrementar
+        window.decrement = function () {
+            if (counterValue > 1) {
+                counterValue--;
+                updateCounterDisplay();
+            }
+        };
+    
+        // Función para incrementar
+        window.increment = function () {
+            counterValue++;
+            updateCounterDisplay();
+        };
+    
+       // Función para agregar al carrito
+        window.addToCart = function () {
+            // cantidad seleccionada
+            const cantidadInput = document.getElementById('cantidad');
+            const cantidad = counterValue;
+            // producto
+            const precioUnitario = '<%= producto.precio %>';
+            const productoId = '<%= producto.id_producto %>';
+            
+            // asegurarse de que la cantidad sea un número positivo
+            if (isNaN(cantidad) || cantidad <= 0) {
+                alert('Por favor, ingresa una cantidad válida.');
+                return;
+            }
 
+            // Datos que se enviarán al servidor
+            const data = {
+                productoId: productoId,
+                cantidad: cantidad,
+            };
+
+            
+            fetch('/carrito-elementos/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.insertProductToCartResult){
+                    alert("Mensaje: " + data.message + "\nProducto ID: " + data.productoId + "\nCantidad: " + data.cantidad);
+                } else {
+                    alert("Mensaje: " + data.message );
+                }
+               
+            })
+            .catch(error => {
+                console.error('Error al enviar datos:', error);
+            });
+        };
+
+    });
+
+</script>
 </head><section></section>
 <body>    
 
@@ -31,52 +101,49 @@
                
         <section class="collection container">
             <div class="row">
-                <!-- Tarjetas de productos -->
                 <% const productoSeleccionado = producto; %>
-
+            
                 <% if (productoSeleccionado) { %>
-                    <div class="col-md-4">
-                        
-                            <div class="card border-0">
-                                <!-- Imagen -->
-                                <picture class="card-item__cover">
-                                    
-                                    <% const rutaCompletaFront = productoSeleccionado.imagen_front; %>
-                                    <% const rutaCompletaBack = productoSeleccionado.imagen_back; %>
-                                    <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                                    <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
-
-                                    <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= productoSeleccionado.nombre %>">
-                                    <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= productoSeleccionado.nombre %> en caja">
-                                </picture>
-                                <!-- Esquina superior derecha con texto -->
-                                <% if (productoSeleccionado.nuevo) { %>
-                                    <div class="corner-badge">NUEVO</div>
-                                <% } %>
-                                <div class="card-body">
-                                    <!-- Contenido de texto -->
-                                    <p class="text-secondary"><%= productoSeleccionado.categoria %></p>
-                                    <h5 class="card-title"><%= productoSeleccionado.nombre %></h5>
-                                    <p class="text-secondary">$ <%= productoSeleccionado.precio %></p>
-                                    <p class="text-primary"><%= productoSeleccionado.cuotas %> CUOTAS SIN INTERES</p>
-                                </div>
+                    <div class="col-md-10">
+                        <div class="card border-0">
+                            <!-- Imagen -->
+                            <picture class="card-item__cover">
+                                <% const rutaCompletaFront = productoSeleccionado.imagen_front; %>
+                                <% const rutaCompletaBack = productoSeleccionado.imagen_back; %>
+                                <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+            
+                                <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= productoSeleccionado.nombre %>">
+                                <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= productoSeleccionado.nombre %> en caja">
+                            </picture>
+            
+                            <!-- Esquina superior derecha con texto -->
+                            <% if (productoSeleccionado.nuevo) { %>
+                                <div class="corner-badge">NUEVO</div>
+                            <% } %>
+            
+                            <div class="card-body">
+                                <!-- Contenido de texto -->
+                                <h5 class="card-title"><%= productoSeleccionado.nombre %></h5>
+                                <p class="text-secondary"><%= productoSeleccionado.categoria %></p>
+                                <p class="text-primary"><%= productoSeleccionado.cuotas %> CUOTAS SIN INTERÉS</p>
+                                <p class="text-secondary">$ <%= productoSeleccionado.precio %></p>
+                                <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart()">Agregar al carrito</button>
                             </div>
-                        
+                        </div>
                     </div>
                 <% } else { %>
                     <p>El producto con ID <%= id_producto %> no fue encontrado.</p>
                 <% } %>
+            </div>
 
-            </div>      
-        </section>
-
-        <div class="btn-group" role="group">
-            <button id="decrement" type="button" class="btn btn-secondary" onclick="decrement()">-</button>
-            <span id="counter" class="btn btn-light"><%= counterValue %></span>
-            <button id="increment" type="button" class="btn btn-secondary" onclick="increment()">+</button>
-        </div>
-        <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart(<%= producto.id_producto %>,<%= producto.precio %>)">Agregar al carrito</button>
-        
+        <div class="btn-group col-md-4" role="group">
+            <button id="decrement" type="button" class="btn btn-lg btn-secondary" onclick="decrement()">-</button>
+            <span id="counter" class="btn btn-lg btn-light"><%= counterValue %></span>
+            <button id="increment" type="button" class="btn btn-lg btn-secondary" onclick="increment()">+</button>
+            <button id="addToCart" type="button" class="btn btn-lg btn-primary" onclick="addToCart()">Agregar al carrito</button>
+        </div>    
+    </section>
         
         <!-- Contenido principal (80% del ancho) -->
         <section class="slider container glide" style="overflow: hidden;">
@@ -116,7 +183,7 @@
               <button class="glide__arrow glide__arrow--left" data-glide-dir="<" style="font-size: 24px; padding: 10px;"><iconify-icon icon="ic:round-chevron-left"></iconify-icon></button>
               <button class="glide__arrow glide__arrow--right" data-glide-dir=">" style="font-size: 24px; padding: 10px;"><iconify-icon icon="ic:round-chevron-right"></iconify-icon></button>
             </div>
-          </section>
+          </section> 
           
     </main>
     <%- include('../views/partials/footer')%>
@@ -141,6 +208,5 @@
             }).mount();
         });
     </script>
-    <script src="/public/js/item.js"></script>
 </body>
 </html>
