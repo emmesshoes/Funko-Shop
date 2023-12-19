@@ -24,7 +24,7 @@ const findUserByEmail = async (email) => {
     return user;
 
   } catch (error) {
-    console.error('Error al buscar usuario por correo electrónico:', error);
+    req.flash('error','El usuario no existe. Por favor regístrese.');
     throw error;
   }
 };
@@ -63,20 +63,21 @@ const findAdmin = async (email, plainPassword) => {
   }
 };
 
-// Función para verificar las credenciales y generar un token
 const loginUser = async (email, plainPassword, isAdminMode) => {
   try {
     // Encuentra el usuario por su correo electrónico
     const user = await findUserByEmail(email);
-    console.log('USER: ', user);
 
+    if (!user) {
+      req.flash('error', 'El usuario no existe. Por favor regístrese.');
+      return null;
+    }
 
     if (isAdminMode) {
       // Si está en modo administrador, verifica las credenciales del administrador
       const isAdmin = await findAdmin(email, plainPassword);
       if (!isAdmin) {
          throw new Error('Acceso denegado. Credenciales de administrador incorrectas.');
-        
       }
 
       // Genera un token JWT para el administrador
@@ -87,11 +88,6 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
     }
 
     // Si no está en modo administrador, verifica las credenciales del usuario
-    if (!user) {
-      req.flash('error', 'Correo electrónico o contraseña incorrectos');
-      return null;
-    }
-
     const match = await comparePasswords(plainPassword, user.contrasena);
 
     if (!match) {
@@ -102,7 +98,6 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
     // Genera un token JWT para el usuario
     const secret = process.env.JWT_SECRET;
     const tokenUser = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin: false }, secret, { expiresIn: '1h' });
-    
 
     return tokenUser;
 
