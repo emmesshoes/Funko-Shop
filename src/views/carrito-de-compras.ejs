@@ -30,34 +30,55 @@
           <!-- Sección de elementos del carrito -->
           <div class="section">
             <div class="row-campos" >
-              <div class="column">Detalle del Producto</div>
-              <div class="column">Cantidad</div>
-              <div class="column">Total</div>
+              <div class="detalle">Detalle del Producto</div>
+              <div >Cantidad</div>
+              <div>Total</div>
+              <div ></div>
             </div>
   
             <% productosInfo.forEach(info => { %>
               <% if (info.producto && info.producto.id_producto !== null) { %>
                 <div class="row" >
-                <div class="column">
+  
+                  <div class="div-detalle-producto">
                     <% const rutaCompletaFront = info.producto.imagen_front; %>
                     <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
                     <% console.log(rutaRelativaFront) %>
                     <img src="<%= rutaRelativaFront %>" alt="Miniatura" style="width: 100px; height: auto;">
-                    <%= info.producto.nombre %>
-                  </div>
+                    <div class="div-detalle">
+                      <div class="div-titulo">
+                        <%= info.producto.nombre %>
+                      </div>
+                      <div class="div-licencia">
+                        <%= info.producto.licencia %>
+                      </div>
+                      <span class="precio">
+                        Precio $
+                        <%= info.producto.precio %>
+                      </span>
 
-                  <div class="column">
-                    <span class="quantity-container" id=<%= info.elemento.id_producto %>>
-                      <%= info.elemento.cantidad %>
-                    </span>
+                    </div>
+                  </div>
+                  
+                  <div class="div-group">
+                    <div class="div-cantidad">
+                      <span class="quantity-container" id=<%= info.elemento.id_producto %>>
+                        <%= info.elemento.cantidad %>
+                      </span>
+                    </div>
                     <div class="quantity-button-container">
                       <button class="quantity-button" onclick="updateQuantity(<%= info.elemento.id_producto %>, 'increment')">+</button>
                       <button class="quantity-button" onclick="updateQuantity(<%= info.elemento.id_producto %>, 'decrement')">-</button>
                     </div>
                   </div>
   
-                  <div class="column">
-                    <div style="display: flex; "> $<%= info.elemento.cantidad * info.elemento.precio_unitario %></div> 
+                  <div >
+                    <div style="display: flex; "> $<%= info.elemento.cantidad * info.elemento.precio_unitario %></div>
+                  </div>
+
+                  <div >
+                    <div style="display: flex; "> 
+                      <img src="../img/icons/delete_trash.svg" alt="Eliminar" ></div>
                   </div>
                   
                   
@@ -73,17 +94,23 @@
         <div class="summary-title" style="margin-bottom: 10px; align-self: flex-end;">RESUMEN</div>
         
           <div class="summary-list" style="margin-bottom: 10px; align-self: flex-end;">
-            <div class="summary-column" style="text-align: left;">Cantidad de elementos</div>
-            <div class="summary-column" style="text-align: right;"><%= cantidadTotal %></div>
-            <div class="summary-line2" style="text-align: left;"></div>
-            <div class="summary-column" style="text-align: left;">Subtotal</div>
-            <div class="summary-column" style="text-align: right;">$<%= subTotal %></div>
-            <div class="summary-line2" style="text-align: left;"></div>
-            <div class="summary-column" style="text-align: left;">ENVÍO</div>
-            <div class="summary-column" style="text-align: right;">$<%= costoEnvio %></div>
+            <div class="items-resumen">
+              <div class="text-resumen">Cantidad de elementos</div>
+              <div class="text-resumen numero"><%= cantidadTotal %></div>
+            </div>
+            <div class="items-resumen">
+              <div class="text-resumen" >Subtotal</div>
+              <div class="text-resumen numero" >$<%= subTotal %></div>
+            </div>
+            <div class="items-resumen">
+              <div class="text-resumen" >ENVÍO</div>
+              <div class="text-resumen numero" >$<%= costoEnvio %></div>
+            </div>
             <div class="summary-line" style="text-align: left;"></div>
-            <div class="summary-column" style="text-align: left;">TOTAL</div>
-            <div class="summary-column" style="text-align: right;">$<%= totalPagar %></div>
+            <div class="div-total">
+              <div >TOTAL</div>
+              <div class="numero">$<%= totalPagar %></div>
+            </div>
           </div>
           <div class="container-button">
             <button class="summary-button" >IR A PAGAR</button>

@@ -15,6 +15,10 @@ body {
     justify-content: center;
 }
 
+.titulos-form{
+    font-size: 15px;
+}
+
 form {
     max-width: 400px;
     width: 100%;

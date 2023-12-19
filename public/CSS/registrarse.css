@@ -18,6 +18,18 @@ input {
   font-size: large; 
 }
 
+.div-registrarse{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+  margin-bottom: 15px;
+}
+
+.registrarse{
+  font-size: 15px !important;
+}
+
+
 .btn{
   margin-right: 2em;
 }

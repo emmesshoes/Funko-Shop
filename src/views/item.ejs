@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home  |  Funkoshop</title>
-  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/productos.css">
+    <link rel="stylesheet" href="../CSS/footer.css"> 
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-        <link rel="stylesheet" href="../CSS/reset.css">
-        <link rel="stylesheet" href="../CSS/index.css">
-        <link rel="stylesheet" href="../CSS/productos.css">
-        <link rel="stylesheet" href="../CSS/footer.css"> 
-    
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
      <!-- <script type="module" src="/js/script.js"></script>
@@ -30,16 +28,16 @@
     <main class="main-container">
                
         <section class="collection container">
-            <div class="row">
+            <!-- <div class="row"> -->
                 <!-- Tarjetas de productos -->
                 <% const productoSeleccionado = producto; %>
 
                 <% if (productoSeleccionado) { %>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4"> -->
                         
-                            <div class="card border-0">
+                            <!-- <div class="card border-0"> -->
                                 <!-- Imagen -->
-                                <picture class="card-item__cover">
+                                <picture class="card-item__cover card-item">
                                     
                                     <% const rutaCompletaFront = productoSeleccionado.imagen_front; %>
                                     <% const rutaCompletaBack = productoSeleccionado.imagen_back; %>
@@ -53,93 +51,92 @@
                                 <% if (productoSeleccionado.nuevo) { %>
                                     <div class="corner-badge">NUEVO</div>
                                 <% } %>
-                                <div class="card-body">
-                                    <!-- Contenido de texto -->
-                                    <p class="text-secondary"><%= productoSeleccionado.categoria %></p>
-                                    <h5 class="card-title"><%= productoSeleccionado.nombre %></h5>
-                                    <p class="text-secondary">$ <%= productoSeleccionado.precio %></p>
-                                    <p class="text-primary"><%= productoSeleccionado.cuotas %> CUOTAS SIN INTERES</p>
-                                </div>
-                            </div>
+                              <div class="div-info-item">
+                                
+                                  <p class="text-secondary"><%= productoSeleccionado.categoria %></p>
+                                  <p class="title-producto"><%= productoSeleccionado.nombre %></p>
+                                  <p class="text-secondary"><%= productoSeleccionado.descripcion %></p>
+
+                                  <p class="text-descripcion">$ <%= productoSeleccionado.precio %></p>
+                                  <div class="btn-group" role="group">
+                                    <div class="agregar-quitar">
+                                      <div id="counter" class="cantidad"><%= counterValue %></div>
+                                      <div class="agregar-quitar-group">
+                                        <button id="increment" type="button" class="mas-menos" onclick="increment()">+</button>
+                                        <button id="decrement" type="button" class="mas-menos" onclick="decrement()">-</button>
+                                      </div>
+                                    </div>
+                                    <div>
+
+                                      <button id="addToCart" type="button" class="btn-agregar-producto" onclick="addToCart(<%= producto.id_producto %>,<%= producto.precio %>)">Agregar al carrito</button>
+                                    </div>
+                                  </div>
+                                  <p class="card-item__promo"><%= productoSeleccionado.cuotas %> CUOTAS SIN INTERES</p>
+                              </div>
                         
-                    </div>
+                    <!-- </div> -->
                 <% } else { %>
                     <p>El producto con ID <%= id_producto %> no fue encontrado.</p>
                 <% } %>
 
-            </div>      
+            <!-- </div>       -->
         </section>
 
-        <div class="btn-group" role="group">
-            <button id="decrement" type="button" class="btn btn-secondary" onclick="decrement()">-</button>
-            <span id="counter" class="btn btn-light"><%= counterValue %></span>
-            <button id="increment" type="button" class="btn btn-secondary" onclick="increment()">+</button>
-        </div>
-        <button id="addToCart" type="button" class="btn btn-primary" onclick="addToCart(<%= producto.id_producto %>,<%= producto.precio %>)">Agregar al carrito</button>
         
         
         <!-- Contenido principal (80% del ancho) -->
-        <section class="slider container glide" style="overflow: hidden;">
-            <h2 class="slider__title">Últimos lanzamientos</h2>
-            <div class="glide__track" data-glide-el="track">
+        <section class="slider container glide">
+          <h2 class="slider__title">Productos relacionados</h2>
+          <div class="glide__track" data-glide-el="track">
               <ul id="productos-container" class="slider__items">
-                <% productos.forEach(producto => { %>
-                  <li class="slider__item glide__slide">
-                    <article class="card-item">
-                      <picture class="card-item__cover">
-                        <a class="card-item__link" href="/item/<%= producto.id_producto %>">
-                          <% const rutaCompletaFront = producto.imagen_front; %>
-                          <% const rutaCompletaBack = producto.imagen_back; %>
-                          <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
-                          <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
-                          <span class="card-item__tag"><%= producto.nuevo ? 'Nuevo' : '' %></span>
-                          <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
-                          <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
-                        </a>
-                      </picture>
-                      <div class="card-item__content">
-                        <p class="card-item__licence"><%= producto.categoria %></p>
-                        <h4 class="card-item__name"><%= producto.nombre %></h4>
-                        <% if (typeof producto.precio === 'number') { %>
-                          <p class="card-item__price">$ <%= producto.precio.toFixed(2) %>.-</p>
-                        <% } else { %>
-                          <p class="card-item__price">Precio no disponible</p>
-                        <% } %>
-                        <div class="card-item__promo"><%= producto.cuotas %></div>
-                      </div>
-                    </article>
-                  </li>
-                <% }); %>
+                  <% productos.forEach(producto => { %>
+                      
+                      <li class="slider__item glide__slide">
+                          
+                          <article>
+                              
+                                  
+                                  <picture class="card-item__cover">
+                                      <a class="card-item__link" href="/item/<%= producto.id_producto %>">
+                                      <% const rutaCompletaFront = producto.imagen_front; %>
+                                      <% const rutaCompletaBack = producto.imagen_back; %>
+                                      <% const rutaRelativaFront = rutaCompletaFront.replace('public', ''); %>
+                                      <% const rutaRelativaBack = rutaCompletaBack.replace('public', ''); %>
+                                      <span class="card-item__tag"><%='Nuevo' %></span>
+                                      <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
+                                      <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
+                                  </a>
+                                  </picture>
+                                  <div class="card-item__content">
+                                      <p class="card-item__licence"><%= producto.categoria %></p>
+                                      <h4 class="card-item__name"><%= producto.nombre %></h4>
+                                      <% if (typeof producto.precio === 'number') { %>
+                                          <p class="card-item__price">$ <%= producto.precio.toFixed(2) %>.-</p>
+                                      <% } else { %>
+                                          <p class="card-item__price">Precio no disponible</p>
+                                      <% } %>
+                                      <div class="card-item__promo"><%= producto.cuotas %> CUOTAS SIN INTERÉS</div>
+                                  </div>
+                              
+                          </article>
+                      
+                      </li>
+                  
+                  <% }); %>
               </ul>
-            </div>
-            <div class="glide__arrows" data-glide-el="controls" style="display: flex; justify-content: space-between; align-items: center;">
-              <button class="glide__arrow glide__arrow--left" data-glide-dir="<" style="font-size: 24px; padding: 10px;"><iconify-icon icon="ic:round-chevron-left"></iconify-icon></button>
-              <button class="glide__arrow glide__arrow--right" data-glide-dir=">" style="font-size: 24px; padding: 10px;"><iconify-icon icon="ic:round-chevron-right"></iconify-icon></button>
-            </div>
-          </section>
+          </div>
+          <div class="glide__arrows" data-glide-el="controls">
+              <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><iconify-icon icon="ic:round-chevron-left"></iconify-icon></button>
+              <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><iconify-icon icon="ic:round-chevron-right"></iconify-icon></button>
+          </div>
+      </section>
+          
     </main>
     <%- include('../views/partials/footer')%>
+
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Inicializar el carrusel con los productos obtenidos
-            new Glide('.glide', {
-                type: 'carousel',
-                startAt: 0,
-                perView: 3,
-                gap: 30,
-                breakpoints: {
-                    991: {
-                        perView: 2
-                    },
-                    768: {
-                        perView: 1
-                    }
-                }
-            }).mount();
-        });
-    </script>
-    <script src="/public/js/item.js"></script>
+
+    <script src="/public/js/index.js"></script>
 </body>
 </html>

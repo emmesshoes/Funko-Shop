@@ -82,10 +82,13 @@
                 <div class="row">
                     <!-- Tarjetas de productos -->
                     <% productos.forEach(producto => { %>
+                        
                         <div class="col-md-4">
                             <a href="/item/<%= producto.id_producto %>">
                                 <div class="card border-0">
                                     <!-- Imagen -->
+                                        <div class="corner-badge">NUEVO</div>
+
                                     <picture class="card-item__cover">
                                         <% const rutaCompletaFront = producto.imagen_front; %>
                                         <% const rutaCompletaBack = producto.imagen_back; %>
@@ -95,10 +98,7 @@
                                         <img class="card-item__img--front" src="<%= rutaRelativaFront %>" alt="<%= producto.nombre %>">
                                         <img class="card-item__img--back" src="<%= rutaRelativaBack %>" alt="<%= producto.nombre %> en caja">
                                     </picture>
-                                    <!-- Esquina superior derecha con texto -->
-                                    <% if (producto.nuevo) { %>
-                                        <div class="corner-badge">NUEVO</div>
-                                    <% } %>
+                                    
                                     <div class="card-body">
                                         <!-- Contenido de texto -->
                                         <p class="text-secondary"><%= producto.categoria %></p>

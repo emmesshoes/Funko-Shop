@@ -139,6 +139,15 @@ header {
     font-family: 'Raleway', sans-serif;
 }
 
+.user{
+    text-transform: uppercase; 
+    font-weight: bolder !important;
+    color: #ee4243;
+    font-size: 2.1em;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.8em;
+}
+
 .navbar__link:hover {
     color: #ffffffce;
 }
@@ -188,8 +197,6 @@ ul.submenu {
     color: #FFFFFF;
     background-color: #30343F;
     display: block;
-    font-size: 2.5em;
-    width: 6em;
 }
 
 /* Estilos para pantallas más pequeñas */
@@ -364,23 +371,40 @@ body {
     flex-direction: column;
     gap: var(--spacing-36);
     margin: var(--spacing-68) auto;
+    cursor: auto;
 }
 
 .slider__title {
     font-family: var(--alternative-font);
     font-size: var(--font-display);
     text-transform: uppercase;
-
+    
 }
 
 .slider__items {
     display: flex;
     gap: var(--spacing-24);
+    
 }
 
 .card-item__cover {
     display: flex;
     position: relative;
+}
+
+.card-item{
+    width: 550px;
+    height: 550px;
+    cursor: pointer;
+}
+
+.div-info-item{
+    width: 576.84px;
+    height: 320.73px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .card-item__tag {
@@ -425,31 +449,55 @@ body {
 
 .card-item__licence {
     font-size: var(--font-xsmall);
+    font-family: Inter;
     font-weight: 500;
-    text-decoration: none;
-    font-family: 'Raleway', sans-serif;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+
 
 }
 
 .card-item__name {
-    font-size: var(--font-medium);
+    font-family: Inter;
+    font-size: 18px;
     font-weight: 700;
-    font-family: 'Raleway', sans-serif;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+
 
 }
 
 .card-item__price {
     font-size: var(--font-small);
-    font-family: 'Raleway', sans-serif;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+
 
 }
 
 .card-item__promo {
-    font-size: var(--font-xsmall);
-    color: var(--secondary-solid);
+    font-family: Inter;
+    font-size: 12px;
     font-weight: 700;
-    font-family: 'Raleway', sans-serif;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--secondary-solid);
+
 }
+
+
+.glide__arrow{
+    color: #595959;
+    font-size: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.17);
+
+} 
 
 /* ANIMATIONS */
 
