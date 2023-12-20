@@ -8,8 +8,6 @@ import ejs from 'ejs';
 
 const routerItems = express.Router();
 
-
-// En tu ruta de productos
 routerItems.get('/:productId', async(req, res) => {
   try {
     // Obtener productos desde la base de datos o donde los tengas almacenados
@@ -18,15 +16,12 @@ routerItems.get('/:productId', async(req, res) => {
     const counterValue = 1;
     const carrito = req.session.carrito;
 
-        // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
+  // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (!req.session.user) {
-  
     // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
     req.session.user = {};
     req.session.user.email = "";
   }
-  console.log('EL PRODUCTO ES: ', producto);
-
     // Renderizar la vista de productos y pasar la variable productos
     res.render("item", { counterValue, producto: producto, productos: productos, carrito: carrito, loggedIn: req.session.loggedIn, email: req.session.user.email });
   } catch (error) {
@@ -34,6 +29,5 @@ routerItems.get('/:productId', async(req, res) => {
     res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });
   }
 });
-
 
 export default routerItems;

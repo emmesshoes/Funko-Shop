@@ -1,5 +1,3 @@
-import sequelize from '../config/sequelize.js';
-import { DataTypes } from 'sequelize';
 
 const MainModel = {
   getHome: async () => {

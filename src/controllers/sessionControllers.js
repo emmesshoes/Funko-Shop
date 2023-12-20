@@ -6,7 +6,7 @@ import { decodeTokenUser } from '../functions/jwtFunctions.js';
 
 dotenv.config();
 
-const LoginController = {
+const SessionController = {
     loginProcess: async (email, contraseña, isAdminMode) => {
         try {
             // Llama a la función loginUser con el nuevo parámetro isAdminMode
@@ -19,7 +19,7 @@ const LoginController = {
 
             //Obtengo el Id del usuario
             const userId = decodeTokenUser(token);
-            
+
             //Si no es administrador, retorno un carrito
             if(!isAdminMode) {
                 const resultLogin = await getCart(userId);
@@ -33,4 +33,4 @@ const LoginController = {
       },
     };
 
-    export default LoginController;
+    export default SessionController;

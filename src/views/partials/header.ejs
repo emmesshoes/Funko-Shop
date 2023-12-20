@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home  |  Funkoshop</title>   
+    <title>Home  |  Funkoshop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...tu-código-de-integridad..." crossorigin="anonymous" />
     <script src="../../public/js/header.js"></script>
-</head>        
+</head>
 <body>
     <header>
         <nav class="navbar">
@@ -18,7 +18,6 @@
                 </a>
             </picture>
             <ul class="navbar__menu">
-                
 
                 <li class="navbar__item with-submenu">
                     <a class="navbar__link with-icon" href="/shop">SHOP<iconify-icon icon="carbon:chevron-down"></iconify-icon></a>
@@ -34,14 +33,13 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-           
+
                 <li>    
                     <a class="navbar__link" href="/contacto">CONTACTO</a>    
                 </li class="navbar__item">
                 <li class="navbar__item">
                     <% if (loggedIn) { %>
-                      <form action="/logout" method="POST">
+                      <form action="/session/logout" method="POST">
                         <button type="submit" class="navbar__link" style="background-color: transparent; border: none; color: white; cursor: pointer;">LOGOUT</button>
                       </form>
                       <li>
@@ -49,7 +47,7 @@
                       </li>
                     
                     <% } else { %>
-                        <a class="navbar__link" href="/login">LOGIN</a>
+                        <a class="navbar__link" href="/session/login">LOGIN</a>
                         <!-- Agrega la opción de "Registrarse" cuando estás en la página de login -->
                         <a class="navbar__link" href="/register">REGISTRARSE</a>
                     <% } %>

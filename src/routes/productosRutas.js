@@ -1,7 +1,6 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import ProductoService from '../services/productosService.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import ejs from 'ejs';
 import ProductosController from '../controllers/productosController.js';
@@ -45,7 +44,6 @@ routerProductos.get('/get-all', async (req, res) => {
     }
     // Renderizar la vista de productos y pasar la variable productos
     res.render("index", { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
-    //res.json(productos);
   } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
     res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
@@ -86,11 +84,6 @@ routerProductos.post('/add', upload.fields([{ name: 'imagen_front', maxCount: 1 
 routerProductos.post('/edit', upload.fields([{ name: 'imagen_front', maxCount: 1 }, { name: 'imagen_back', maxCount: 1 }]), async (req, res) => {
   // Accede a los datos enviados desde el formulario
   const { id_producto, categoria, licencia, nombre, descripcion, sku, precio, stock, descuento, cuotas } = req.body;
-
-  console.log('+++++++++++++++++++++++++++++++++++++++++++++++++');
-  console.log('body: ', req.body);
-  console.log('+++++++++++++++++++++++++++++++++++++++++++++++++');
-
   try {
     // Verifica si existen los archivos en req.files antes de acceder a sus propiedades
     const filePathFront = req.files && req.files['imagen_front'] && req.files['imagen_front'][0] ? req.files['imagen_front'][0].path : '';
@@ -102,7 +95,6 @@ routerProductos.post('/edit', upload.fields([{ name: 'imagen_front', maxCount: 1
       throw new Error('Invalid id_producto');
     }
 
-    console.log('producto a editar**************** : ', req.body);
     // Llamada a la función del controlador para agregar el producto
     const productId = await ProductosController.editProduct({
       id_producto: parsedId,
@@ -150,8 +142,6 @@ routerProductos.delete('/delete/:productId', async (req, res) => {
 
 routerProductos.get('/stock/:productId', async (req, res) => {
   try {
-    console.log('ID STOCK: ', req.params.productId);
-
     const stock = await ProductosController.getStock(req.params.productId);
     res.json(stock);
   } catch (error) {

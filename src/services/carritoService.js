@@ -9,7 +9,6 @@ const CarritoService = {
  getCart: async (userId) => {
   try {
     const resutlCart = await createCart(userId);
-  
     return resutlCart;
   } catch (error) {
     throw error;
@@ -21,7 +20,7 @@ createCart: async (userId) => {
   try {
     // Verificar si el cliente existe
     const existingClient = await Usuario.findByPk(userId);
-    
+
     if (!existingClient) {
       throw new Error('Cliente no encontrado');
     }

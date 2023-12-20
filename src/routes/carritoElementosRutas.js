@@ -1,18 +1,66 @@
 import express from 'express';
-import CarritosController from '../controllers/carritosController.js';
 import CarritoElementosController from '../controllers/carritoElementosController.js'
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
 import ProductoService from '../services/productosService.js';
 const router = express.Router();
 
+
+router.get('/', async (req, res) => {
+  try {
+    const refreshDataOnly = req.query.refreshDataOnly === 'true';
+    
+    if(!req.session.user){
+      req.session = {};
+      req.session.user.email = '';
+      res.redirect('/session/login');
+      return res.status(500).json({ mensaje: 'Debe loguearse para ver el carrito' });
+    }
+
+
+    const carritoId = req.session.carrito.carrito[0].id_carrito;
+    // Obtener todos los elementos del carrito
+    const carritoElementos = await CarritoElementosController.getCartItems(carritoId);
+    // Obtener la información del producto asociado para cada elemento del carrito
+    const productosPromises = carritoElementos.map(async (elemento) => {
+      const producto = await ProductoService.getProduct(elemento.id_producto);
+      return { elemento, producto };
+    });
+
+    // Esperar a que se resuelvan todas las promesas
+    const productosInfo = await Promise.all(productosPromises);
+
+    const cantidadTotal = productosInfo.reduce((total, info) => {
+      return total + info.elemento.cantidad;
+    }, 0);
+
+    const subTotal = productosInfo.reduce((subTotal, info) => {
+      return subTotal + (info.elemento.cantidad * info.elemento.precio_unitario) ;
+    }, 0);
+
+    // Generar un número aleatorio para el costo de envío entre 5 y 20 con dos decimales
+    const costoEnvio = (Math.random() * (5000 - 3000) + 5).toFixed(2);
+    const totalPagar= parseFloat(subTotal) + parseFloat(costoEnvio);
+
+    //Solo refresco datos
+    if (refreshDataOnly){
+      return res.json({productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar});
+    } else {
+      // Renderizar la página elementos-del-carrito y pasar la información
+    res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    }
+
+  } catch (error) {
+    console.error('Error al obtener elementos del carrito:', error);
+    res.status(500).json({ error: 'Error al obtener elementos del carrito' });
+  }
+});
+
 // Agregar un producto al carrito
 router.post('/add', async (req, res) => {
-  
   try {
     if(!req.session.user.email){
       return res.json({ message: 'Debe estar logueado para poder agregar productos al carrito', resultCantidad: -1});  
     }
-    
     const result = await CarritoElementosController.addProductToCart(req, res);
     return result;
   } catch (error) {
@@ -34,8 +82,6 @@ router.put('/sub', async (req, res) => {
     res.status(500).res.json({ error: 'Error al agregar producto al carrito' });
   }
 });
-
-
 
 // Actualizar la cantidad de un producto en el carrito
 router.put('/update-quantity', async (req, res) => {
@@ -71,57 +117,6 @@ router.put('/carrito-elementos/update-price', async (req, res) => {
 });
 
 
-
-router.get('/', async (req, res) => {
-  try {
-    const refreshDataOnly = req.query.refreshDataOnly === 'true';
-    if(!req.session.user.email){
-      return res.status(500).res.json({ mensaje: 'Debe loguearse para ver el carrito' });
-    }
-    
-    const carritoId = req.session.carrito.carrito[0].id_carrito;
-    
-    // Obtener todos los elementos del carrito
-    const carritoElementos = await CarritoElementosController.getCartItems(carritoId);
-
-    // Obtener la información del producto asociado para cada elemento del carrito
-    const productosPromises = carritoElementos.map(async (elemento) => {
-      const producto = await ProductoService.getProduct(elemento.id_producto);
-      return { elemento, producto };
-    });
-
-    // Esperar a que se resuelvan todas las promesas
-    const productosInfo = await Promise.all(productosPromises);
-
-    const cantidadTotal = productosInfo.reduce((total, info) => {
-      return total + info.elemento.cantidad;
-    }, 0);
-
-    const subTotal = productosInfo.reduce((subTotal, info) => {
-      return subTotal + (info.elemento.cantidad * info.elemento.precio_unitario) ;
-    }, 0);
-
-    // Generar un número aleatorio para el costo de envío entre 5 y 20 con dos decimales
-    const costoEnvio = (Math.random() * (5000 - 3000) + 5).toFixed(2);
-    const totalPagar= parseFloat(subTotal) + parseFloat(costoEnvio);
-
-  console.log('----------- TOTAL A PAGAR:', totalPagar );
-
-    //Solo refresco datos
-    if (refreshDataOnly){
-      return res.json({productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar});
-    } else {
-      // Renderizar la página elementos-del-carrito y pasar la información
-    res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.loggedIn, email: req.session.user.email });
-    }
-    
-  } catch (error) {
-    console.error('Error al obtener elementos del carrito:', error);
-    res.status(500).json({ error: 'Error al obtener elementos del carrito' });
-  }
-});
-
-
 // Recuperar los elementos en un carrito indicado por el id del carrito
 router.get('/carrito-elementos/:carritoId', async (req, res) => {
   const { carritoId } = req.params;
@@ -147,6 +142,5 @@ router.delete('/delete', async (req, res) => {
     res.status(500).res.json({ error: 'Error deleting product from the database' });
   }
 });
-
 
 export default router;

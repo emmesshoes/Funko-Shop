@@ -4,13 +4,12 @@ import Usuario from '../models/usuariosModel.js';
 
 const CarritosController = {
 
-  
-  // Crear carrito para un cliente
+// Crear carrito para un cliente
 createCart: async (usuarioId) => {
   try {
     // Verificar si el cliente existe
     const existingUser = await Usuario.findByPk(usuarioId);
-    
+
     if (!existingUser) {
       throw new Error('Cliente no encontrado');
     }
@@ -72,13 +71,11 @@ createCart: async (usuarioId) => {
         { estado_carrito: 'completado' },
         { where: { id_usuario: usuarioId, estado_carrito: 'activo' } }
       );
-  
       return affectedRows;
     } catch (error) {
       throw error;
     }
   },
-  
 
   cancelCart: async (usuarioId) => {
     try {
@@ -92,7 +89,7 @@ createCart: async (usuarioId) => {
         throw error;
     }
   },
-  
+
 
   getPurchaseHistory: async (usuarioId) => {
     try {

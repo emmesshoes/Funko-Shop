@@ -171,24 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
             quantityElement.textContent = parseInt(actuallyStock);
 
             location.reload();
-          /*
-            const response = await fetch(`/carrito-elementos?refreshDataOnly=true`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log('ACA LLEGARON LOS DATOS: ', data);
-            // Actualizar la página con los nuevos datos sin recargarla
-            updatePageWithNewData(data);
-*/
+         
         } catch (error) {
             console.error('Error:', error.message);
         }

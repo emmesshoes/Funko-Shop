@@ -7,13 +7,10 @@ import { Op } from 'sequelize';
 import bcrypt from 'bcrypt';
 import flash from 'express-flash';
 
-
-
-
 dotenv.config();
 
 const findUserByEmail = async (email) => {
-  
+
   try {
     const user = await Usuario.findOne({
       where: {
@@ -30,7 +27,6 @@ const findUserByEmail = async (email) => {
 };
 
 // Función para buscar un administrador por correo electrónico y contraseña
-
 const findAdmin = async (email, plainPassword) => {
   try {
     if (email !== 'admin@admin.com') {
@@ -76,7 +72,6 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
       const isAdmin = await findAdmin(email, plainPassword);
       if (!isAdmin) {
          throw new Error('Acceso denegado. Credenciales de administrador incorrectas.');
-        
       }
 
       // Genera un token JWT para el administrador
@@ -102,7 +97,6 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
     // Genera un token JWT para el usuario
     const secret = process.env.JWT_SECRET;
     const tokenUser = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin: false }, secret, { expiresIn: '1h' });
-    
 
     return tokenUser;
 

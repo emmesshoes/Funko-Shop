@@ -4,7 +4,6 @@ import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import ejs from 'ejs';
 import ProductoController from '../controllers/productosController.js';
 import MainController from '../controllers/mainController.js';
 
@@ -19,12 +18,11 @@ router.get('/', async(req, res) => {
     req.session.user = {};
     req.session.user.email = "";
   }
-    // Obtener productos desde la base de datos o donde los tengas almacenados
+    // Obtener productos
     const productos = await ProductoController.getProducts(req, res);
 
     res.render('index', { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
-    //res.redirect('/productos/get-all');
-    //res.json(productos);
+
 } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
     res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
@@ -33,7 +31,6 @@ router.get('/', async(req, res) => {
 
 router.get('/home', async (req, res) => {
     try {
-        //res.render('index', false );
         const results = await MainController.getHome();
         res.json(results);
     } catch (error) {

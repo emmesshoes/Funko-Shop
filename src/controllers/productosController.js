@@ -3,13 +3,10 @@ import ProductoService from '../services/productosService.js'
 
 
 const ProductosController = {
-  
   getProducts: async (res, req) => {
     try {
-      // Obtener productos desde la base de datos o donde los tengas almacenados
       const productos = await ProductoService.getAllProducts();
       return productos;
-
       } catch (error) {
         console.error('Error al obtener productos:', error);
         res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });
@@ -18,9 +15,7 @@ const ProductosController = {
 
   getAllProducts: async (res, req) => {
     try {
-      // Obtener productos desde la base de datos o donde los tengas almacenados
       const productos = await ProductoService.getAllProducts();
-    
       const page = req.query.page || 1;
       const productosPorPagina = 9; // Número de productos que deseas mostrar por página
 
@@ -41,7 +36,7 @@ const ProductosController = {
         currentPage: currentPage,
         totalPaginas: totalPaginas,
       }
-      
+
       return infoProductos;
 
       } catch (error) {
@@ -77,9 +72,6 @@ const ProductosController = {
     try {
 
       const existingProduct = ProductoService.getProduct(id_producto);
-      
-      console.log('NOMBRE ANTES DE EDITAR: ',existingProduct.nombre);
-      console.log('NOMBRE EDITADO: ',nombre);
 
       // Filtrar valores no deseados y asegurarse de que los tipos de datos sean correctos
       const validUpdatedProductData = {
@@ -95,7 +87,7 @@ const ProductosController = {
         imagen_front: imagen_front || existingProduct.imagen_front,
         imagen_back: imagen_back || existingProduct.imagen_back,
       };
-      
+
       const editadoProduct = await ProductoService.editProduct({ id_producto: id_producto, ...validUpdatedProductData });
       return editadoProduct;
     } catch (error) {

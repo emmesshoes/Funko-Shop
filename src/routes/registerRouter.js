@@ -15,7 +15,7 @@ registerRouter.use(bodyParser.urlencoded({ extended: true }));
 registerRouter.use(bodyParser.json());
 
 registerRouter.get('/register', async (req, res) => {
-       // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
+  // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (req.session.user) {
     req.session.user.email = "";
   } else {
@@ -26,10 +26,8 @@ registerRouter.get('/register', async (req, res) => {
     res.render("registrarse", { loggedIn: req.session.loggedIn, email: req.session.user.email });
 
   });
-  
 
   // Ruta para manejar el registro
-
   registerRouter.post('/register', async (req, res) => {
     try {
         console.log('Recibiendo solicitud POST en /register');
@@ -38,13 +36,8 @@ registerRouter.get('/register', async (req, res) => {
         const { nombre, apellido, email, contraseña, contraseñarep } = req.body;
         await sequelize.sync();
 
-        console.log('Datos del formulario:', { nombre, apellido, email, contraseña });
-
-        // Realizar validaciones si es necesario
-
         // Insertar los datos en la base de datos
         const newUser = await insertUserIntoDatabase(nombre, apellido, email, contraseña);
-        console.log('Resultado de la inserción en la base de datos:', newUser);
 
         req.session.user = { email: email };
 
@@ -56,6 +49,5 @@ registerRouter.get('/register', async (req, res) => {
     }
 });
 
-  
 
 export default registerRouter;

@@ -21,9 +21,9 @@ async function insertUserIntoDatabase(nombre, apellido, email, contraseña) {
         nombre: nombre,
         apellido: apellido,
         correo: email,
-        contrasena: hashedPassword, 
+        contrasena: hashedPassword,
       });
-  
+
       return newUser;
 
     } catch (error) {
@@ -37,7 +37,6 @@ async function comparePasswords(plainPassword, hashedPassword) {
     console.log(plainPassword);
     console.log(hashedPassword)
     return match;
-    
 }
 
-export { comparePasswords, insertUserIntoDatabase } 
+export { comparePasswords, insertUserIntoDatabase }

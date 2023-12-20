@@ -1,33 +1,22 @@
 import express from 'express';
-//mport cors from 'cors';
-//import ProductosController from '../views/pages/';
 import authMiddleware from '../middleware/authMiddleware.js';
 import bodyParser from 'body-parser';
 import { findUserByEmail, findAdmin, loginUser } from '../functions/loginFunctions.js';
-//Fix para __direname
-import path from 'path';
-import {fileURLToPath} from 'url';
-import ejs from 'ejs';
 import CarritosController from '../controllers/carritosController.js';
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
-import flash from 'express-flash';
 
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-
-const loginRouter = express.Router();
+const sessionRouter = express.Router();
 
 
 
-loginRouter.use(bodyParser.urlencoded({ extended: true }));
-loginRouter.use(bodyParser.json());
+sessionRouter.use(bodyParser.urlencoded({ extended: true }));
+sessionRouter.use(bodyParser.json());
 
 
 
 
 
-  loginRouter.get('/login', async (req, res) => {
+sessionRouter.get('/login', async (req, res) => {
      // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
   if (req.session.user) {
     req.session.user.email = "";
@@ -43,7 +32,7 @@ loginRouter.use(bodyParser.json());
 
   });
 
-  loginRouter.post('/login', async (req, res) => {
+  sessionRouter.post('/login', async (req, res) => {
     try {
       console.log('Recibiendo solicitud POST en /login');
   
@@ -77,7 +66,6 @@ loginRouter.use(bodyParser.json());
         const userId = decodedToken.userId;
         const userEmail = decodedToken.email;
 
-    
         const carrito = await CarritosController.createCart(userId);
         req.session.carrito = { carrito: carrito };
 
@@ -89,13 +77,26 @@ loginRouter.use(bodyParser.json());
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
       req.flash('error', 'Nombre de usuario o Contraseña equivocada');
-      res.redirect('/login'); // Redirige a la página de inicio de sesión
+      res.redirect('/session/login'); // Redirige a la página de inicio de sesión
     }
 });
 
+sessionRouter.get('/logout', (req, res) => {
+  req.session.destroy();
+  loggedIn = false;
+  req.session.loggedIn = false;
+  res.redirect('/login');
+});
 
-  
-  
-  export default loginRouter;
+sessionRouter.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+      if (err) {
+          res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
+      } else {
+          res.redirect('/session/login');
+      }
+  });
+});
 
+export default sessionRouter;
 

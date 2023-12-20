@@ -1,4 +1,3 @@
-// controllers/productosController.js
 import Producto from '../models/productosModel.js';
 
 const ProductoService = {
@@ -12,7 +11,6 @@ const ProductoService = {
   },
 
   addProduct: async (newProduct) => {
-    //console.log(JSON.parse(newProduct));
     try {
       const createdProduct = await Producto.create(newProduct);
       return createdProduct.id_producto;
@@ -37,8 +35,6 @@ const ProductoService = {
   getProduct: async (productId) => {
     try {
       const result = await Producto.findByPk(productId);
-
-      //const producto = result.dataValues;
       return result;
     } catch (error) {
       throw error;

@@ -17,7 +17,7 @@ async function createCart (userId) {
   try {
     // Verificar si el cliente existe
     const existingClient = await Usuario.findByPk(userId);
-    
+
     if (!existingClient) {
       throw new Error('Cliente no encontrado');
     }
