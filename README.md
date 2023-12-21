@@ -139,6 +139,10 @@ Agradecemos contribuciones para mejorar Funko – Shop. Para contribuir, sigue e
 4. Haz push a tu rama: `git push origin nombre-de-la-rama`
 5. Envía una solicitud de extracción.
 
+## Licencia
+
+Este proyecto está bajo la licencia Licencia MIT.
+
 ## Contacto
 
 Para preguntas, problemas o colaboraciones, puedes ponerte en contacto con nosotros a través de:
