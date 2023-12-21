@@ -23,14 +23,16 @@ Incluimos capturas de pantalla para ilustrar la interfaz y las funcionalidades e
 
 (Adjunta aquí las capturas de pantalla con subtítulos descriptivos).
 
-## Tecnologías Utilizadas
+## Principales Tecnologías Utilizadas
 
 - Node.js
 - Express.js
 - Sequelize
 - Bcrypt
 - Multer
-- MySQL
+- JsonWebToken
+- Dotenv
+- Mysql2
 - HTML5/CSS3
 - Bootstrap
 
