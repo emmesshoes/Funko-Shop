@@ -40,25 +40,7 @@ Sigue estos pasos para instalar y configurar el proyecto en tu entorno local:
 
 1. Clona el repositorio: `git clone [URL del repositorio]`
 2. Navega al directorio del proyecto: `cd Funko-Shop`
-3. Instala las dependencias: `npm install`
-4. 
-   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "express-flash": "^0.0.2",
-    "express-session": "^1.17.3",
-    "jsonwebtoken": "^9.0.2",
-    "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.6.5",
-    "sequelize": "^6.35.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
-  }
+3. Instala las dependencias: `npm i bcrypt body-parser cors dotenv ejs express express-flash express-session jsonwebtoken multer mysql2 sequelize nodemon`
 
 ### Configuración de la Base de Datos (MySQL)
 
