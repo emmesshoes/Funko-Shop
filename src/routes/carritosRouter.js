@@ -12,7 +12,7 @@ if (!req.session.user) {
   req.session.user = {};
   req.session.user.email = "";
 }
-  res.render('carrito', { loggedIn: req.session.loggedIn, email: req.session.user.email });
+  res.render('carrito', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
 } catch (error) {
   console.error('Error al obtener datos desde la base de datos:', error);
   res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });

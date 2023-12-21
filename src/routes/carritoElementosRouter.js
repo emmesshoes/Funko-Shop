@@ -2,22 +2,29 @@ import express from 'express';
 import CarritoElementosController from '../controllers/carritoElementosController.js'
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
 import ProductoService from '../services/productosService.js';
+import { chekSessionUser } from '../functions/sessionFunctions.js';
 const router = express.Router();
 
 
 router.get('/', async (req, res) => {
   try {
     const refreshDataOnly = req.query.refreshDataOnly === 'true';
-    
-    if(!req.session.user){
-      req.session = {};
-      req.session.user.email = '';
-      res.redirect('/session/login');
-      return res.status(500).json({ mensaje: 'Debe loguearse para ver el carrito' });
+    if(!chekSessionUser(req,res)){
+      res.render("ingresar", { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });  
     }
 
+    let carritoId = '';    
 
-    const carritoId = req.session.carrito.carrito[0].id_carrito;
+    if(req.session.carrito.carrito.id_carrito){
+      carritoId = req.session.carrito.carrito.id_carrito;  
+    } else if (req.session.carrito.carrito[0].id_carrito){
+      carritoId = req.session.carrito.carrito[0].id_carrito;  
+    } else {
+      
+      return res.redirect('/session/login');
+    }
+    
+
     // Obtener todos los elementos del carrito
     const carritoElementos = await CarritoElementosController.getCartItems(carritoId);
     // Obtener la información del producto asociado para cada elemento del carrito
@@ -46,7 +53,7 @@ router.get('/', async (req, res) => {
       return res.json({productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar});
     } else {
       // Renderizar la página elementos-del-carrito y pasar la información
-    res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
     }
 
   } catch (error) {

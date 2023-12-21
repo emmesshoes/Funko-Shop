@@ -21,7 +21,7 @@ router.get('/', async(req, res) => {
     // Obtener productos
     const productos = await ProductoController.getProducts(req, res);
 
-    res.render('index', { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render('index', { productos: productos, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
 
 } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);

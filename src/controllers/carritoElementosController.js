@@ -8,7 +8,14 @@ const CarritoElementosController = {
     try {
 
       const { productoId, cantidad } = req.body;
-      const carritoId = req.session.carrito.carrito[0].id_carrito;
+      let carritoId = '';
+      if(req.session.carrito.carrito.id_carrito){
+        carritoId = req.session.carrito.carrito.id_carrito;  
+      } else if (req.session.carrito.carrito[0].id_carrito){
+          carritoId = req.session.carrito.carrito[0].id_carrito;  
+      }
+      //const carritoId = req.session.carrito.carrito.id_carrito;
+       console.log('INFORMACION DE CARRITO EN addProcutToCart ', JSON.stringify(req.session.carrito, null, 2));
 
       //obtengo el stock del producto
       const stock = await ProductosController.getStock(productoId);
@@ -56,7 +63,13 @@ const CarritoElementosController = {
 subProductToCart: async (req, res) => {
   try {
     const { productoId, cantidad } = req.body;
-    const carritoId = req.session.carrito.carrito[0].id_carrito;
+    let carritoId = '';
+    if(req.session.carrito.carrito.id_carrito){
+      carritoId = req.session.carrito.carrito.id_carrito;  
+    } else if (req.session.carrito.carrito[0].id_carrito){
+      carritoId = req.session.carrito.carrito[0].id_carrito;  
+    }
+    //const carritoId = req.session.carrito.carrito.id_carrito;
   //Obtengo el producto para obtener el precio
   const producto = await ProductoService.getProduct(productoId);
   const precioUnitario = producto.precio;
@@ -101,7 +114,13 @@ subProductToCart: async (req, res) => {
   deleteCartItem: async (req, res) => {
     try {
       const { productId } = req.body;
-      const carritoId = req.session.carrito.carrito[0].id_carrito;
+      let carritoId = '';
+      if(req.session.carrito.carrito.id_carrito){
+        carritoId = req.session.carrito.carrito.id_carrito;  
+      } else if (req.session.carrito.carrito[0].id_carrito){
+          carritoId = req.session.carrito.carrito[0].id_carrito;  
+      }
+      //const carritoId = req.session.carrito.carrito[0].id_carrito;
       return await CarritoElementosService.deleteCartItem(carritoId, productId);
     } catch (error) {
       throw error;

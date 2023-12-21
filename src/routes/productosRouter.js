@@ -28,7 +28,7 @@ routerProductos.get('/', async(req, res) => {
       req.session.user.email = "";
     }
     const infoProductos = await ProductosController.getAllProducts(res, req);
-    return res.render("productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    return res.render("productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });
@@ -43,7 +43,7 @@ routerProductos.get('/get-all', async (req, res) => {
       req.session.user.email = "";
     }
     // Renderizar la vista de productos y pasar la variable productos
-    res.render("index", { productos: productos, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("index", { productos: productos, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
   } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
     res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });

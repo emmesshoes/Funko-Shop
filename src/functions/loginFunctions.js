@@ -60,45 +60,36 @@ const findAdmin = async (email, plainPassword) => {
 };
 
 // Función para verificar las credenciales y generar un token
-const loginUser = async (email, plainPassword, isAdminMode) => {
+const loginUser = async (email, plainPassword) => {
   try {
+    
+    let isAdmin = false;
+    
     // Encuentra el usuario por su correo electrónico
     const user = await findUserByEmail(email);
     console.log('USER: ', user);
 
-
-    if (isAdminMode) {
-      // Si está en modo administrador, verifica las credenciales del administrador
-      const isAdmin = await findAdmin(email, plainPassword);
-      if (!isAdmin) {
-         throw new Error('Acceso denegado. Credenciales de administrador incorrectas.');
-      }
-
-      // Genera un token JWT para el administrador
-      const secret = process.env.JWT_SECRET;
-      const tokenAdmin = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin: true }, secret, { expiresIn: '1h' });
-
-      return tokenAdmin;
-    }
-
-    // Si no está en modo administrador, verifica las credenciales del usuario
-    if (!user) {
-      req.flash('error', 'Correo electrónico o contraseña incorrectos');
+    if(!user){
+      flash('error', 'Correo electrónico o contraseña incorrectos');
       return null;
     }
 
-    const match = await comparePasswords(plainPassword, user.contrasena);
+    const match = await bcrypt.compare(plainPassword, user.contrasena);
 
     if (!match) {
-      req.flash('error', 'Correo electrónico o contraseña incorrectos');
-      return null;
+      return null; // Devuelve null si las contraseñas no coinciden
     }
+
+
+    //veo si es administrador
+    isAdmin = await findAdmin(email, plainPassword);
 
     // Genera un token JWT para el usuario
     const secret = process.env.JWT_SECRET;
-    const tokenUser = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin: false }, secret, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin }, secret, { expiresIn: '1h' });  
 
-    return tokenUser;
+    return token;
+    
 
   } catch (error) {
     console.error('Error al procesar el formulario de inicio de sesión:', error);
@@ -107,4 +98,20 @@ const loginUser = async (email, plainPassword, isAdminMode) => {
   }
 };
 
-export { findUserByEmail, findAdmin, loginUser };
+const getIfLogin = (req) => {
+  try {
+    
+    if(req.session.user.email !== '' && req.session.user.email !== null){
+      return true;
+    }
+
+    return false;
+
+  } catch (error) {
+    console.error('Error al buscar usuario por correo electrónico:', error);
+    throw error;
+  }
+};
+
+
+export { findUserByEmail, findAdmin, loginUser, getIfLogin };

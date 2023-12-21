@@ -19,11 +19,11 @@ registerRouter.get('/register', async (req, res) => {
   if (req.session.user) {
     req.session.user.email = "";
   } else {
-    // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
+    // Si req.session.user no está definido
     req.session.user = {};
     req.session.user.email = "";
   }
-    res.render("registrarse", { loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("registrarse", { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
 
   });
 
@@ -39,9 +39,9 @@ registerRouter.get('/register', async (req, res) => {
         // Insertar los datos en la base de datos
         const newUser = await insertUserIntoDatabase(nombre, apellido, email, contraseña);
 
-        req.session.user = { email: email };
+        //req.session.user = { email: email };
 
-        res.redirect('/login');
+        res.redirect('/session/login');
 
     } catch (error) {
         console.error('Error al procesar el formulario de registro:', error);

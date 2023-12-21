@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { findUserByEmail, findAdmin, loginUser } from '../functions/loginFunctions.js';
 import CarritosController from '../controllers/carritosController.js';
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
+import SessionController from '../controllers/sessionControllers.js';
 
 const sessionRouter = express.Router();
 
@@ -25,77 +26,52 @@ sessionRouter.get('/login', async (req, res) => {
     req.session.user = {};
     req.session.user.email = "";
   }
-    req.session.loggedIn = false;
+    req.session.user.loggedIn = false;
     const messages = req.flash();
 
-    res.render("ingresar.ejs", { messages, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("ingresar", { messages, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
 
   });
 
   sessionRouter.post('/login', async (req, res) => {
     try {
       console.log('Recibiendo solicitud POST en /login');
-  
-      const { email, contraseña } = req.body;
-      console.log('Datos del formulario de inicio de sesión:', { email, contraseña });
-  
-      // Verifica si se trata de un inicio de sesión de administrador
-      const isAdminMode = email === 'admin@admin.com';
       
-      // Llama a la función loginUser con el nuevo parámetro isAdminMode
-      const token = await loginUser(email, contraseña, isAdminMode);
-  
-      req.session.loggedIn = true;
-      req.session.user.email = email;
-      req.session.user.token = token;
-      console.log('*******SESSION************ ', req.session.user);
-
-      const tokenDecode= decodeTokenUser(token);
-      console.log('TOKEN DECODIFICADO****************** ', tokenDecode);
-
-      // Redirige al usuario según si es administrador o no
-      if (isAdminMode) {
-        
-        res.redirect("/admin");
-
-      } else {
-        console.log('TOKEN: ', token);
-        const decodedToken = decodeTokenUser(token);
-
-        // Acceder a userId y otras propiedades si es necesario
-        const userId = decodedToken.userId;
-        const userEmail = decodedToken.email;
-
-        const carrito = await CarritosController.createCart(userId);
-        req.session.carrito = { carrito: carrito };
-
-        console.log('-------INFORMACION DE SESSION-------', req.session);
-        console.log('-------INFORMACION DE CARRITO-------',JSON.stringify(req.session.carrito, null, 2));
-
-        res.redirect("/productos");
+      const result = await SessionController.loginProcess(req, res);
+      if(result){
+        // Redirige al usuario según si es administrador o no
+        if (req.session.user.isAdmin) {
+          res.redirect("/admin");
+        } else {
+            res.redirect("/productos");
+        } 
+      } else{
+        req.flash('error', 'Correo electrónico o contraseña incorrectos');
+        res.redirect('/session/login');
       }
+
+      
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
       req.flash('error', 'Nombre de usuario o Contraseña equivocada');
-      res.redirect('/session/login'); // Redirige a la página de inicio de sesión
+      res.redirect('session/login'); // Redirige a la página de inicio de sesión
     }
 });
 
-sessionRouter.get('/logout', (req, res) => {
-  req.session.destroy();
-  loggedIn = false;
-  req.session.loggedIn = false;
-  res.redirect('/login');
+sessionRouter.get('/logout', async (req, res) => {
+  const result = await SessionController.logoutProcess(req, res);
+ 
+  res.redirect('/session/login');
+ 
 });
 
-sessionRouter.post('/logout', (req, res) => {
-  req.session.destroy((err) => {
-      if (err) {
-          res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
-      } else {
-          res.redirect('/session/login');
-      }
-  });
+sessionRouter.post('/logout', async (req, res) => {
+ 
+  const result = await SessionController.logoutProcess(req, res);
+ 
+  res.redirect('/session/login');
+ 
+   
 });
 
 export default sessionRouter;

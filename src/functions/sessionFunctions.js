@@ -1,15 +1,29 @@
 import express from 'express';
 
-const chekSessionUser = () => {
-    let result = 0;
-    if(!req.session.user){
-        req.session = {};
-        req.session.user.email = '';
+const chekSessionUser = (req, res) => {
+    let result = false;
+    
+    if (!req.session.user) {
+        req.session.user = {
+            loggedIn: false,
+            isAdmin: false,
+            email: '',
+            token: ''
+        };
     } else {
-        let result = 1;
+        result = true;
     }
-    return result;
 
+    
+
+    return result;
 };
 
-export { chekSessionUser };
+const iniSessionUser = (req,res) => {
+    req.session.user = {};
+    req.session.user.loggedIn = false;
+    req.session.user.isAdmin = false;
+    req.session.user.email = '';
+    req.session.user.token = '';
+}
+export { chekSessionUser, iniSessionUser };

@@ -23,7 +23,7 @@ routerItems.get('/:productId', async(req, res) => {
     req.session.user.email = "";
   }
     // Renderizar la vista de productos y pasar la variable productos
-    res.render("item", { counterValue, producto: producto, productos: productos, carrito: carrito, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render("item", { counterValue, producto: producto, productos: productos, carrito: carrito, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin});
   } catch (error) {
     console.error('Error al obtener productos:', error);
     res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });

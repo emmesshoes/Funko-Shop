@@ -11,11 +11,11 @@ import registerRouter from '../routes/registerRouter.js';
 
 import flash from 'express-flash';
 
-import productosRoutes from '../routes/productosRutas.js';
-import carritosRoutes from '../routes/carritosRutas.js';
-import carritoElementosRoutes from '../routes/carritoElementosRutas.js';
-import ventasRoutes from '../routes/ventasRutas.js';
-import mainRoutes from '../routes/mainRutas.js';
+import productosRoutes from '../routes/productosRouter.js';
+import carritosRoutes from '../routes/carritosRouter.js';
+import carritoElementosRoutes from '../routes/carritoElementosRouter.js';
+import ventasRoutes from '../routes/ventasRouter.js';
+import mainRoutes from '../routes/mainRouter.js';
 
 import contactoRouter from '../routes/contactoRouter.js';
 import shopRouter from '../routes/shopRouter.js';
@@ -31,8 +31,10 @@ const app = express();
 dotenv.config();
 const port = process.env.SERVER_PORT;
 
+const secretWord = process.env.JWT_SECRET;
+
 app.use(session({
-    secret: 'palabara secreta', //process.env.JWT_SECRETA,
+    secret: secretWord,
     resave: true,
     saveUninitialized: true,
   }));
@@ -55,7 +57,7 @@ app.set('views', path.join(__dirname, '../views'));
 
 app.use((req, res, next) => {
   console.log('Middleware de sesión:', req.session);
-  res.locals.loggedIn = req.session.loggedIn || false;
+  //res.locals.loggedIn = req.session.loggedIn || false;
   res.locals.user = req.session.user || null;
   next();
 });
@@ -67,6 +69,8 @@ app.use((req, res, next) => {
 
     next();
 });
+
+
 
 app.use(cors());
 
@@ -86,6 +90,12 @@ app.use('/', contactoRouter);
 app.use('/shop', shopRouter);
 app.use('/item', routerItems);
 app.use('/admin', adminRouter);
+
+// Manejo de errores para rutas no encontradas
+app.use((req, res, next) => {
+  res.status(404).redirect('/'); // Redirige a la página de inicio
+});
+
 
 app.set('port', port);
 

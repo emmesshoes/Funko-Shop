@@ -16,7 +16,7 @@ adminRouter.use(bodyParser.json());
 adminRouter.get('/', async (req, res) => {
   try {
     const infoProductos = await AdminController.getAllProductsAdmin(req, res);  
-    return res.status(200).render("listado-de-productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.loggedIn, email: req.session.user.email });  
+    return res.status(200).render("listado-de-productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });  
 
   } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
@@ -27,7 +27,7 @@ adminRouter.get('/', async (req, res) => {
 
 adminRouter.get('/agregar-prod', async (req, res) => {
   try {
-    res.render('agregar-producto', { loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.render('agregar-producto', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
   } catch (error) {
     console.error('Error al obtener datos desde la base de datos:', error);
     res.status(500).json({ error: 'Error al obtener datos desde la base de datos' });
@@ -44,7 +44,8 @@ adminRouter.get('/editar-prod/:productId', async (req, res) => {
     const producto = await AdminController.getProductAdmin(req, res);
 
     console.log("Este es el ID del producto", producto.id_producto);
-    res.render('editar-item', { producto: producto, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.status(200).render('editar-item', { producto: producto, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+
 
   } catch (error) {
     console.error('Error al actualizar el producto:', error);
@@ -60,7 +61,7 @@ adminRouter.post('/editar-prod/:productId', async (req, res) => {
       req.session.user.email = "";
     }
     const producto = AdminController.getProductAdmin(req, res);
-    res.status(200).render('editar-item', { producto: producto, loggedIn: req.session.loggedIn, email: req.session.user.email });
+    res.status(200).render('editar-item', { producto: producto, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
 
   } catch (error) {
     console.error('Error al actualizar el producto:', error);
