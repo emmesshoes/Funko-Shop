@@ -121,7 +121,7 @@ INSERT INTO `funko`.`productos`(`id_producto`,`sku`,`nombre`,`licencia`,`categor
 INSERT INTO `funko`.`productos`(`id_producto`,`sku`,`nombre`,`licencia`,`categoria`,`descripcion`,`precio`,`cuotas`,`descuento`,`stock`,`imagen_front`,`imagen_back`) VALUES (13,'HPT001004','Snape Patronus', 'Harry Potter','Figura coleccionable','Figura coleccionable de Snape Patronus - Harry Potter Saga.',1799.99,3,10,10,'public/uploads/snape-patronus-1.webp','public/uploads/snape-patronus-box.webp');
 
 
-4. Inicia la aplicación: `npm start`
+4. Inicia la aplicación: `npm run dev`
 
 ## Contribución
 
