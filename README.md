@@ -24,7 +24,7 @@ Incluimos capturas de pantalla para ilustrar la interfaz y las funcionalidades e
 <image src="/public/img/img_readme/home.jpg" alt="HOME">
 <image src="/public/img/img_readme/login.jpg" alt="LOGIN">
 <image src="/public/img/img_readme/register.jpg" alt="REGISTER">
-<image src="/public/img/img_readme/shop.JPG" alt="SHOP">
+<image src="/public/img/img_readme/shop.jpg" alt="SHOP">
 <image src="/public/img/img_readme/admin.jpg" alt="ADMIN">
 
 ## Principales Tecnologías Utilizadas
