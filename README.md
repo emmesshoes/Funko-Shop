@@ -21,6 +21,7 @@ Bienvenido al proyecto JS-BACK END 2023 del Grupo 8, Comisión 23576. Este repos
 
 Incluimos capturas de pantalla para ilustrar la interfaz y las funcionalidades esenciales de Funko – Shop. Estas imágenes ofrecen una vista rápida de la apariencia del proyecto.
 
+https://raw.githubusercontent.com/emmesshoes/Funko-Shop/main/ruta/al/asset
 (Adjunta aquí las capturas de pantalla con subtítulos descriptivos).
 
 ## Principales Tecnologías Utilizadas
