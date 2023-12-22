@@ -30,7 +30,7 @@ const findUserByEmail = async (email) => {
 const findAdmin = async (email, plainPassword) => {
   try {
     if (email !== 'admin@admin.com') {
-      return null; // Devuelve null si el correo no es el del administrador
+      return false; // Devuelve null si el correo no es el del administrador
     }
 
     const userAdmin = await Usuario.findOne({
@@ -43,12 +43,12 @@ const findAdmin = async (email, plainPassword) => {
     });
 
     if (!userAdmin) {
-      return null; // Devuelve null si no se encuentra al administrador
+      return false; 
     }
     const match = await bcrypt.compare(plainPassword, userAdmin.contrasena);
 
     if (!match) {
-      return null; // Devuelve null si las contraseñas no coinciden
+      return false; // Devuelve null si las contraseñas no coinciden
     }
 
     return userAdmin;
@@ -62,8 +62,6 @@ const findAdmin = async (email, plainPassword) => {
 // Función para verificar las credenciales y generar un token
 const loginUser = async (email, plainPassword) => {
   try {
-    
-    let isAdmin = false;
     
     // Encuentra el usuario por su correo electrónico
     const user = await findUserByEmail(email);
@@ -82,11 +80,11 @@ const loginUser = async (email, plainPassword) => {
 
 
     //veo si es administrador
-    isAdmin = await findAdmin(email, plainPassword);
+    const isAdmin = await findAdmin(email, plainPassword);
 
     // Genera un token JWT para el usuario
     const secret = process.env.JWT_SECRET;
-    const token = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin }, secret, { expiresIn: '1h' });  
+    const token = jwt.sign({ userId: user.id_usuario, email: user.correo, isAdmin: isAdmin}, secret, { expiresIn: '1h' });  
 
     return token;
     

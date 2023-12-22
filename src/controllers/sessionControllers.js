@@ -19,7 +19,7 @@ const SessionController = {
           if(token){
 
             resultLogin = true;
-            const tokenDecode= decodeTokenUser(token);
+            const tokenDecode = await decodeTokenUser(token);
             //Guardo las credenciales de la session
             req.session.user = {};
             req.session.user.loggedIn = true;

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Función para decodificar un token y obtener el objeto completo
-const decodeTokenUser = (token) => {
+const decodeTokenUser = async (token) => {
     try {
       const secret = process.env.JWT_SECRET;
       const decoded = jwt.verify(token, secret);

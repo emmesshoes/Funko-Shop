@@ -1,17 +1,17 @@
 import express from 'express';
 import CarritosController from '../controllers/carritosController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
+import { chekSessionUser } from '../functions/sessionFunctions.js';
 
 const router = express.Router();
 //router.use(authMiddleware);
 
 router.get('/', async(req, res) => {
   try {
-// Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
-if (!req.session.user) {
-  req.session.user = {};
-  req.session.user.email = "";
-}
+    const result = chekSessionUser(req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
   res.render('carrito', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
 } catch (error) {
   console.error('Error al obtener datos desde la base de datos:', error);
@@ -65,9 +65,12 @@ router.put('/cancelar/:carritoId', async (req, res) => {
 });
 
 router.get('/historial/:clienteId', async (req, res) => {
-  const clienteId = req.params.clienteId;
-
   try {
+    const result = chekSessionUser(req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
+    const clienteId = req.params.clienteId;
     const historialCompras = await CarritosController.getPurchaseHistory(clienteId);
     res.json(historialCompras);
   } catch (error) {

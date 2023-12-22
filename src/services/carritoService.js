@@ -26,7 +26,7 @@ createCart: async (userId) => {
     }
 
     // Verificar si ya existe un carrito activo para el cliente
-    const existingCart = await Carritos.findAll({
+    const existingCart = await Carritos.findOne({
       where: {
         id_cliente: userId,
         estado_carrito: 'activo',

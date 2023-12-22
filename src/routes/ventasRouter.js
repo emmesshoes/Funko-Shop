@@ -1,6 +1,7 @@
 import express from 'express';
 import VentasController from '../controllers/ventasController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
+import { chekSessionUser } from '../functions/sessionFunctions.js';
 
 // Usa el middleware de autenticación en todas las rutas a continuación
 //router.use(authMiddleware);
@@ -8,6 +9,10 @@ const router = express.Router();
 
 router.get('/get-all', async (req, res) => {
     try {
+        const result = chekSessionUser(req,res);
+        if(result === false){
+        return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+        }
         const results = await VentasController.getAllVentas();
         res.json(results);
     } catch (error) {
@@ -52,6 +57,10 @@ router.post('/edit', async (req, res) => {
 
 router.get('/get/:ventaId', async (req, res) => {
     try {
+        const result = chekSessionUser(req,res);
+        if(result === false){
+            return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+        }
         const venta = await VentasController.getVenta(req.params.ventaId);
         res.json(venta);
     } catch (error) {

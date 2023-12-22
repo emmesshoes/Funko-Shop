@@ -4,6 +4,7 @@ import path from 'path';
 import authMiddleware from '../middleware/authMiddleware.js';
 import ejs from 'ejs';
 import ProductosController from '../controllers/productosController.js';
+import { chekSessionUser } from '../functions/sessionFunctions.js';
 
 const routerProductos = express.Router();
 
@@ -22,11 +23,8 @@ const upload = multer({ storage: storage });
 //ruta de productos
 routerProductos.get('/', async(req, res) => {
   try {
-
-    if (!req.session.user) {
-      req.session.user = {};
-      req.session.user.email = "";
-    }
+    //chekSessionUser(req,res);
+    
     const infoProductos = await ProductosController.getAllProducts(res, req);
     return res.render("productos", { productos: infoProductos.productosDeLaPagina, currentPage: infoProductos.currentPage, totalPaginas: infoProductos.totalPaginas, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
   } catch (error) {
@@ -37,11 +35,12 @@ routerProductos.get('/', async(req, res) => {
 
 routerProductos.get('/get-all', async (req, res) => {
   try {
-    const productos = await ProductosController.getAllProducts(req, res);
-    if (!req.session.user) {
-      req.session.user = {};
-      req.session.user.email = "";
+    const result = chekSessionUser(req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
     }
+    const productos = await ProductosController.getAllProducts(req, res);
+    
     // Renderizar la vista de productos y pasar la variable productos
     res.render("index", { productos: productos, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
   } catch (error) {
@@ -120,7 +119,10 @@ routerProductos.post('/edit', upload.fields([{ name: 'imagen_front', maxCount: 1
 
 routerProductos.get('/get/:productId', async (req, res) => {
   try {
-    console.log(req.params.productId);
+    const result = chekSessionUser(req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
     const product = await ProductosController.getProduct(req.params.productId);
     res.json(product);
   } catch (error) {
@@ -142,6 +144,10 @@ routerProductos.delete('/delete/:productId', async (req, res) => {
 
 routerProductos.get('/stock/:productId', async (req, res) => {
   try {
+    const result = chekSessionUser(req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
     const stock = await ProductosController.getStock(req.params.productId);
     res.json(stock);
   } catch (error) {

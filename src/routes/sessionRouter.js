@@ -5,6 +5,7 @@ import { findUserByEmail, findAdmin, loginUser } from '../functions/loginFunctio
 import CarritosController from '../controllers/carritosController.js';
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
 import SessionController from '../controllers/sessionControllers.js';
+import {  } from '../functions/sessionFunctions.js';
 
 const sessionRouter = express.Router();
 
@@ -18,18 +19,20 @@ sessionRouter.use(bodyParser.json());
 
 
 sessionRouter.get('/login', async (req, res) => {
-     // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
-  if (req.session.user) {
-    req.session.user.email = "";
-  } else {
-    // Si req.session.user no está definido, puedes inicializarlo con un objeto vacío
-    req.session.user = {};
-    req.session.user.email = "";
-  }
-    req.session.user.loggedIn = false;
+  try {
+    const result = (req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
+  
     const messages = req.flash();
 
     res.render("ingresar", { messages, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    
+  } catch (error) {
+    console.error('Error en el inicio de sesión:', error);
+    res.redirect('session/login'); // Redirige a la página de inicio de sesión
+  }  
 
   });
 

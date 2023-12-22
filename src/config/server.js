@@ -6,6 +6,7 @@ import path from 'path';
 import ejs from 'ejs';
 import authMiddleware from '../middleware/authMiddleware.js';
 import session from 'express-session';
+import { iniSessionUser } from '../functions/sessionFunctions.js';
 import {fileURLToPath} from 'url';
 import registerRouter from '../routes/registerRouter.js';
 
@@ -24,6 +25,7 @@ import adminRouter from '../routes/adminRouter.js';
 import sessionRouter from '../routes/sessionRouter.js';
 
 
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Carga las variables de entorno para el server
@@ -35,9 +37,19 @@ const secretWord = process.env.JWT_SECRET;
 
 app.use(session({
     secret: secretWord,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   }));
+
+
+app.use((req, res, next) => {
+  // Inicializar datos de sesión
+  iniSessionUser(req, res);
+  next();
+});
+
+
+
 
 app.use(flash());
 
@@ -53,23 +65,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views/partials'));
 app.set('views', path.join(__dirname, '../views'));
 
-
-
 app.use((req, res, next) => {
   console.log('Middleware de sesión:', req.session);
-  //res.locals.loggedIn = req.session.loggedIn || false;
   res.locals.user = req.session.user || null;
+  res.locals.req = req;
+  res.locals.res = res;  // res está disponible en res.locals
   next();
 });
-
-
-app.use((req, res, next) => {
-    res.locals.req = req;
-    res.locals.res = res;  // res está disponible en res.locals
-
-    next();
-});
-
 
 
 app.use(cors());

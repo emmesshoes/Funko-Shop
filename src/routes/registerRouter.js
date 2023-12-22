@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 //Fix para __direname
 import path from 'path';
 import {fileURLToPath} from 'url';
+import { chekSessionUser } from '../functions/sessionFunctions.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const registerRouter = express.Router();
@@ -15,17 +16,14 @@ registerRouter.use(bodyParser.urlencoded({ extended: true }));
 registerRouter.use(bodyParser.json());
 
 registerRouter.get('/register', async (req, res) => {
-  // Verifica si req.session.user está definido antes de intentar acceder a su propiedad email
-  if (req.session.user) {
-    req.session.user.email = "";
-  } else {
-    // Si req.session.user no está definido
-    req.session.user = {};
-    req.session.user.email = "";
-  }
+  try {
+    //chekSessionUser(req,res);
     res.render("registrarse", { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
-
-  });
+  } catch (error) {
+    console.error('Error al procesar el formulario de registro:', error);
+    res.status(500).json({ success: false, message: 'Error interno del servidor' });
+  }
+});
 
   // Ruta para manejar el registro
   registerRouter.post('/register', async (req, res) => {

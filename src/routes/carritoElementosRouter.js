@@ -1,29 +1,37 @@
 import express from 'express';
+import { chekSessionUser } from '../functions/sessionFunctions.js';
 import CarritoElementosController from '../controllers/carritoElementosController.js'
 import {decodeTokenUser} from '../functions/jwtFunctions.js';
 import ProductoService from '../services/productosService.js';
-import { chekSessionUser } from '../functions/sessionFunctions.js';
+
 const router = express.Router();
 
 
 router.get('/', async (req, res) => {
   try {
+    const result = chekSessionUser(req,res);
+    console.log('result fuera de chekSessionUser. ', result)
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
     const refreshDataOnly = req.query.refreshDataOnly === 'true';
-    if(!chekSessionUser(req,res)){
-      res.render("ingresar", { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });  
+    
+  
+    console.log('LA PUTA MADRE');
+
+    let carritoId = '';
+
+    if (req.session.carrito && req.session.carrito.carrito) {
+      if (req.session.carrito.carrito.id_carrito) {
+        carritoId = req.session.carrito.carrito.id_carrito;
+      } else if (req.session.carrito.carrito[0] && req.session.carrito.carrito[0].id_carrito) {
+        carritoId = req.session.carrito.carrito[0].id_carrito;
+      }
     }
 
-    let carritoId = '';    
-
-    if(req.session.carrito.carrito.id_carrito){
-      carritoId = req.session.carrito.carrito.id_carrito;  
-    } else if (req.session.carrito.carrito[0].id_carrito){
-      carritoId = req.session.carrito.carrito[0].id_carrito;  
-    } else {
-      
+    if (!carritoId) {
       return res.redirect('/session/login');
     }
-    
 
     // Obtener todos los elementos del carrito
     const carritoElementos = await CarritoElementosController.getCartItems(carritoId);
@@ -53,7 +61,7 @@ router.get('/', async (req, res) => {
       return res.json({productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar});
     } else {
       // Renderizar la página elementos-del-carrito y pasar la información
-    res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    return res.render('carrito-de-compras', { productosInfo, cantidadTotal: cantidadTotal, subTotal: subTotal, costoEnvio: costoEnvio, totalPagar: totalPagar, loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
     }
 
   } catch (error) {
@@ -126,8 +134,12 @@ router.put('/carrito-elementos/update-price', async (req, res) => {
 
 // Recuperar los elementos en un carrito indicado por el id del carrito
 router.get('/carrito-elementos/:carritoId', async (req, res) => {
-  const { carritoId } = req.params;
   try {
+    const result = chekSessionUser(req,res);
+    if(result === false){
+      return res.render('ingresar', { loggedIn: req.session.user.loggedIn, email: req.session.user.email, isAdmin: req.session.user.isAdmin });
+    }
+    const { carritoId } = req.params;
     const elementos = await CarritoElementosController.getCartItems(carritoId);
     res.json(elementos);
   } catch (error) {

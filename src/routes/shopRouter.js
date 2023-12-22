@@ -1,15 +1,16 @@
 import express from 'express';
-
-//Fix para __direname
-import path from 'path';
-import {fileURLToPath} from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
+import {  } from '../functions/sessionFunctions.js';
 
 const shopRouter = express.Router();
 
 shopRouter.get('/', (req, res) => {
-  res.redirect('/productos'); // o cualquier otra acción que desees
+  try {
+    //(req,res);
+    res.redirect('/productos'); // o cualquier otra acción que desees
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    res.status(500).json({ error: 'Error al obtener productos desde la base de datos' });
+  }
 });
 
 
